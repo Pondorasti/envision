@@ -24,7 +24,6 @@ class HabitsViewController: UIViewController {
         habitsScene = HabitsScene(size: view.bounds.size)
         habitsScene.scaleMode = .aspectFill
         habitsScene.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
-        habitsScene.zPosition = 1
         
         skView.presentScene(habitsScene)
         

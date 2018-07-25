@@ -101,14 +101,14 @@
 		C53630012105ACFD007DFC7A /* Aim */ = {
 			isa = PBXGroup;
 			children = (
-				C53630022105ACFD007DFC7A /* AppDelegate.swift */,
-				C53630062105ACFD007DFC7A /* Main.storyboard */,
+				C5A367D82109193000728525 /* Model */,
+				C5A367D92109193B00728525 /* View */,
+				C5A367DA2109194B00728525 /* Controller */,
+				C5A367DB2109195400728525 /* Storyboards */,
+				C5A367DC2109195D00728525 /* Helper */,
+				C5A367DD2109196200728525 /* Extensions */,
+				C5A367DE2109196C00728525 /* Supporting Files */,
 				C536300C2105ACFE007DFC7A /* Assets.xcassets */,
-				C536300E2105ACFE007DFC7A /* LaunchScreen.storyboard */,
-				C53630112105ACFE007DFC7A /* Info.plist */,
-				C53630092105ACFD007DFC7A /* Aim.xcdatamodeld */,
-				C53630332106B74C007DFC7A /* HabitsScene.swift */,
-				C53630352106D7A9007DFC7A /* HabitsViewController.swift */,
 			);
 			path = Aim;
 			sourceTree = "<group>";
@@ -129,6 +129,62 @@
 				C53630272105ACFE007DFC7A /* Info.plist */,
 			);
 			path = AimUITests;
+			sourceTree = "<group>";
+		};
+		C5A367D82109193000728525 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C53630352106D7A9007DFC7A /* HabitsViewController.swift */,
+				C53630092105ACFD007DFC7A /* Aim.xcdatamodeld */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C5A367D92109193B00728525 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C53630332106B74C007DFC7A /* HabitsScene.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C5A367DA2109194B00728525 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		C5A367DB2109195400728525 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				C53630062105ACFD007DFC7A /* Main.storyboard */,
+				C536300E2105ACFE007DFC7A /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		C5A367DC2109195D00728525 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		C5A367DD2109196200728525 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C5A367DE2109196C00728525 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C53630022105ACFD007DFC7A /* AppDelegate.swift */,
+				C53630112105ACFE007DFC7A /* Info.plist */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -440,7 +496,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UALV34MRH2;
-				INFOPLIST_FILE = Aim/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Aim/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -458,7 +514,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UALV34MRH2;
-				INFOPLIST_FILE = Aim/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Aim/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

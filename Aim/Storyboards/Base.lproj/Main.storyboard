@@ -18,10 +18,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r1B-PB-Kd0">
-                                <rect key="frame" x="164" y="617" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r1B-PB-Kd0">
+                                <rect key="frame" x="168" y="613" width="38" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="Plus Symbol"/>
                                 <connections>
                                     <action selector="buttonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CRe-Ba-iSq"/>
                                 </connections>
@@ -47,7 +48,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nl6-Vj-pFr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1402" y="50"/>
+            <point key="canvasLocation" x="1490" y="134"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Plus Symbol" width="38" height="38"/>
+    </resources>
 </document>
