@@ -16,6 +16,10 @@
 		C53630262105ACFE007DFC7A /* AimUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53630252105ACFE007DFC7A /* AimUITests.swift */; };
 		C53630342106B74C007DFC7A /* HabitsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53630332106B74C007DFC7A /* HabitsScene.swift */; };
 		C53630362106D7A9007DFC7A /* HabitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53630352106D7A9007DFC7A /* HabitsViewController.swift */; };
+		C5AF7C8521091C2D000893D2 /* CircularTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AF7C8421091C2D000893D2 /* CircularTransition.swift */; };
+		C5F7B7412109428F0094A09E /* CreateHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7B7402109428F0094A09E /* CreateHabitViewController.swift */; };
+		C5F7B74321095E360094A09E /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7B74221095E360094A09E /* ColorPicker.swift */; };
+		C5F7B7452109605B0094A09E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7B7442109605B0094A09E /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +55,10 @@
 		C53630272105ACFE007DFC7A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C53630332106B74C007DFC7A /* HabitsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsScene.swift; sourceTree = "<group>"; };
 		C53630352106D7A9007DFC7A /* HabitsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsViewController.swift; sourceTree = "<group>"; };
+		C5AF7C8421091C2D000893D2 /* CircularTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularTransition.swift; sourceTree = "<group>"; };
+		C5F7B7402109428F0094A09E /* CreateHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHabitViewController.swift; sourceTree = "<group>"; };
+		C5F7B74221095E360094A09E /* ColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
+		C5F7B7442109605B0094A09E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,7 +142,6 @@
 		C5A367D82109193000728525 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C53630352106D7A9007DFC7A /* HabitsViewController.swift */,
 				C53630092105ACFD007DFC7A /* Aim.xcdatamodeld */,
 			);
 			path = Model;
@@ -144,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				C53630332106B74C007DFC7A /* HabitsScene.swift */,
+				C5F7B74221095E360094A09E /* ColorPicker.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -151,6 +159,8 @@
 		C5A367DA2109194B00728525 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C53630352106D7A9007DFC7A /* HabitsViewController.swift */,
+				C5F7B7402109428F0094A09E /* CreateHabitViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -167,6 +177,8 @@
 		C5A367DC2109195D00728525 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				C5AF7C8421091C2D000893D2 /* CircularTransition.swift */,
+				C5F7B7442109605B0094A09E /* Constants.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -318,10 +330,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5AF7C8521091C2D000893D2 /* CircularTransition.swift in Sources */,
 				C53630342106B74C007DFC7A /* HabitsScene.swift in Sources */,
+				C5F7B74321095E360094A09E /* ColorPicker.swift in Sources */,
 				C53630032105ACFD007DFC7A /* AppDelegate.swift in Sources */,
+				C5F7B7412109428F0094A09E /* CreateHabitViewController.swift in Sources */,
 				C53630362106D7A9007DFC7A /* HabitsViewController.swift in Sources */,
 				C536300B2105ACFD007DFC7A /* Aim.xcdatamodeld in Sources */,
+				C5F7B7452109605B0094A09E /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

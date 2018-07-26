@@ -32,6 +32,7 @@ class HabitsScene: SKScene {
         
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
+        self.view?.showsPhysics = true
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
