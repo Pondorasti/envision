@@ -20,6 +20,7 @@
 		C5F7B7412109428F0094A09E /* CreateHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7B7402109428F0094A09E /* CreateHabitViewController.swift */; };
 		C5F7B74321095E360094A09E /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7B74221095E360094A09E /* ColorPicker.swift */; };
 		C5F7B7452109605B0094A09E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7B7442109605B0094A09E /* Constants.swift */; };
+		C5F7B747210985900094A09E /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7B746210985900094A09E /* UIColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		C5F7B7402109428F0094A09E /* CreateHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHabitViewController.swift; sourceTree = "<group>"; };
 		C5F7B74221095E360094A09E /* ColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
 		C5F7B7442109605B0094A09E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		C5F7B746210985900094A09E /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +188,7 @@
 		C5A367DD2109196200728525 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C5F7B746210985900094A09E /* UIColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 				C53630342106B74C007DFC7A /* HabitsScene.swift in Sources */,
 				C5F7B74321095E360094A09E /* ColorPicker.swift in Sources */,
 				C53630032105ACFD007DFC7A /* AppDelegate.swift in Sources */,
+				C5F7B747210985900094A09E /* UIColor.swift in Sources */,
 				C5F7B7412109428F0094A09E /* CreateHabitViewController.swift in Sources */,
 				C53630362106D7A9007DFC7A /* HabitsViewController.swift in Sources */,
 				C536300B2105ACFD007DFC7A /* Aim.xcdatamodeld in Sources */,
