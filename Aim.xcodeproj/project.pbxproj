@@ -17,6 +17,7 @@
 		C53630342106B74C007DFC7A /* HabitsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53630332106B74C007DFC7A /* HabitsScene.swift */; };
 		C53630362106D7A9007DFC7A /* HabitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53630352106D7A9007DFC7A /* HabitsViewController.swift */; };
 		C5A35184210A385200A717D3 /* CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A35183210A385200A717D3 /* CGPoint.swift */; };
+		C5A35186210A663B00A717D3 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A35185210A663B00A717D3 /* CoreData.swift */; };
 		C5AF7C8521091C2D000893D2 /* CircularTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AF7C8421091C2D000893D2 /* CircularTransition.swift */; };
 		C5F7B7412109428F0094A09E /* CreateHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7B7402109428F0094A09E /* CreateHabitViewController.swift */; };
 		C5F7B74321095E360094A09E /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7B74221095E360094A09E /* ColorPicker.swift */; };
@@ -60,6 +61,7 @@
 		C53630332106B74C007DFC7A /* HabitsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsScene.swift; sourceTree = "<group>"; };
 		C53630352106D7A9007DFC7A /* HabitsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsViewController.swift; sourceTree = "<group>"; };
 		C5A35183210A385200A717D3 /* CGPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPoint.swift; sourceTree = "<group>"; };
+		C5A35185210A663B00A717D3 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
 		C5AF7C8421091C2D000893D2 /* CircularTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularTransition.swift; sourceTree = "<group>"; };
 		C5F7B7402109428F0094A09E /* CreateHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHabitViewController.swift; sourceTree = "<group>"; };
 		C5F7B74221095E360094A09E /* ColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 			children = (
 				C5AF7C8421091C2D000893D2 /* CircularTransition.swift */,
 				C5F7B7442109605B0094A09E /* Constants.swift */,
+				C5A35185210A663B00A717D3 /* CoreData.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5AF7C8521091C2D000893D2 /* CircularTransition.swift in Sources */,
+				C5A35186210A663B00A717D3 /* CoreData.swift in Sources */,
 				C53630342106B74C007DFC7A /* HabitsScene.swift in Sources */,
 				C5F7B74B210A2EBA0094A09E /* UIView.swift in Sources */,
 				C5F7B74321095E360094A09E /* ColorPicker.swift in Sources */,

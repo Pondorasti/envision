@@ -23,11 +23,6 @@ class HabitsScene: SKScene {
         
         addChild(middleNode)
         
-        
-        createHabitBubble(with: view, andName: "firstBall", color: UIColor.blue, position: CGPoint(x: view.bounds.width / 2, y: view.bounds.height * 0.33))
-        createHabitBubble(with: view, andName: "secondBall", color: UIColor.red, position: CGPoint(x: view.bounds.width / 2, y: view.bounds.height * 0.66))
-        
-        
         let viewBorder = SKPhysicsBody(edgeLoopFrom: view.bounds)
         viewBorder.friction = 0
         self.physicsBody = viewBorder
@@ -95,12 +90,12 @@ class HabitsScene: SKScene {
             spring.damping = 0.3
             scene?.physicsWorld.add(spring)
         }
-        
-        
     }
 }
 
 
 extension HabitsScene: SKPhysicsContactDelegate {
-    
+    func didBegin(_ contact: SKPhysicsContact) {
+        
+    }
 }

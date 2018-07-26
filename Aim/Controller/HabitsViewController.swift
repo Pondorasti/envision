@@ -11,24 +11,24 @@ import SpriteKit
 
 class HabitsViewController: UIViewController {
     
-    @IBAction func createHabitButtonPressed(_ sender: Any) {
-    }
+    var habitsScene: HabitsScene!
+    let transition = CircularTransition()
     
+    var skView: SKView {
+        return view as! SKView
+    }
+
+    @IBOutlet weak var createHabitButton: UIButton!
+    
+    @IBAction func testButtonPressed(_ sender: Any) {
+        habitsScene.createHabitBubble(with: skView, andName: "ball", color: UIColor.blue, position: CGPoint(x: skView.bounds.width / 2, y: skView.bounds.height / 2))
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let createHabitVC = segue.destination as? CreateHabitViewController {
             createHabitVC.transitioningDelegate = self
             createHabitVC.modalPresentationStyle = .custom
         }
-        
     }
-    
-    @IBOutlet weak var createHabitButton: UIButton!
-    var skView: SKView {
-        return view as! SKView
-    }
-    
-    var habitsScene: HabitsScene!
-    let transition = CircularTransition()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +40,9 @@ class HabitsViewController: UIViewController {
         
         createHabitButton.backgroundColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
         createHabitButton.layer.cornerRadius = createHabitButton.frame.height / 2
-        
-//        habitsScene.createHabitBubble(with: skView, andName: "ball", color: UIColor.blue, position: CGPoint(x: skView.bounds.width / 2, y: skView.bounds.height / 2))
+    }
+    
+    @IBAction override func unwind(for unwindSegue: UIStoryboardSegue, towardsViewController subsequentVC: UIViewController) {
     }
 }
 

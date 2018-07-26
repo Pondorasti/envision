@@ -25,12 +25,20 @@
                                     <constraint firstAttribute="width" constant="50" id="Zlh-vb-XBw"/>
                                     <constraint firstAttribute="height" constant="50" id="eqN-3M-6fm"/>
                                 </constraints>
-                                <state key="normal" title="A">
-                                    <color key="titleColor" red="0.97254901959999995" green="0.45098039220000002" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="40"/>
+                                <state key="normal" title="+">
+                                    <color key="titleColor" red="0.20392156862745098" green="0.80392156862745101" blue="0.32156862745098036" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="createHabitButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xy3-y0-UIS"/>
-                                    <segue destination="j56-e9-wgP" kind="show" id="UdQ-t9-dsx"/>
+                                    <segue destination="j56-e9-wgP" kind="show" identifier="createHabit" id="UdQ-t9-dsx"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o4F-FR-1jg">
+                                <rect key="frame" x="313" y="602" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="testButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dbH-1J-7y6"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -77,15 +85,15 @@
                                         <rect key="frame" x="0.0" y="85" width="335" height="40"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Keep it simple" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wWD-H1-0O3">
-                                                <rect key="frame" x="5" y="0.0" width="295" height="40"/>
+                                                <rect key="frame" x="5" y="0.0" width="280" height="40"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Hj-hr-TEz">
-                                                <rect key="frame" x="300" y="0.0" width="30" height="40"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Hj-hr-TEz">
+                                                <rect key="frame" x="285" y="0.0" width="45" height="40"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="30" id="SRY-th-4qB"/>
+                                                    <constraint firstAttribute="width" constant="45" id="SRY-th-4qB"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                                 <color key="textColor" red="0.77647058823529413" green="0.77647058823529413" blue="0.79607843137254897" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -121,6 +129,9 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                                 <state key="normal" title="Create"/>
+                                                <connections>
+                                                    <action selector="goodTypeButtonPressed:" destination="j56-e9-wgP" eventType="touchUpInside" id="AUz-j8-bpo"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O31-RZ-N2b">
                                                 <rect key="frame" x="100" y="0.0" width="80" height="40"/>
@@ -130,6 +141,9 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                                 <state key="normal" title="Destroy"/>
+                                                <connections>
+                                                    <action selector="badTypeButtonPressed:" destination="j56-e9-wgP" eventType="touchUpInside" id="Cy0-Kg-R3I"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -166,6 +180,9 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="25"/>
                                                 <state key="normal" title="Cancel"/>
+                                                <connections>
+                                                    <segue destination="7n8-aT-ihD" kind="unwind" identifier="cancelCreation" unwindAction="unwindFor:towardsViewController:" id="ci3-3P-IaZ"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WUf-pw-rBT">
                                                 <rect key="frame" x="177.5" y="0.0" width="157.5" height="40"/>
@@ -174,6 +191,9 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="25"/>
                                                 <state key="normal" title="Create"/>
+                                                <connections>
+                                                    <segue destination="7n8-aT-ihD" kind="unwind" identifier="actuallyCreateHabit" unwindAction="unwindFor:towardsViewController:" id="m3o-1g-WHz"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -212,11 +232,13 @@
                         <outlet property="habitNameLabel" destination="zD6-mP-jSP" id="YNk-fr-lRL"/>
                         <outlet property="habitNameTextField" destination="wWD-H1-0O3" id="Kmh-lT-ih5"/>
                         <outlet property="habitNameView" destination="xgj-cy-wRG" id="Mqa-s4-Pg1"/>
+                        <outlet property="habitTypeStackView" destination="1zq-Fc-GdD" id="Jld-H3-4d2"/>
                         <outlet property="titleLabel" destination="XK8-YW-yk3" id="aRJ-Ie-87K"/>
                         <outlet property="typeHabit" destination="lk5-jV-tmV" id="fyc-5x-hrQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nl6-Vj-pFr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="7n8-aT-ihD" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1445.5999999999999" y="7.6461769115442282"/>
         </scene>
