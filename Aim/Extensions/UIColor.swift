@@ -39,7 +39,7 @@ extension UIColor {
         self.init(red: r, green: g, blue: b, alpha: a)
     }
     
-    var toHex: String? {
+    var hex: String? {
         guard let components = cgColor.components, components.count >= 3 else {
             return nil
         }

@@ -35,7 +35,8 @@ class CreateHabitViewController: UIViewController {
             let temporaryView = UIView(frame: badTypeButton.frame)
             temporaryView.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1))
             temporaryView.frame.origin = badTypeButton.frame.origin
-            habitTypeStackView.addSubview(temporaryView)
+//            habitTypeStackView.addSubview(temporaryView)
+            badTypeButton.superview?.addSubview(temporaryView)
             badTypeButton.backgroundColor = nil
             self.goodTypeButton.isUserInteractionEnabled = false
             self.badTypeButton.isUserInteractionEnabled = false
@@ -61,7 +62,8 @@ class CreateHabitViewController: UIViewController {
             let temporaryView = UIView(frame: goodTypeButton.frame)
             temporaryView.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1))
             temporaryView.frame.origin = goodTypeButton.frame.origin
-            habitTypeStackView.addSubview(temporaryView)
+//            habitTypeStackView.addSubview(temporaryView)
+            goodTypeButton.superview?.addSubview(temporaryView)
             goodTypeButton.backgroundColor = nil
             
             UIView.animate(withDuration: 0.25, animations: {
@@ -98,11 +100,33 @@ class CreateHabitViewController: UIViewController {
         
         colorPicker.reloadData()
         
-        
         habitNameTextField.delegate = self
         setup()
     }
     
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+    }
+}
+
+extension CreateHabitViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if var numberOfCharacters = textField.text?.count {
+            numberOfCharacters = numberOfCharacters + string.count - range.length
+            characterCountLabel.text = String(numberOfCharacters)
+            if numberOfCharacters == 15 {
+                characterCountLabel.text = "\(numberOfCharacters)❗️"
+            }
+            return numberOfCharacters <= 14
+        }
+        
+        return true
+    }
+}
+
+extension CreateHabitViewController {
     private func setup() {
         habitNameView.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1))
         
@@ -120,23 +144,7 @@ class CreateHabitViewController: UIViewController {
         createButton.configure(with: #colorLiteral(red: 0.2039215686, green: 0.8039215686, blue: 0.3215686275, alpha: 1), andTitle: "Create")
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    private func animateTransion(from firstButton: UIButton, to secondButton: UIButton, withDuration duration: Int) {
         
-    }
-}
-
-extension CreateHabitViewController: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        print(textField.text?.count)
-        if var numberOfCharacters = textField.text?.count {
-            numberOfCharacters = numberOfCharacters + string.count - range.length
-            characterCountLabel.text = String(numberOfCharacters)
-            if numberOfCharacters == 15 {
-                characterCountLabel.text = "\(numberOfCharacters)❗️"
-            }
-            return numberOfCharacters <= 14
-        }
-        
-        return true
     }
 }
