@@ -16,7 +16,19 @@ class CreateHabitViewController: UIViewController {
     @IBOutlet weak var habitDaysLabel: UILabel!
     @IBOutlet weak var colorOfBubbleLabel: UILabel!
     
+    
+    @IBOutlet weak var habitNameView: UIView!
+    @IBOutlet weak var habitNameTextField: UITextField!
+    @IBOutlet weak var characterCountLabel: UILabel!
+    
+    @IBOutlet weak var goodTypeButton: UIButton!
+    @IBOutlet weak var badTypeButton: UIButton!
+    
     @IBOutlet weak var colorPicker: UIEntryPickerView!
+    
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var createButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         var colorArray = [UIEntryPickerView.Entry]()
@@ -29,30 +41,23 @@ class CreateHabitViewController: UIViewController {
         colorArray.append(UIEntryPickerView.Entry.major(with: .red))
         colorArray.append(UIEntryPickerView.Entry.major(with: .red))
         
-//        UIEntryPickerView(focusSize: 44, entries:)
         colorPicker.focusSize = CGSize(width: 44, height: 44)
         colorPicker.entries = colorArray
         
         colorPicker.reloadData()
         
-
-        // Do any additional setup after loading the view.
+        habitNameView.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1))
+        
+        badTypeButton.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1), andTitle: "Destroy")
+        goodTypeButton.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1), andTitle: "Create")
+        
+        badTypeButton.setTitleColor(#colorLiteral(red: 0.2901960784, green: 0.2901960784, blue: 0.2901960784, alpha: 1), for: .normal)
+        goodTypeButton.setTitleColor(#colorLiteral(red: 0.2901960784, green: 0.2901960784, blue: 0.2901960784, alpha: 1), for: .normal)
+        
+        cancelButton.configure(with: #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1), andTitle: "Cancel")
+        createButton.configure(with: #colorLiteral(red: 0.2039215686, green: 0.8039215686, blue: 0.3215686275, alpha: 1), andTitle: "Create")
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

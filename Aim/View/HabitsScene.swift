@@ -10,6 +10,8 @@ import UIKit
 import SpriteKit
 
 class HabitsScene: SKScene {
+    
+    var ballShape: SKShapeNode?
 
     override func didMove(to view: SKView) {
         let middleNode = SKShapeNode(circleOfRadius: 1)
@@ -35,15 +37,35 @@ class HabitsScene: SKScene {
         self.view?.showsPhysics = true
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
         
         if let body = physicsWorld.body(at: location) {
-
-            
-            body.node?.position = location
+            if let ball = body.node as? SKShapeNode {
+                ballShape = ball
+                ballShape?.position = location
+            }
         }
+    }
+
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first,
+            let ball = ballShape
+            else { return }
+        
+        let currentLocation = touch.location(in: self)
+        let previousLocation = touch.previousLocation(in: self)
+        
+        let ballX = ball.position.x + currentLocation.x - previousLocation.x
+        let ballY = ball.position.y + currentLocation.y - previousLocation.y
+        
+        ball.position = CGPoint(x: ballX, y: ballY)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        ballShape = nil
     }
     
     public func createHabitBubble(with skview: SKView, andName name: String, color: UIColor, position: CGPoint) {
@@ -70,7 +92,7 @@ class HabitsScene: SKScene {
         if let middleNode = childNode(withName: "helper") as? SKShapeNode {
             let spring = SKPhysicsJointSpring.joint(withBodyA: ballSprite.physicsBody!, bodyB: middleNode.physicsBody!, anchorA: ballSprite.position, anchorB: middleNode.position)
             spring.frequency = 0.5
-            spring.damping = 0.2
+            spring.damping = 0.3
             scene?.physicsWorld.add(spring)
         }
         
