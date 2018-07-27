@@ -31,8 +31,12 @@ class HabitsScene: SKScene {
         
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
-        self.view?.showsPhysics = true
+//        self.view?.showsPhysics = true
+        
+        let holdRecognizer = UILongPressGestureRecognizer(
     }
+    
+
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
@@ -65,10 +69,27 @@ class HabitsScene: SKScene {
         ballShape = nil
     }
     
-    public func createHabitBubble(with skview: SKView, andName name: String, color: UIColor, position: CGPoint) {
+    public func createHabitBubble(_ habit: Habit, in skview: SKView, at position: CGPoint) {
         let ballSprite = SKShapeNode(circleOfRadius: skview.bounds.width * 0.10)
-        ballSprite.fillColor = color
-        ballSprite.name = name
+        
+        ballSprite.fillColor = habit.color ?? UIColor.purple
+        
+        
+        ballSprite.name = habit.name
+        
+        let habitNameLabel = SKLabelNode(fontNamed: "Avenir")
+        habitNameLabel.text = habit.name
+        habitNameLabel.position = ballSprite.position
+        habitNameLabel.fontColor = #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1)
+        habitNameLabel.fontSize = 18
+        habitNameLabel.numberOfLines = 2
+        habitNameLabel.verticalAlignmentMode = .center
+        habitNameLabel.horizontalAlignmentMode = .center
+        habitNameLabel.preferredMaxLayoutWidth = ballSprite.frame.width * 0.75
+        habitNameLabel.zPosition = 5
+        
+        ballSprite.addChild(habitNameLabel)
+        
         ballSprite.zPosition = 1
         ballSprite.position = position
         
@@ -76,9 +97,9 @@ class HabitsScene: SKScene {
         ballSprite.physicsBody?.allowsRotation = false
 //        ballSprite.physicsBody?.restitution = 0.5
 //        ballSprite.physicsBody?.friction = 0.2
-//        ballSprite.physicsBody?.linearDamping = 0.1
+        ballSprite.physicsBody?.linearDamping = 0.3
 //        ballSprite.physicsBody?.angularDamping = 0
-////      ballSprite.physicsBody?.mass = 0.5
+//        ballSprite.physicsBody?.mass = 0.5
         ballSprite.physicsBody?.categoryBitMask = 1
         ballSprite.physicsBody?.collisionBitMask = 1
         ballSprite.physicsBody?.usesPreciseCollisionDetection = true

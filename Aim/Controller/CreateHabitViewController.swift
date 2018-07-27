@@ -55,13 +55,20 @@ class CreateHabitViewController: UIViewController {
         
         switch id {
         case "actuallyCreateHabit":
-            print("create")
+            let newHabit = CoreDataHelper.newHabit()
+            
+            newHabit.colorInHex = colorPicker.entries[colorPicker.selectedPage].color?.hex
+            newHabit.name = habitNameTextField.text
+            newHabit.isGood = isGoodHabit
+            newHabit.creationDate = Date()
+            
+            CoreDataHelper.saveHabit()
+            print("creating new habit")
         case "cancelHabit":
-            print("cancel")
+            print("cancel creation")
         default:
             print("unknown segue identifier")
         }
-        
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
@@ -131,7 +138,8 @@ extension CreateHabitViewController {
             firstButton.isUserInteractionEnabled = false
             secondButton.isUserInteractionEnabled = false
         }) { (_) in
-            secondButton.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1), andTitle: "Destroy")
+            let buttonName = self.isGoodHabit ? "Create" : "Destroy"
+            secondButton.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1), andTitle: buttonName)
             secondButton.setTitleColor(#colorLiteral(red: 0.2901960784, green: 0.2901960784, blue: 0.2901960784, alpha: 1), for: .normal)
             secondButton.isUserInteractionEnabled = true
             
