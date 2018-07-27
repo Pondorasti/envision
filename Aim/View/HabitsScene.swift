@@ -33,7 +33,7 @@ class HabitsScene: SKScene {
         physicsWorld.contactDelegate = self
 //        self.view?.showsPhysics = true
         
-        let holdRecognizer = UILongPressGestureRecognizer(
+//        let holdRecognizer = UILongPressGestureRecognizer(
     }
     
 
