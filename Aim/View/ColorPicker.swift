@@ -10,6 +10,7 @@ import UIKit
 public protocol EntryDescriptor {
     var type: UIEntryPickerView.EntryType { get }
     var color: UIColor? { get }
+    var photoName: String? { get }
 }
 
 open class UIEntryPickerView: UIView {
@@ -23,13 +24,14 @@ open class UIEntryPickerView: UIView {
         
         public let type: EntryType
         public let color: UIColor?
+        public let photoName: String?
         
-        public static func major(with color: UIColor) -> Entry {
-            return Entry(type: .Major, color: color)
+        public static func major(with color: UIColor, andPhoto photoName: String) -> Entry {
+            return Entry(type: .Major, color: color, photoName: photoName)
         }
         
-        public static func minor(with color: UIColor) -> Entry {
-            return Entry(type: .Minor, color: color)
+        public static func minor(with color: UIColor, andPhoto photoName: String) -> Entry {
+            return Entry(type: .Minor, color: color, photoName: photoName)
         }
     }
     
@@ -68,8 +70,9 @@ open class UIEntryPickerView: UIView {
         let selectedLayer = CAShapeLayer()
         selectedLayer.frame = self.scrollView.frame
         selectedLayer.cornerRadius = self.scrollView.bounds.width / 2.0
-        selectedLayer.borderColor = UIColor.blue.cgColor
+        selectedLayer.borderColor = entries[selectedPage].color?.cgColor ?? UIColor.darkGray.cgColor
         selectedLayer.borderWidth = 1.0
+        
         self.layer.addSublayer(selectedLayer)
         
         return selectedLayer
@@ -82,9 +85,7 @@ open class UIEntryPickerView: UIView {
     }
     
     public var focusSize: CGSize
-    
     public private(set) var majorAttributes: [NSAttributedStringKey: Any]
-    
     public private(set) var minorAttributes: [NSAttributedStringKey: Any]
     
     public init(
@@ -114,8 +115,6 @@ open class UIEntryPickerView: UIView {
         self.minorAttributes = [:]
         
         super.init(coder: aDecoder)
-        
-//        self.initLayout()
     }
     
     // MARK: - RETURN VALUES
@@ -140,31 +139,27 @@ open class UIEntryPickerView: UIView {
         
         //create uilabels with entry type
         for anEntry in self.entries {
-            //            let entryColorValue: UIColor
             
-            //            switch anEntry.type {
-            //            case .Major:
-            //                entryColorValue = .green
-            //            case .Minor:
-            //                entryColorValue = .blue
-            //            }
+            let colorImageView = UIImageView()
+            if let name = anEntry.photoName {
+                colorImageView.image = UIImage(named: name)
+            }
             
-//            let label = UILabel()
-//            label.textAlignment = .center
-//            label.setContentCompressionResistancePriority(UILayoutPriority.required, for: UILayoutConstraintAxis.horizontal)
-//            label.widthAnchor.constraint(equalToConstant: self.focusSize.width).isActive = true
-//            label.text = anEntry.text
-//            label.adjustsFontSizeToFitWidth = true
+            colorImageView.translatesAutoresizingMaskIntoConstraints = false
             
-            let colorView = UIView()
-            colorView.translatesAutoresizingMaskIntoConstraints = false
-            colorView.backgroundColor = anEntry.color ?? UIColor.blue
-//            colorView.heightAnchor.constraint(equalToConstant: 40).isActive = true
-//            colorView.widthAnchor.constraint(equalToConstant: 40).isActive = true
-            colorView.setContentCompressionResistancePriority(UILayoutPriority.required, for: UILayoutConstraintAxis.horizontal)
-            colorView.layer.cornerRadius = colorView.frame.width / 2
             
-            horzStackView.addArrangedSubview(colorView)
+            colorImageView.layer.cornerRadius = Constant.Layer.cornerRadius
+//            colorImageView.layer.shadowColor = anEntry.color?.cgColor
+//            colorImageView.layer.shadowOffset = CGSize(width: 0, height: 0)
+//            colorImageView.layer.shadowOpacity = 1
+//            colorImageView.layer.shadowRadius = 2
+            colorImageView.layer.masksToBounds = false
+            
+            colorImageView.heightAnchor.constraint(equalToConstant: focusSize.height).isActive = true
+            colorImageView.widthAnchor.constraint(equalToConstant: focusSize.width).isActive = true
+            colorImageView.setContentCompressionResistancePriority(UILayoutPriority.required, for: UILayoutConstraintAxis.horizontal)
+            
+            horzStackView.addArrangedSubview(colorImageView)
         }
         
         //layout scroll view
@@ -184,6 +179,7 @@ open class UIEntryPickerView: UIView {
         scrollView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         
         scrollView.decelerationRate = 0.2
+        scrollView.delegate = self
         
         //fade sides
         let gradientShape = CAGradientLayer()
@@ -227,9 +223,24 @@ open class UIEntryPickerView: UIView {
     // MARK: - LIFE CYCLE
 }
 
+extension UIEntryPickerView: UIScrollViewDelegate {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if selectedPage >= 0 && selectedPage < entries.count  {
+            if let color = entries[selectedPage].color?.cgColor {
+                scrollViewSelectedLayer.borderColor =  color
+            }
+        }
+        
+    }
+}
+
 fileprivate class ScrollView: UIScrollView {
     
     // MARK: - RETURN VALUES
+    
+    private var horizontalStackView: UIStackView {
+        return self.subviews.first! as! UIStackView
+    }
     
     // MARK: - VOID METHODS
     

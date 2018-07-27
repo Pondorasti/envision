@@ -17,6 +17,8 @@ class HabitsScene: SKScene {
         let middleNode = SKShapeNode(circleOfRadius: 1)
         middleNode.position = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
         middleNode.physicsBody = SKPhysicsBody(circleOfRadius: 1)
+        middleNode.physicsBody?.collisionBitMask = 10
+        
         middleNode.physicsBody?.isDynamic = false
         
         middleNode.name = "helper"

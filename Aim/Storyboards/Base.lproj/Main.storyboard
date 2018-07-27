@@ -27,7 +27,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="40"/>
                                 <state key="normal" title="+">
-                                    <color key="titleColor" red="0.20392156862745098" green="0.80392156862745101" blue="0.32156862745098036" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.15686274509803921" green="0.070588235294117646" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <segue destination="j56-e9-wgP" kind="show" identifier="createHabit" id="UdQ-t9-dsx"/>
@@ -44,7 +44,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="r1B-PB-Kd0" secondAttribute="bottom" constant="35" id="3He-uE-zqu"/>
+                            <constraint firstAttribute="bottom" secondItem="r1B-PB-Kd0" secondAttribute="bottom" constant="35" id="3He-uE-zqu"/>
                             <constraint firstItem="r1B-PB-Kd0" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="rFZ-GH-uMK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -154,8 +154,8 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4jn-ck-vpR">
-                                        <rect key="frame" x="0.0" y="280" width="46" height="30"/>
-                                        <state key="normal" title="Button"/>
+                                        <rect key="frame" x="0.0" y="280" width="92" height="30"/>
+                                        <state key="normal" title="Coming Soon"/>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Color of your bubble" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2uN-ZF-bVD">
                                         <rect key="frame" x="0.0" y="325" width="189.5" height="27.5"/>
@@ -165,7 +165,7 @@
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fJo-iP-v8G" customClass="UIEntryPickerView" customModule="Aim" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="367.5" width="335" height="44"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="QJB-sV-3L9"/>
                                         </constraints>
@@ -181,7 +181,7 @@
                                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="25"/>
                                                 <state key="normal" title="Cancel"/>
                                                 <connections>
-                                                    <segue destination="7n8-aT-ihD" kind="unwind" identifier="cancelCreation" unwindAction="unwindFor:towardsViewController:" id="ci3-3P-IaZ"/>
+                                                    <segue destination="7n8-aT-ihD" kind="unwind" identifier="cancelHabit" unwindAction="unwindWithSegue:" id="QiR-wz-DCb"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WUf-pw-rBT">
@@ -192,7 +192,7 @@
                                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="25"/>
                                                 <state key="normal" title="Create"/>
                                                 <connections>
-                                                    <segue destination="7n8-aT-ihD" kind="unwind" identifier="actuallyCreateHabit" unwindAction="unwindFor:towardsViewController:" id="m3o-1g-WHz"/>
+                                                    <segue destination="7n8-aT-ihD" kind="unwind" identifier="actuallyCreateHabit" unwindAction="unwindWithSegue:" id="3iY-9Z-TPi"/>
                                                 </connections>
                                             </button>
                                         </subviews>

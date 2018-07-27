@@ -23,6 +23,7 @@ class HabitsViewController: UIViewController {
     @IBAction func testButtonPressed(_ sender: Any) {
         habitsScene.createHabitBubble(with: skView, andName: "ball", color: UIColor.blue, position: CGPoint(x: skView.bounds.width / 2, y: skView.bounds.height / 2))
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let createHabitVC = segue.destination as? CreateHabitViewController {
             createHabitVC.transitioningDelegate = self
@@ -34,7 +35,7 @@ class HabitsViewController: UIViewController {
         super.viewDidLoad()
         habitsScene = HabitsScene(size: view.bounds.size)
         habitsScene.scaleMode = .aspectFill
-        habitsScene.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+        habitsScene.backgroundColor = #colorLiteral(red: 0.1568627451, green: 0.07058823529, blue: 0.2509803922, alpha: 1)
         
         skView.presentScene(habitsScene)
         
@@ -42,7 +43,11 @@ class HabitsViewController: UIViewController {
         createHabitButton.layer.cornerRadius = createHabitButton.frame.height / 2
     }
     
-    @IBAction override func unwind(for unwindSegue: UIStoryboardSegue, towardsViewController subsequentVC: UIViewController) {
+//    @IBAction override func unwind(for unwindSegue: UIStoryboardSegue, towardsViewController subsequentVC: UIViewController) {
+//    }
+    
+    @IBAction func unwindWithSegue(_ segue: UIStoryboardSegue) {
+        
     }
 }
 
