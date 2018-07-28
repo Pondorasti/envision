@@ -33,7 +33,6 @@ class HabitsScene: SKScene {
         physicsWorld.contactDelegate = self
 //        self.view?.showsPhysics = true
         
-//        let holdRecognizer = UILongPressGestureRecognizer(
     }
     
 
@@ -71,7 +70,9 @@ class HabitsScene: SKScene {
     
     public func createHabitBubble(_ habit: Habit, in skview: SKView, at position: CGPoint) {
         let ballSprite = SKShapeNode(circleOfRadius: skview.bounds.width * 0.10)
+        ballSprite.lineWidth = 0.1
         
+        ballSprite.strokeColor = habit.color ?? UIColor.purple
         ballSprite.fillColor = habit.color ?? UIColor.purple
         
         
