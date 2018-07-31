@@ -39,13 +39,8 @@ class HabitsViewController: UIViewController {
         habitsScene = HabitsScene(size: view.bounds.size)
         habitsScene.scaleMode = .aspectFill
         habitsScene.backgroundColor = #colorLiteral(red: 0.1568627451, green: 0.07058823529, blue: 0.2509803922, alpha: 1)
-        
+
         skView.presentScene(habitsScene)
-        
-        createHabitButton.backgroundColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
-        createHabitButton.layer.cornerRadius = createHabitButton.frame.height / 2
-        
-        
         reloadBubbles()
     }
     
@@ -56,7 +51,6 @@ class HabitsViewController: UIViewController {
             if let name = habit.name, habitsScene.childNode(withName: name) == nil {
                 habitsScene.createHabitBubble(habit, in: skView, at: CGPoint(x: skView.frame.width / 2, y: skView.frame.height / 2))
             }
-            
         }
     }
 }
@@ -65,7 +59,7 @@ extension HabitsViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         transition.transitionMode = .present
         transition.startingPoint = createHabitButton.center
-        transition.circleColor = createHabitButton.backgroundColor!
+        transition.circleColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
         
         return transition
     }
@@ -73,7 +67,7 @@ extension HabitsViewController: UIViewControllerTransitioningDelegate {
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         transition.transitionMode = .dismiss
         transition.startingPoint = createHabitButton.center
-        transition.circleColor = createHabitButton.backgroundColor!
+        transition.circleColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
         
         return transition
     }

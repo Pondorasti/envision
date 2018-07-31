@@ -19,15 +19,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r1B-PB-Kd0">
-                                <rect key="frame" x="162.5" y="582" width="50" height="50"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="163" y="582" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="Zlh-vb-XBw"/>
                                     <constraint firstAttribute="height" constant="50" id="eqN-3M-6fm"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="40"/>
-                                <state key="normal" title="+">
-                                    <color key="titleColor" red="0.15686274509803921" green="0.070588235294117646" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="Create Habit Button">
+                                    <color key="titleColor" red="0.15686274509803921" green="0.070588235294117646" blue="0.25098039215686274" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <segue destination="j56-e9-wgP" kind="show" identifier="createHabit" id="UdQ-t9-dsx"/>
@@ -248,4 +247,7 @@
             <point key="canvasLocation" x="1445.5999999999999" y="7.6461769115442282"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Create Habit Button" width="68" height="68"/>
+    </resources>
 </document>
