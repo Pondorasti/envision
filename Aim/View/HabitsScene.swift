@@ -11,7 +11,7 @@ import SpriteKit
 
 class HabitsScene: SKScene {
     
-    var ballShape: SKSpriteNode?
+    var ballShape: SKHabitNode?
     var ballSize: CGSize?
     
     var startTime: Double?
@@ -67,21 +67,32 @@ class HabitsScene: SKScene {
             print("standby")
         case .startingToShrink:
             animationState = .shrink
-
-            ballShape?.removeAllActions()
-            ballShape?.run(SKAction.resize(toWidth: 100, height: 100, duration: 0.5))
+            startTime = currentTime
             
-            //            let duration = calculateDuration(false)
-        //            ballShape?.run(SKAction.scale(to: CGSize(width: 100, height: 100), duration: 0.5), withKey: "shrink")
+            ballShape?.removeAllActions()
+            ballShape?.run(SKAction.scale(to: 1, duration: 0.25))
+            ballShape?.childNode(withName: "Label")?.run(SKAction.scale(to: 1, duration: 0.25))
+
         case .startingToExpand:
             animationState = .expand
+            startTime = currentTime
 
             ballShape?.removeAllActions()
-            ballShape?.run(SKAction.resize(toWidth: 250, height: 250, duration: 0.5))
             
-            //            let duration = calculateDuration(true)
-            //            ballShape?.run(SKAction.scale(by: 2, duration: 0.5), withKey: "expand")
-            //            ballShape?.run(SKAction.scale(to: CGSize(width: 1000, height: 1000), duration: 0.5), withKey: "shrink")
+            let temporarySKShapeNode = SKShapeNode(circleOfRadius: 0.1)
+            temporarySKShapeNode.lineWidth = 0.1
+            temporarySKShapeNode.strokeColor = #colorLiteral(red: 0.1568627451, green: 0.368627451, blue: 0.5137254902, alpha: 0)
+            temporarySKShapeNode.fillColor = #colorLiteral(red: 0.1568627451, green: 0.368627451, blue: 0.5137254902, alpha: 0.5)
+            temporarySKShapeNode.alpha = 0.5
+            temporarySKShapeNode.name = "temp"
+            temporarySKShapeNode.zPosition = 2
+            
+            ballShape?.addChild(temporarySKShapeNode)
+            
+            temporarySKShapeNode.run(SKAction.scale(to: 400, duration: 0.5))
+            
+            
+
         }
     }
     
@@ -100,7 +111,7 @@ class HabitsScene: SKScene {
         let location = touch.location(in: self)
         
         if let body = physicsWorld.body(at: location) {
-            if let ball = body.node as? SKSpriteNode {
+            if let ball = body.node as? SKHabitNode {
                 ballShape = ball
                 animationState = .startingToExpand
             }
@@ -113,7 +124,7 @@ class HabitsScene: SKScene {
         let location = touch.location(in: self)
 
         if let body = physicsWorld.body(at: location) {
-            if ballShape != body.node as? SKShapeNode {
+            if ballShape != body.node as? SKHabitNode {
                 //TODO: start shrink animation
                 animationState = .startingToShrink
             }
@@ -130,49 +141,8 @@ class HabitsScene: SKScene {
     }
     
     public func createHabitBubble(_ habit: Habit, in skview: SKView, at position: CGPoint) {
-//        let ballSprite = SKShapeNode(circleOfRadius: skview.bounds.width * 0.10)
-    
-        let ballSprite = SKSpriteNode(imageNamed: "AIMLightBlue")
-        
-        targetWidth = ballSprite.frame.width * 2
-        normalWidth = ballSprite.frame.width
-        
-//        ballSprite.lineWidth = 0.1
-//        ballSprite.strokeColor = habit.color ?? UIColor.purple
-//        ballSprite.fillColor = habit.color ?? UIColor.purple
-        ballSprite.name = habit.name
-        ballSprite.size = CGSize(width: 500, height: 500)
-        
-        let habitNameLabel = SKLabelNode(fontNamed: "Avenir")
-        habitNameLabel.text = habit.name
-        habitNameLabel.position = ballSprite.position
-        habitNameLabel.fontColor = #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1)
-        habitNameLabel.fontSize = 18
-        habitNameLabel.numberOfLines = 2
-        habitNameLabel.verticalAlignmentMode = .center
-        habitNameLabel.horizontalAlignmentMode = .center
-        habitNameLabel.preferredMaxLayoutWidth = ballSprite.frame.width * 0.75
-        habitNameLabel.zPosition = 5
-        
-        ballSprite.zPosition = 1
-        ballSprite.position = position
-        
-        ballSprite.physicsBody = SKPhysicsBody(circleOfRadius: skview.bounds.width * 0.10)
-        ballSprite.physicsBody?.allowsRotation = false
-        ballSprite.physicsBody?.linearDamping = 0.3
-        ballSprite.physicsBody?.categoryBitMask = 1
-        ballSprite.physicsBody?.collisionBitMask = 1
-        ballSprite.physicsBody?.usesPreciseCollisionDetection = true
-        
-        ballSprite.addChild(habitNameLabel)
-        addChild(ballSprite)
-        
-        if let middleNode = childNode(withName: "helper") as? SKShapeNode {
-            let spring = SKPhysicsJointSpring.joint(withBodyA: ballSprite.physicsBody!, bodyB: middleNode.physicsBody!, anchorA: ballSprite.position, anchorB: middleNode.position)
-            spring.frequency = 0.5
-            spring.damping = 0.3
-            scene?.physicsWorld.add(spring)
-        }
+        let habit = SKHabitNode(for: habit, in: skview)
+        addChild(habit)
     }
 }
 
