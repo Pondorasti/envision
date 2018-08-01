@@ -46,6 +46,10 @@ class HabitsScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         ballShape?.updateHabit(for: &animationState, in: currentTime)
+//        if let parent = ballShape?.parent as? SKHabitNode {
+//            parent.updateHabit(for: &animationState, in: currentTime)
+//        }
+        
     }
     
     func calculateDuration(_ expand: Bool) -> Double {

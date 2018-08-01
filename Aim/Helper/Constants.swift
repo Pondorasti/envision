@@ -30,4 +30,16 @@ struct Constant {
                                   UIEntryPickerView.Entry.major(with: UIColor.AIMBadRed, andPhoto: "AIMBadRed"),
                                   UIEntryPickerView.Entry.major(with: UIColor.AIMOrange, andPhoto: "AIMOrange"),]
     }
+    
+    struct Calendar {
+        static let insideMonthDateColor: UIColor = #colorLiteral(red: 0.9607843137, green: 0.9607843137, blue: 0.9607843137, alpha: 0.95)
+        static let outsideMonthDateColor: UIColor = #colorLiteral(red: 0.9607843137, green: 0.9607843137, blue: 0.9607843137, alpha: 0.5)
+        
+        static let outsideMonthSelectedViewColor: UIColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 0.5)
+        static let insideMonthSelectedViewColor: UIColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
+        
+        static let weekNamesColor: UIColor = #colorLiteral(red: 0.9607843137, green: 0.9607843137, blue: 0.9607843137, alpha: 0.8)
+        
+        static let titleColor: UIColor = #colorLiteral(red: 0.01960784314, green: 0.01960784314, blue: 0.01960784314, alpha: 0.5)
+    }
 }

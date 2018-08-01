@@ -10,16 +10,31 @@ import UIKit
 import SpriteKit
 import CoreGraphics
 
-class SKHabitNode: SKShapeNode {
-    var label: SKLabelNode!
+/*
+ 
+ circle scale = 2
+    innerBubble
+    label
+ 
+ container
+    circle scale = 2
+    innerBubble scale = 1
+    label
+ 
+ */
+
+class SKHabitNode: SKNode {
+    var labelNode: SKLabelNode!
     
+    var mainShapeNode: SKShapeNode
     var temporaryShapeNode: SKShapeNode? = nil
+    
     var animationStartingTime: TimeInterval?
     var animationEndTime: TimeInterval?
     
     var counter = 0 {
         didSet {
-            label.text = (habit.isGood ? "" : "🚫") + habit.name! + "\nStreak: \(counter)"
+            labelNode.text = (habit.isGood ? "" : "🚫") + habit.name! + "\nStreak: \(counter)"
         }
     }
     
@@ -31,7 +46,7 @@ class SKHabitNode: SKShapeNode {
     let habit: Habit
     
     var nextWidth: CGFloat {
-        return self.frame.width + increment
+        return mainShapeNode.frame.width + increment
     }
     
     public enum BeautyAnimation {
@@ -42,43 +57,39 @@ class SKHabitNode: SKShapeNode {
         maxWidth = 0.45 * skView.frame.width
         minWidth = 0.407 * maxWidth
         increment = (maxWidth - minWidth) / 50
+        
+        mainShapeNode = SKShapeNode(circleOfRadius: minWidth / 2)
+        
+        mainShapeNode.lineWidth = 0.1
+        mainShapeNode.strokeColor = habit.color ?? UIColor.purple
+        mainShapeNode.fillColor = habit.color ?? UIColor.purple
+        mainShapeNode.alpha = 1
+        mainShapeNode.name = habit.name
+        mainShapeNode.zPosition = 2
+        mainShapeNode.position = CGPoint(x: 0, y: 0)
+        
         self.habit = habit
         
         super.init()
         
-        self.path = SKShapeNode(circleOfRadius: minWidth / 2).path
+        self.name = "\(habit)"
         
-        lineWidth = 0.1
-        strokeColor = habit.color ?? UIColor.purple
-        fillColor = habit.color ?? UIColor.purple
-        name = habit.name
-        
-        label = SKLabelNode(fontNamed: "Avenir")
-        label.name = "Label"
-        label.text = (habit.isGood ? "" : "🚫") + habit.name! + "\nStreak: \(counter)"
-        label.position = self.position
-        label.fontColor = #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1)
-        label.fontSize = 12
-        label.numberOfLines = 2
-        label.verticalAlignmentMode = .center
-        label.horizontalAlignmentMode = .center
-        label.preferredMaxLayoutWidth = frame.width * 0.75
-        label.zPosition = 5
+        setUpLabel()
         
         zPosition = 1
         position = skView.center
         
-        physicsBody = SKPhysicsBody(circleOfRadius: minWidth / 2)
-        physicsBody?.allowsRotation = false
-        physicsBody?.linearDamping = 0.3
-        physicsBody?.categoryBitMask = 1
-        physicsBody?.collisionBitMask = 1
-        physicsBody?.usesPreciseCollisionDetection = true
         
-        addChild(label)
+        setUpPhysicsBody()
+        
+        print(labelNode.position)
+        print(mainShapeNode.position)
+        
+        addChild(labelNode)
+        addChild(mainShapeNode)
         
         if let middleNode = childNode(withName: "helper") as? SKShapeNode {
-            let spring = SKPhysicsJointSpring.joint(withBodyA: self.physicsBody!, bodyB: middleNode.physicsBody!, anchorA: self.position, anchorB: middleNode.position)
+            let spring = SKPhysicsJointSpring.joint(withBodyA: physicsBody!, bodyB: middleNode.physicsBody!, anchorA: position, anchorB: middleNode.position)
             spring.frequency = 0.5
             spring.damping = 0.3
             scene?.physicsWorld.add(spring)
@@ -86,7 +97,6 @@ class SKHabitNode: SKShapeNode {
     }
     
     public func updateHabit(for state: inout BeautyAnimation, in currentTime: TimeInterval) {
-//        print(state)
         switch state {
         case .expand:
             if let endTime = animationEndTime {
@@ -96,13 +106,14 @@ class SKHabitNode: SKShapeNode {
                     counter += 1
                     
                     self.removeAllActions()
-                    self.run(SKAction.scale(by: nextWidth / self.frame.width, duration: 0))
+                    mainShapeNode.run(SKAction.scale(by: nextWidth / mainShapeNode.frame.width, duration: 0))
+                    
+                    setUpPhysicsBody()
                     
                     temporaryShapeNode?.removeFromParent()
+                    
                 }
             }
-            
-//            print("expanding")
         case .shrink:
             if let endTime = animationEndTime {
                 if endTime <= currentTime {
@@ -113,10 +124,7 @@ class SKHabitNode: SKShapeNode {
                     temporaryShapeNode?.removeFromParent()
                 }
             }
-            
-//            print("shrinking")
         case .none:
-//            print("standby")
             animationStartingTime = nil
         case .startingToShrink:
             state = .shrink
@@ -141,7 +149,7 @@ class SKHabitNode: SKShapeNode {
                 duration = animationDuration
                 
                 temporaryShapeNode = SKShapeNode(circleOfRadius: 0.1)
-                temporaryShapeNode?.lineWidth = 0.1
+                temporaryShapeNode?.lineWidth = 0
                 temporaryShapeNode?.strokeColor = #colorLiteral(red: 0.1568627451, green: 0.368627451, blue: 0.5137254902, alpha: 0)
                 temporaryShapeNode?.fillColor = #colorLiteral(red: 0.6705882353, green: 0.8509803922, blue: 0.9725490196, alpha: 0.5)
                 temporaryShapeNode?.alpha = 0.5
@@ -155,7 +163,7 @@ class SKHabitNode: SKShapeNode {
             animationStartingTime = currentTime
             animationEndTime = duration + currentTime
             
-            temporaryShapeNode?.run(SKAction.scale(to: (self.frame.width + increment) / 0.2, duration: duration))
+            temporaryShapeNode?.run(SKAction.scale(to: (mainShapeNode.frame.width + increment) / 0.2, duration: duration))
         }
     }
     
@@ -164,7 +172,27 @@ class SKHabitNode: SKShapeNode {
     }
 }
 
-//        ballSprite.physicsBody?.restitution = 0.5
-//        ballSprite.physicsBody?.friction = 0.2
-//        ballSprite.physicsBody?.angularDamping = 0
-//        ballSprite.physicsBody?.mass = 0.5
+extension SKHabitNode {
+    private func setUpPhysicsBody() {
+        physicsBody = SKPhysicsBody(circleOfRadius:  mainShapeNode.frame.width / 2)
+        physicsBody?.allowsRotation = false
+        physicsBody?.linearDamping = 0.3
+        physicsBody?.categoryBitMask = 1
+        physicsBody?.collisionBitMask = 1
+        physicsBody?.usesPreciseCollisionDetection = true
+    }
+    
+    private func setUpLabel() {
+        labelNode = SKLabelNode(fontNamed: "Avenir")
+        labelNode.name = "Label"
+        labelNode.text = (habit.isGood ? "" : "🚫") + habit.name! + "\nStreak: \(counter)"
+        labelNode.position = self.position
+        labelNode.fontColor = #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1)
+        labelNode.fontSize = 12
+        labelNode.numberOfLines = 2
+        labelNode.verticalAlignmentMode = .center
+        labelNode.horizontalAlignmentMode = .center
+        labelNode.preferredMaxLayoutWidth = frame.width * 0.75
+        labelNode.zPosition = 5
+    }
+}
