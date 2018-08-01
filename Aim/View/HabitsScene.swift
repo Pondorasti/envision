@@ -15,27 +15,14 @@ class HabitsScene: SKScene {
     var ballSize: CGSize?
     
     var startTime: Double?
-    var targetTime: Double = 1
     
-    var shrinkingAnimation = false
-    var holdingAnimation = false
-    
-    var holding = false
-    
-    
-    var animationState = BeautyAnimation.none
+    var animationState = SKHabitNode.BeautyAnimation.none
     var targetWidth = CGFloat()
     var normalWidth = CGFloat()
     let animationDuration: CGFloat = 0.5
-    
-    
-    var targetSize = CGSize()
+
     var duration = Double()
     
-    enum BeautyAnimation {
-        case expand, shrink, none, startingToShrink, startingToExpand
-    }
-
     override func didMove(to view: SKView) {
         let middleNode = SKShapeNode(circleOfRadius: 1)
         middleNode.position = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
@@ -58,42 +45,7 @@ class HabitsScene: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        switch animationState {
-        case .expand:
-            print("expanding")
-        case .shrink:
-            print("shrinking")
-        case .none:
-            print("standby")
-        case .startingToShrink:
-            animationState = .shrink
-            startTime = currentTime
-            
-            ballShape?.removeAllActions()
-            ballShape?.run(SKAction.scale(to: 1, duration: 0.25))
-            ballShape?.childNode(withName: "Label")?.run(SKAction.scale(to: 1, duration: 0.25))
-
-        case .startingToExpand:
-            animationState = .expand
-            startTime = currentTime
-
-            ballShape?.removeAllActions()
-            
-            let temporarySKShapeNode = SKShapeNode(circleOfRadius: 0.1)
-            temporarySKShapeNode.lineWidth = 0.1
-            temporarySKShapeNode.strokeColor = #colorLiteral(red: 0.1568627451, green: 0.368627451, blue: 0.5137254902, alpha: 0)
-            temporarySKShapeNode.fillColor = #colorLiteral(red: 0.1568627451, green: 0.368627451, blue: 0.5137254902, alpha: 0.5)
-            temporarySKShapeNode.alpha = 0.5
-            temporarySKShapeNode.name = "temp"
-            temporarySKShapeNode.zPosition = 2
-            
-            ballShape?.addChild(temporarySKShapeNode)
-            
-            temporarySKShapeNode.run(SKAction.scale(to: 400, duration: 0.5))
-            
-            
-
-        }
+        ballShape?.updateHabit(for: &animationState, in: currentTime)
     }
     
     func calculateDuration(_ expand: Bool) -> Double {
@@ -125,7 +77,6 @@ class HabitsScene: SKScene {
 
         if let body = physicsWorld.body(at: location) {
             if ballShape != body.node as? SKHabitNode {
-                //TODO: start shrink animation
                 animationState = .startingToShrink
             }
         }
@@ -133,11 +84,7 @@ class HabitsScene: SKScene {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else { return }
-        let location = touch.location(in: self)
-
         animationState = .startingToShrink
-        holdingAnimation = false
     }
     
     public func createHabitBubble(_ habit: Habit, in skview: SKView, at position: CGPoint) {
@@ -154,7 +101,4 @@ extension HabitsScene: SKPhysicsContactDelegate {
 }
 
 
-//        ballSprite.physicsBody?.restitution = 0.5
-//        ballSprite.physicsBody?.friction = 0.2
-//        ballSprite.physicsBody?.angularDamping = 0
-//        ballSprite.physicsBody?.mass = 0.5
+
