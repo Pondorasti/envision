@@ -39,4 +39,10 @@ extension CGPoint {
     func normalized() -> CGPoint {
         return self / length()
     }
+
+    
+    func random(range: Int)->CGPoint {
+        return CGPoint(x: Int(arc4random()) % range,y: Int(arc4random()) % range)}
 }
+
+

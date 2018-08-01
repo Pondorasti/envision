@@ -11,28 +11,13 @@ import SpriteKit
 
 class HabitsScene: SKScene {
     
+    let middleNode = SKShapeNode()
+    
     var ballShape: SKHabitNode?
-    var ballSize: CGSize?
-    
-    var startTime: Double?
-    
     var animationState = SKHabitNode.BeautyAnimation.none
-    var targetWidth = CGFloat()
-    var normalWidth = CGFloat()
-    let animationDuration: CGFloat = 0.5
-
-    var duration = Double()
     
     override func didMove(to view: SKView) {
-        let middleNode = SKShapeNode(circleOfRadius: 1)
-        middleNode.position = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
-        middleNode.physicsBody = SKPhysicsBody(circleOfRadius: 1)
-        middleNode.physicsBody?.collisionBitMask = 10
-        
-        middleNode.physicsBody?.isDynamic = false
-        
-        middleNode.name = "helper"
-        
+        setUpMiddleNode()
         addChild(middleNode)
         
         let viewBorder = SKPhysicsBody(edgeLoopFrom: view.bounds)
@@ -46,20 +31,6 @@ class HabitsScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         ballShape?.updateHabit(for: &animationState, in: currentTime)
-//        if let parent = ballShape?.parent as? SKHabitNode {
-//            parent.updateHabit(for: &animationState, in: currentTime)
-//        }
-        
-    }
-    
-    func calculateDuration(_ expand: Bool) -> Double {
-        let widthToExpand = targetWidth - (ballShape?.frame.width)!
-        let progress = widthToExpand / (targetWidth - normalWidth)
-        if expand {
-            return Double((1 - progress) * animationDuration)
-        }
-        return Double(progress * animationDuration)
-        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -75,7 +46,6 @@ class HabitsScene: SKScene {
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
 
@@ -88,6 +58,7 @@ class HabitsScene: SKScene {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        //TODO: check whether it was inside habit before
         animationState = .startingToShrink
     }
     
@@ -104,5 +75,19 @@ extension HabitsScene: SKPhysicsContactDelegate {
     }
 }
 
+extension HabitsScene {
+    private func setUpMiddleNode() {
+        if let view = view {
+            let middleNode = SKShapeNode(circleOfRadius: 1)
+            middleNode.position = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
+            middleNode.physicsBody = SKPhysicsBody(circleOfRadius: 1)
+            middleNode.physicsBody?.collisionBitMask = 10
+            
+            middleNode.physicsBody?.isDynamic = false
+            
+            middleNode.name = "helper"
+        }
+    }
+}
 
 

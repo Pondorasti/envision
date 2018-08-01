@@ -32,7 +32,7 @@ class CreateHabitViewController: UIViewController {
     
     @IBAction func goodTypeButtonPressed(_ sender: Any) {
         let vc = HabitDaysPicker(headerText: "header", messageText: "message")
-        vc.addAction(UIPickerAction(title: "Donne", style: .cancel, action: { (_) in
+        vc.addAction(UIPickerAction(title: "Done", style: .cancel, action: { (_) in
             vc.dismiss(animated: true)
         }))
         vc.present(in: self)

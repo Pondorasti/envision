@@ -26,7 +26,7 @@ import CoreGraphics
 class SKHabitNode: SKNode {
     var labelNode: SKLabelNode!
     
-    var mainShapeNode: SKShapeNode
+    var mainShapeNode = SKShapeNode()
     var temporaryShapeNode: SKShapeNode? = nil
     
     var animationStartingTime: TimeInterval?
@@ -39,7 +39,6 @@ class SKHabitNode: SKNode {
     }
     
     let animationDuration: TimeInterval = 0.45
-    
     let maxWidth: CGFloat
     let minWidth: CGFloat
     let increment: CGFloat
@@ -57,34 +56,18 @@ class SKHabitNode: SKNode {
         maxWidth = 0.45 * skView.frame.width
         minWidth = 0.407 * maxWidth
         increment = (maxWidth - minWidth) / 50
-        
-        mainShapeNode = SKShapeNode(circleOfRadius: minWidth / 2)
-        
-        mainShapeNode.lineWidth = 0.1
-        mainShapeNode.strokeColor = habit.color ?? UIColor.purple
-        mainShapeNode.fillColor = habit.color ?? UIColor.purple
-        mainShapeNode.alpha = 1
-        mainShapeNode.name = habit.name
-        mainShapeNode.zPosition = 2
-        mainShapeNode.position = CGPoint(x: 0, y: 0)
-        
         self.habit = habit
         
         super.init()
         
-        self.name = "\(habit)"
-        
+        setUpMainNode()
         setUpLabel()
         
+        name = "\(habit)"
         zPosition = 1
         position = skView.center
         
-        
         setUpPhysicsBody()
-        
-        print(labelNode.position)
-        print(mainShapeNode.position)
-        
         addChild(labelNode)
         addChild(mainShapeNode)
         
@@ -107,11 +90,8 @@ class SKHabitNode: SKNode {
                     
                     self.removeAllActions()
                     mainShapeNode.run(SKAction.scale(by: nextWidth / mainShapeNode.frame.width, duration: 0))
-                    
                     setUpPhysicsBody()
-                    
                     temporaryShapeNode?.removeFromParent()
-                    
                 }
             }
         case .shrink:
@@ -139,7 +119,6 @@ class SKHabitNode: SKNode {
                 scaleAction.timingMode = .easeIn
                 temporaryShapeNode?.run(scaleAction)
             }
-            
         case .startingToExpand:
             var duration = animationDuration
             if let startingtime = animationStartingTime {
@@ -148,14 +127,7 @@ class SKHabitNode: SKNode {
             } else {
                 duration = animationDuration
                 
-                temporaryShapeNode = SKShapeNode(circleOfRadius: 0.1)
-                temporaryShapeNode?.lineWidth = 0
-                temporaryShapeNode?.strokeColor = #colorLiteral(red: 0.1568627451, green: 0.368627451, blue: 0.5137254902, alpha: 0)
-                temporaryShapeNode?.fillColor = #colorLiteral(red: 0.6705882353, green: 0.8509803922, blue: 0.9725490196, alpha: 0.5)
-                temporaryShapeNode?.alpha = 0.5
-                temporaryShapeNode?.name = "temp"
-                temporaryShapeNode?.zPosition = 2
-                
+                setUpTemporaryNode()
                 self.addChild(temporaryShapeNode!)
             }
             
@@ -195,4 +167,27 @@ extension SKHabitNode {
         labelNode.preferredMaxLayoutWidth = frame.width * 0.75
         labelNode.zPosition = 5
     }
+    
+    private func setUpMainNode() {
+        mainShapeNode = SKShapeNode(circleOfRadius: minWidth / 2)
+        
+        mainShapeNode.lineWidth = 0.1
+        mainShapeNode.strokeColor = habit.color ?? UIColor.purple
+        mainShapeNode.fillColor = habit.color ?? UIColor.purple
+        mainShapeNode.alpha = 1
+        mainShapeNode.name = habit.name
+        mainShapeNode.zPosition = 2
+        mainShapeNode.position = CGPoint(x: 0, y: 0)
+    }
+    
+    private func setUpTemporaryNode() {
+        temporaryShapeNode = SKShapeNode(circleOfRadius: 0.1)
+        temporaryShapeNode?.lineWidth = 0
+        temporaryShapeNode?.strokeColor = #colorLiteral(red: 0.1568627451, green: 0.368627451, blue: 0.5137254902, alpha: 0)
+        temporaryShapeNode?.fillColor = #colorLiteral(red: 0.6705882353, green: 0.8509803922, blue: 0.9725490196, alpha: 0.5)
+        temporaryShapeNode?.alpha = 0.5
+        temporaryShapeNode?.name = "temp"
+        temporaryShapeNode?.zPosition = 2
+    }
+    
 }
