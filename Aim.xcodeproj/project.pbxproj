@@ -29,6 +29,9 @@
 		C5B0CB9F2112D15B004C1B55 /* Log+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B0CB9B2112D15B004C1B55 /* Log+CoreDataProperties.swift */; };
 		C5B0CBA02112D15B004C1B55 /* Habit+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B0CB9C2112D15B004C1B55 /* Habit+CoreDataClass.swift */; };
 		C5B0CBA12112D15B004C1B55 /* Habit+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B0CB9D2112D15B004C1B55 /* Habit+CoreDataProperties.swift */; };
+		C5B0CBA321137743004C1B55 /* DetailedHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B0CBA221137742004C1B55 /* DetailedHabitViewController.swift */; };
+		C5B5839821137825006E25B6 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B5839721137825006E25B6 /* DateCell.swift */; };
+		C5B5839A21139A0F006E25B6 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B5839921139A0F006E25B6 /* Date.swift */; };
 		C5F7B7412109428F0094A09E /* CreateHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7B7402109428F0094A09E /* CreateHabitViewController.swift */; };
 		C5F7B74321095E360094A09E /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7B74221095E360094A09E /* ColorPicker.swift */; };
 		C5F7B7452109605B0094A09E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7B7442109605B0094A09E /* Constants.swift */; };
@@ -87,6 +90,9 @@
 		C5B0CB9B2112D15B004C1B55 /* Log+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Log+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C5B0CB9C2112D15B004C1B55 /* Habit+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Habit+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C5B0CB9D2112D15B004C1B55 /* Habit+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Habit+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C5B0CBA221137742004C1B55 /* DetailedHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedHabitViewController.swift; sourceTree = "<group>"; };
+		C5B5839721137825006E25B6 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
+		C5B5839921139A0F006E25B6 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		C5F7B7402109428F0094A09E /* CreateHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHabitViewController.swift; sourceTree = "<group>"; };
 		C5F7B74221095E360094A09E /* ColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
 		C5F7B7442109605B0094A09E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -208,6 +214,7 @@
 			children = (
 				C53630332106B74C007DFC7A /* HabitsScene.swift */,
 				C5F7B74221095E360094A09E /* ColorPicker.swift */,
+				C5B5839721137825006E25B6 /* DateCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -218,6 +225,7 @@
 				C53630352106D7A9007DFC7A /* HabitsViewController.swift */,
 				C5F7B7402109428F0094A09E /* CreateHabitViewController.swift */,
 				C5A35189210C376200A717D3 /* HabitDaysPicker.swift */,
+				C5B0CBA221137742004C1B55 /* DetailedHabitViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -249,6 +257,7 @@
 				C5F7B74A210A2EBA0094A09E /* UIView.swift */,
 				C5A35183210A385200A717D3 /* CGPoint.swift */,
 				C5A35187210A6BE800A717D3 /* Habit.swift */,
+				C5B5839921139A0F006E25B6 /* Date.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -485,13 +494,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5B5839A21139A0F006E25B6 /* Date.swift in Sources */,
 				C5AF7C8521091C2D000893D2 /* CircularTransition.swift in Sources */,
+				C5B5839821137825006E25B6 /* DateCell.swift in Sources */,
 				C5A35186210A663B00A717D3 /* CoreData.swift in Sources */,
 				C53630342106B74C007DFC7A /* HabitsScene.swift in Sources */,
 				C5F7B74B210A2EBA0094A09E /* UIView.swift in Sources */,
 				C5B0CBA02112D15B004C1B55 /* Habit+CoreDataClass.swift in Sources */,
 				C5F7B74321095E360094A09E /* ColorPicker.swift in Sources */,
 				C5A35184210A385200A717D3 /* CGPoint.swift in Sources */,
+				C5B0CBA321137743004C1B55 /* DetailedHabitViewController.swift in Sources */,
 				C5B0CB9F2112D15B004C1B55 /* Log+CoreDataProperties.swift in Sources */,
 				C53630032105ACFD007DFC7A /* AppDelegate.swift in Sources */,
 				C5B0CB9E2112D15B004C1B55 /* Log+CoreDataClass.swift in Sources */,

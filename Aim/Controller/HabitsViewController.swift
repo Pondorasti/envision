@@ -16,7 +16,7 @@ class HabitsViewController: UIViewController {
     var habitsScene: HabitsScene!
     var skView: SKView { return view as! SKView }
     
-    var habitToShow: SKHabitNode?
+    var habitNodeToShow: SKHabitNode?
     var transitionMode = TransitionMode.createHabit
 
     enum TransitionMode {
@@ -39,6 +39,11 @@ class HabitsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        if traitCollection.forceTouchCapability == .available {
+//            registerForPreviewingWithDelegate(self, sourceView: view)
+//        }
+        
         habitsScene = HabitsScene(size: view.bounds.size)
         habitsScene.scaleMode = .aspectFill
         habitsScene.backgroundColor = #colorLiteral(red: 0.1568627451, green: 0.07058823529, blue: 0.2509803922, alpha: 1)
@@ -79,14 +84,16 @@ extension HabitsViewController: UIViewControllerTransitioningDelegate {
 }
 
 extension HabitsViewController: HabitsSceneDelegate {
-    func didDoubleTapHabit(_ habit: SKHabitNode) {
-        if let vc = storyboard?.instantiateViewController(withIdentifier: Constant.Storyboard.detailedHabit) {
-            habitToShow = habit
+    func didDoubleTapHabit(_ habitNode: SKHabitNode) {
+        if let detailedHabitVC = storyboard?.instantiateViewController(withIdentifier: Constant.Storyboard.detailedHabit) as? DetailedHabitViewController {
+            habitNodeToShow = habitNode
             transitionMode = .showHabit
             
-            vc.transitioningDelegate = self
-            vc.modalPresentationStyle = .custom
-            present(vc, animated: true)
+            detailedHabitVC.habit = habitNode.habit
+            
+            detailedHabitVC.transitioningDelegate = self
+            detailedHabitVC.modalPresentationStyle = .custom
+            present(detailedHabitVC, animated: true)
         }
         
     }
@@ -98,7 +105,7 @@ extension HabitsViewController {
         case .createHabit:
             return #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
         case .showHabit:
-            guard let color = habitToShow?.habit.color else { fatalError("somebody is dumb") }
+            guard let color = habitNodeToShow?.habit.color else { fatalError("somebody is dumb") }
             return color
         }
     }
@@ -108,10 +115,10 @@ extension HabitsViewController {
         case .createHabit:
             return createHabitButton.center
         case .showHabit:
-            guard let position = habitToShow?.position else { fatalError("somebody is dumb") }
+            guard let position = habitNodeToShow?.position else { fatalError("somebody is dumb") }
             let y = (position.y - view.frame.height) < 0 ? (position.y - view.frame.height) * (-1) : (position.y - view.frame.height)
             return CGPoint(x: position.x, y: y)
         }
     }
-
 }
+

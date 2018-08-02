@@ -22,6 +22,7 @@ class HabitsScene: SKScene {
         addChild(middleNode)
         
         let viewBorder = SKPhysicsBody(edgeLoopFrom: view.bounds)
+        //set bit mask
         viewBorder.friction = 0
         self.physicsBody = viewBorder
         
@@ -34,6 +35,8 @@ class HabitsScene: SKScene {
         
         doubleTapGesture.numberOfTapsRequired = 1
         doubleTapGesture.numberOfTouchesRequired = 2
+        doubleTapGesture.cancelsTouchesInView = true
+        
         doubleTapGesture.addTarget(self, action: #selector(handleDoubleTap))
         
         view.addGestureRecognizer(doubleTapGesture)
@@ -51,7 +54,6 @@ class HabitsScene: SKScene {
             animationState = .startingToShrink
             if let body = physicsWorld.body(at: doubleTouchedPoint) {
                 if let habitNode = body.node as? SKHabitNode {
-                    //TODO: create segue programatically
                     habitsDelegate?.didDoubleTapHabit(habitNode)
                     animationState = .startingToShrink
                 }
@@ -65,7 +67,7 @@ class HabitsScene: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else { return }
+        guard let touch = touches.first, touches.count == 1 else { return }
         let location = touch.location(in: self)
         
         if let body = physicsWorld.body(at: location) {
@@ -110,12 +112,22 @@ extension HabitsScene: SKPhysicsContactDelegate {
             firstBody = contact.bodyA
             secondBody = contact.bodyB
             
-            secondBody.applyForce(CGVector(dx: -200000, dy: 300000))
+            if let bodyAPosition = firstBody.node?.position, let bodyBPosition = secondBody.node?.position {
+                let offset = bodyAPosition - bodyBPosition
+                let direction = offset.normalized()
+                
+                secondBody.applyImpulse(CGVector(dx: direction.x * 100, dy: direction.y * 100))
+            }
         } else if contact.bodyB.node?.name == selectedHabitNode?.name {
             firstBody = contact.bodyB
             secondBody = contact.bodyA
             
-            secondBody.applyForce(CGVector(dx: -200000, dy: 300000))
+            if let bodyAPosition = firstBody.node?.position, let bodyBPosition = secondBody.node?.position {
+                let offset = bodyBPosition - bodyAPosition
+                let direction = offset.normalized()
+                
+                secondBody.applyImpulse(CGVector(dx: direction.x * 100, dy: direction.y * 100))
+            }
         }
     }
 }
@@ -140,7 +152,7 @@ extension HabitsScene {
 }
 
 protocol HabitsSceneDelegate: class {
-    func didDoubleTapHabit(_ habit: SKHabitNode)
+    func didDoubleTapHabit(_ habitNode: SKHabitNode)
 }
 
 

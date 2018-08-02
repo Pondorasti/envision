@@ -41,9 +41,22 @@ struct Constant {
         static let weekNamesColor: UIColor = #colorLiteral(red: 0.9607843137, green: 0.9607843137, blue: 0.9607843137, alpha: 0.8)
         
         static let titleColor: UIColor = #colorLiteral(red: 0.01960784314, green: 0.01960784314, blue: 0.01960784314, alpha: 0.5)
+        
+        static let format: String = "yyyy MM dd"
     }
     
     struct Storyboard {
         static let detailedHabit = "detailedHabit"
+    }
+    
+    struct Cell {
+        static let dateCell = "dateCell"
+    }
+    
+    struct Segue {
+        static let goBack: String = "goBack"
+        static let createHabit: String = "createHabit"
+        static let cancelHabit: String = "cancelHabit"
+        static let actuallyCreateHabit: String = "actuallyCreateHabit"
     }
 }

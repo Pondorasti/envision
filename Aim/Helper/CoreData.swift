@@ -27,6 +27,11 @@ struct CoreDataHelper {
         return habit
     }
     
+    static func newLog() -> Log {
+        let log = NSEntityDescription.insertNewObject(forEntityName: "Logs", into: context) as! Log
+        return log
+    }
+    
     static func saveHabit() {
         do {
             try context.save()
@@ -52,6 +57,10 @@ struct CoreDataHelper {
         }
     }
     
+    static func linkLog(_ log: Log, to habit: Habit) {
+        habit.addToLogs(log)
+        saveHabit()
+    }
     
     
     

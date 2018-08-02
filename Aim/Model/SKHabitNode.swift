@@ -88,6 +88,10 @@ class SKHabitNode: SKNode {
                     animationStartingTime = nil
                     counter += 1
                     
+                    let newLog = CoreDataHelper.newLog()
+                    newLog.day = Date()
+                    CoreDataHelper.linkLog(newLog, to: habit)
+                    
                     self.removeAllActions()
                     mainShapeNode.run(SKAction.scale(by: nextWidth / mainShapeNode.frame.width, duration: 0))
                     setUpPhysicsBody()

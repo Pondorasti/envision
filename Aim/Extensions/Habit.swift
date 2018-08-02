@@ -34,9 +34,15 @@ extension Habit {
             colorInHex = hex
         }
     }
-//    
-//    var completedDays: [CalendarDate: Bool] {
-//        fatalError()
-//    }
-
+    
+    var completedDays: [String: Bool] {
+        var ans = [String: Bool]()
+        if let logs = self.logs?.allObjects as? [Log] {
+            for log in logs {
+                let stringFormat = log.day.format(with: Constant.Calendar.format)
+                ans[stringFormat] = true
+            }
+        }
+        return ans
+    }
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SpriteKit
 
 class CreateHabitViewController: UIViewController {
     var isGoodHabit = true
@@ -61,7 +62,7 @@ class CreateHabitViewController: UIViewController {
         guard let id = segue.identifier else { return }
         
         switch id {
-        case "actuallyCreateHabit":
+        case Constant.Segue.actuallyCreateHabit:
             let newHabit = CoreDataHelper.newHabit()
             
             newHabit.colorInHex = colorPicker.entries[colorPicker.selectedPage].color!.hex!
@@ -71,8 +72,14 @@ class CreateHabitViewController: UIViewController {
             newHabit.iteration = 0
             
             CoreDataHelper.saveHabit()
+            
+            guard let destination = segue.destination as? HabitsViewController else { return }
+            let newHabitNode = SKHabitNode(for: newHabit, in: SKView())
+            
+            destination.habitsScene.selectedHabitNode = newHabitNode
+            
             print("creating new habit")
-        case "cancelHabit":
+        case Constant.Segue.cancelHabit:
             print("cancel creation")
         default:
             print("unknown segue identifier")
@@ -81,7 +88,7 @@ class CreateHabitViewController: UIViewController {
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         switch identifier {
-        case "actuallyCreateHabit":
+        case Constant.Segue.actuallyCreateHabit:
             if habitNameTextField.text == nil || habitNameTextField.text == "" {
                 habitNameTextField.placeholder = "Required Field"
                 shakeAnimation(for: habitNameView)
