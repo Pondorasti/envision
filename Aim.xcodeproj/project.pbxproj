@@ -25,6 +25,10 @@
 		C5A35188210A6BE800A717D3 /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A35187210A6BE800A717D3 /* Habit.swift */; };
 		C5A3518A210C376200A717D3 /* HabitDaysPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A35189210C376200A717D3 /* HabitDaysPicker.swift */; };
 		C5AF7C8521091C2D000893D2 /* CircularTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AF7C8421091C2D000893D2 /* CircularTransition.swift */; };
+		C5B0CB9E2112D15B004C1B55 /* Log+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B0CB9A2112D15B004C1B55 /* Log+CoreDataClass.swift */; };
+		C5B0CB9F2112D15B004C1B55 /* Log+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B0CB9B2112D15B004C1B55 /* Log+CoreDataProperties.swift */; };
+		C5B0CBA02112D15B004C1B55 /* Habit+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B0CB9C2112D15B004C1B55 /* Habit+CoreDataClass.swift */; };
+		C5B0CBA12112D15B004C1B55 /* Habit+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B0CB9D2112D15B004C1B55 /* Habit+CoreDataProperties.swift */; };
 		C5F7B7412109428F0094A09E /* CreateHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7B7402109428F0094A09E /* CreateHabitViewController.swift */; };
 		C5F7B74321095E360094A09E /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7B74221095E360094A09E /* ColorPicker.swift */; };
 		C5F7B7452109605B0094A09E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7B7442109605B0094A09E /* Constants.swift */; };
@@ -79,6 +83,10 @@
 		C5A35187210A6BE800A717D3 /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		C5A35189210C376200A717D3 /* HabitDaysPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDaysPicker.swift; sourceTree = "<group>"; };
 		C5AF7C8421091C2D000893D2 /* CircularTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularTransition.swift; sourceTree = "<group>"; };
+		C5B0CB9A2112D15B004C1B55 /* Log+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Log+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C5B0CB9B2112D15B004C1B55 /* Log+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Log+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C5B0CB9C2112D15B004C1B55 /* Habit+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Habit+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C5B0CB9D2112D15B004C1B55 /* Habit+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Habit+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C5F7B7402109428F0094A09E /* CreateHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHabitViewController.swift; sourceTree = "<group>"; };
 		C5F7B74221095E360094A09E /* ColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
 		C5F7B7442109605B0094A09E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -185,6 +193,10 @@
 		C5A367D82109193000728525 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C5B0CB9A2112D15B004C1B55 /* Log+CoreDataClass.swift */,
+				C5B0CB9B2112D15B004C1B55 /* Log+CoreDataProperties.swift */,
+				C5B0CB9C2112D15B004C1B55 /* Habit+CoreDataClass.swift */,
+				C5B0CB9D2112D15B004C1B55 /* Habit+CoreDataProperties.swift */,
 				C53630092105ACFD007DFC7A /* Aim.xcdatamodeld */,
 				C5985B002110D3BE000520F0 /* SKHabitNode.swift */,
 			);
@@ -477,15 +489,19 @@
 				C5A35186210A663B00A717D3 /* CoreData.swift in Sources */,
 				C53630342106B74C007DFC7A /* HabitsScene.swift in Sources */,
 				C5F7B74B210A2EBA0094A09E /* UIView.swift in Sources */,
+				C5B0CBA02112D15B004C1B55 /* Habit+CoreDataClass.swift in Sources */,
 				C5F7B74321095E360094A09E /* ColorPicker.swift in Sources */,
 				C5A35184210A385200A717D3 /* CGPoint.swift in Sources */,
+				C5B0CB9F2112D15B004C1B55 /* Log+CoreDataProperties.swift in Sources */,
 				C53630032105ACFD007DFC7A /* AppDelegate.swift in Sources */,
+				C5B0CB9E2112D15B004C1B55 /* Log+CoreDataClass.swift in Sources */,
 				C5A3518A210C376200A717D3 /* HabitDaysPicker.swift in Sources */,
 				C5985B012110D3BE000520F0 /* SKHabitNode.swift in Sources */,
 				C5F7B747210985900094A09E /* UIColor.swift in Sources */,
 				C5F7B74921098A7C0094A09E /* UIButton.swift in Sources */,
 				C5F7B7412109428F0094A09E /* CreateHabitViewController.swift in Sources */,
 				C5A35188210A6BE800A717D3 /* Habit.swift in Sources */,
+				C5B0CBA12112D15B004C1B55 /* Habit+CoreDataProperties.swift in Sources */,
 				C53630362106D7A9007DFC7A /* HabitsViewController.swift in Sources */,
 				C536300B2105ACFD007DFC7A /* Aim.xcdatamodeld in Sources */,
 				C5F7B7452109605B0094A09E /* Constants.swift in Sources */,

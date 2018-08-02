@@ -39,10 +39,24 @@ extension CGPoint {
     func normalized() -> CGPoint {
         return self / length()
     }
-
     
-    func random(range: Int)->CGPoint {
-        return CGPoint(x: Int(arc4random()) % range,y: Int(arc4random()) % range)}
+    static func randomPoint(inRange range: CountableClosedRange<Int>) -> CGPoint {
+        let x = CGFloat(Int.randomNumber(inRange: range))
+        let y = CGFloat(Int.randomNumber(inRange: range))
+        
+        return CGPoint(x: x, y: y)
+    }
+
 }
+
+extension Int {
+    static func randomNumber(inRange range: CountableClosedRange<Int>) -> Int {
+        let length = Int(range.upperBound - range.lowerBound + 1)
+        let value = Int(arc4random()) % length + Int(range.lowerBound)
+        return value
+    }
+}
+
+
 
 

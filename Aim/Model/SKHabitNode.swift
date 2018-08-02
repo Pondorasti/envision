@@ -31,10 +31,11 @@ class SKHabitNode: SKNode {
     
     var animationStartingTime: TimeInterval?
     var animationEndTime: TimeInterval?
+    var nodeToConnect: SKShapeNode?
     
     var counter = 0 {
         didSet {
-            labelNode.text = (habit.isGood ? "" : "🚫") + habit.name! + "\nStreak: \(counter)"
+            labelNode.text = (habit.isGood ? "" : "🚫") + habit.name + "\nStreak: \(counter)"
         }
     }
     
@@ -63,20 +64,17 @@ class SKHabitNode: SKNode {
         setUpMainNode()
         setUpLabel()
         
-        name = "\(habit)"
+        name = habit.name
         zPosition = 1
-        position = skView.center
+        
+        
+        let start = Int(skView.frame.width * 0.3)
+        let end = Int(skView.frame.width * 0.6)
+        position = CGPoint.randomPoint(inRange: start...end)
         
         setUpPhysicsBody()
         addChild(labelNode)
         addChild(mainShapeNode)
-        
-        if let middleNode = childNode(withName: "helper") as? SKShapeNode {
-            let spring = SKPhysicsJointSpring.joint(withBodyA: physicsBody!, bodyB: middleNode.physicsBody!, anchorA: position, anchorB: middleNode.position)
-            spring.frequency = 0.5
-            spring.damping = 0.3
-            scene?.physicsWorld.add(spring)
-        }
     }
     
     public func updateHabit(for state: inout BeautyAnimation, in currentTime: TimeInterval) {
@@ -91,6 +89,7 @@ class SKHabitNode: SKNode {
                     self.removeAllActions()
                     mainShapeNode.run(SKAction.scale(by: nextWidth / mainShapeNode.frame.width, duration: 0))
                     setUpPhysicsBody()
+                    createSpringJoint()
                     temporaryShapeNode?.removeFromParent()
                 }
             }
@@ -146,7 +145,7 @@ class SKHabitNode: SKNode {
 
 extension SKHabitNode {
     private func setUpPhysicsBody() {
-        physicsBody = SKPhysicsBody(circleOfRadius:  mainShapeNode.frame.width / 2)
+        physicsBody = SKPhysicsBody(circleOfRadius:  mainShapeNode.frame.width / 2 + 0.1)
         physicsBody?.allowsRotation = false
         physicsBody?.linearDamping = 0.3
         physicsBody?.categoryBitMask = 1
@@ -157,7 +156,7 @@ extension SKHabitNode {
     private func setUpLabel() {
         labelNode = SKLabelNode(fontNamed: "Avenir")
         labelNode.name = "Label"
-        labelNode.text = (habit.isGood ? "" : "🚫") + habit.name! + "\nStreak: \(counter)"
+        labelNode.text = (habit.isGood ? "" : "🚫") + habit.name + "\nStreak: \(counter)"
         labelNode.position = self.position
         labelNode.fontColor = #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1)
         labelNode.fontSize = 12
@@ -188,6 +187,22 @@ extension SKHabitNode {
         temporaryShapeNode?.alpha = 0.5
         temporaryShapeNode?.name = "temp"
         temporaryShapeNode?.zPosition = 2
+    }
+    
+    public func connectSpringJoint(to node: SKShapeNode) {
+        nodeToConnect = node
+        createSpringJoint()
+    }
+    
+    private func createSpringJoint() {
+        guard let myPhysicsBody = physicsBody,
+            let nodePhysicsBody = nodeToConnect?.physicsBody,
+            let nodePosition = nodeToConnect?.position else { return }
+        
+        let springJoint = SKPhysicsJointSpring.joint(withBodyA: myPhysicsBody, bodyB: nodePhysicsBody, anchorA: position, anchorB: nodePosition)
+        springJoint.frequency = 0.5
+        springJoint.damping = 0.3
+        scene?.physicsWorld.add(springJoint)
     }
     
 }

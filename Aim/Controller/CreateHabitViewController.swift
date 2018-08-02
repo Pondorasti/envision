@@ -62,8 +62,8 @@ class CreateHabitViewController: UIViewController {
         case "actuallyCreateHabit":
             let newHabit = CoreDataHelper.newHabit()
             
-            newHabit.colorInHex = colorPicker.entries[colorPicker.selectedPage].color?.hex
-            newHabit.name = habitNameTextField.text
+            newHabit.colorInHex = colorPicker.entries[colorPicker.selectedPage].color!.hex!
+            newHabit.name = habitNameTextField.text ?? ""
             newHabit.isGood = isGoodHabit
             newHabit.creationDate = Date()
             newHabit.iteration = 0

@@ -42,4 +42,8 @@ struct Constant {
         
         static let titleColor: UIColor = #colorLiteral(red: 0.01960784314, green: 0.01960784314, blue: 0.01960784314, alpha: 0.5)
     }
+    
+    struct Storyboard {
+        static let detailedHabit = "detailedHabit"
+    }
 }

@@ -10,25 +10,28 @@ import UIKit
 import SpriteKit
 
 class HabitsViewController: UIViewController {
-    
     let transition = CircularTransition()
     
     var habits = [Habit]()
     var habitsScene: HabitsScene!
     var skView: SKView { return view as! SKView }
-
-    @IBOutlet weak var createHabitButton: UIButton!
     
+    var selectedHabitNode: SKHabitNode?
+    var transitionMode = TransitionMode.createHabit
+
+    enum TransitionMode {
+        case createHabit, showHabit
+    }
+    
+    @IBOutlet weak var createHabitButton: UIButton!
     
     @IBAction func unwindWithSegue(_ segue: UIStoryboardSegue) {
         reloadBubbles()
     }
     
-    @IBAction func testButtonPressed(_ sender: Any) {
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let createHabitVC = segue.destination as? CreateHabitViewController {
+            transitionMode = .createHabit
             createHabitVC.transitioningDelegate = self
             createHabitVC.modalPresentationStyle = .custom
         }
@@ -39,8 +42,10 @@ class HabitsViewController: UIViewController {
         habitsScene = HabitsScene(size: view.bounds.size)
         habitsScene.scaleMode = .aspectFill
         habitsScene.backgroundColor = #colorLiteral(red: 0.1568627451, green: 0.07058823529, blue: 0.2509803922, alpha: 1)
+        habitsScene.habitsDelegate = self
 
         skView.presentScene(habitsScene)
+        
         reloadBubbles()
     }
     
@@ -48,7 +53,7 @@ class HabitsViewController: UIViewController {
         habits = CoreDataHelper.retrieveHabits()
         
         for habit in habits {
-            if let name = habit.name, habitsScene.childNode(withName: name) == nil {
+            if habitsScene.childNode(withName: habit.name) == nil {
                 habitsScene.createHabitBubble(habit, in: skView, at: CGPoint(x: skView.frame.width / 2, y: skView.frame.height / 2))
             }
         }
@@ -58,17 +63,55 @@ class HabitsViewController: UIViewController {
 extension HabitsViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         transition.transitionMode = .present
-        transition.startingPoint = createHabitButton.center
-        transition.circleColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
+        transition.startingPoint = getStartingPoint()
+        transition.circleColor = getColor()
         
         return transition
     }
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         transition.transitionMode = .dismiss
-        transition.startingPoint = createHabitButton.center
-        transition.circleColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
+        transition.startingPoint = getStartingPoint()
+        transition.circleColor = getColor()
         
         return transition
     }
+}
+
+extension HabitsViewController: HabitsSceneDelegate {
+    func didDoubleTapHabit(_ habit: SKHabitNode) {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: Constant.Storyboard.detailedHabit) {
+            selectedHabitNode = habit
+            transitionMode = .showHabit
+            
+            vc.transitioningDelegate = self
+            vc.modalPresentationStyle = .custom
+            present(vc, animated: true)
+        }
+        
+    }
+}
+
+extension HabitsViewController {
+    private func getColor() -> UIColor {
+        switch transitionMode {
+        case .createHabit:
+            return #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
+        case .showHabit:
+            guard let color = selectedHabitNode?.habit.color else { fatalError("somebody is dumb") }
+            return color
+        }
+    }
+    
+    private func getStartingPoint() -> CGPoint {
+        switch transitionMode {
+        case .createHabit:
+            return createHabitButton.center
+        case .showHabit:
+            guard let position = selectedHabitNode?.position else { fatalError("somebody is dumb") }
+            let y = (position.y - view.frame.height) < 0 ? (position.y - view.frame.height) * (-1) : (position.y - view.frame.height)
+            return CGPoint(x: position.x, y: y)
+        }
+    }
+
 }

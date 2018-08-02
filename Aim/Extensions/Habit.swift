@@ -9,17 +9,34 @@
 import Foundation
 import UIKit
 
+struct CalendarDate {
+    let day: Int
+    let month: Int
+    let year: Int
+    
+    init(from date: Date) {
+        //DateCompoents Class
+        
+        fatalError()
+    }
+}
+
 extension Habit {
-    var color: UIColor? {
+    var color: UIColor {
         get {
-            guard let hex = colorInHex else { return nil }
-            return UIColor(hex: hex)
+            guard let colorFromHex = UIColor(hex: colorInHex) else { fatalError() }
+            
+            return colorFromHex
         }
         set(newColor) {
-            if let newColor = newColor {
-                colorInHex = newColor.hex
-            }
+            guard let hex = newColor.hex else { fatalError() }
+            
+            colorInHex = hex
         }
     }
+//    
+//    var completedDays: [CalendarDate: Bool] {
+//        fatalError()
+//    }
 
 }
