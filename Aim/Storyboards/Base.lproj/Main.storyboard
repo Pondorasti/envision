@@ -169,6 +169,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4jn-ck-vpR">
                                         <rect key="frame" x="0.0" y="287" width="92" height="30"/>
                                         <state key="normal" title="Coming Soon"/>
+                                        <connections>
+                                            <action selector="habitDaysButtonPressed:" destination="j56-e9-wgP" eventType="touchUpInside" id="kfy-SZ-pcE"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Color of your bubble" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2uN-ZF-bVD">
                                         <rect key="frame" x="0.0" y="332" width="189.5" height="27.5"/>

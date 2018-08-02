@@ -16,7 +16,7 @@ class HabitsViewController: UIViewController {
     var habitsScene: HabitsScene!
     var skView: SKView { return view as! SKView }
     
-    var selectedHabitNode: SKHabitNode?
+    var habitToShow: SKHabitNode?
     var transitionMode = TransitionMode.createHabit
 
     enum TransitionMode {
@@ -54,7 +54,7 @@ class HabitsViewController: UIViewController {
         
         for habit in habits {
             if habitsScene.childNode(withName: habit.name) == nil {
-                habitsScene.createHabitBubble(habit, in: skView, at: CGPoint(x: skView.frame.width / 2, y: skView.frame.height / 2))
+                habitsScene.createHabitBubble(habit, in: skView)
             }
         }
     }
@@ -81,7 +81,7 @@ extension HabitsViewController: UIViewControllerTransitioningDelegate {
 extension HabitsViewController: HabitsSceneDelegate {
     func didDoubleTapHabit(_ habit: SKHabitNode) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: Constant.Storyboard.detailedHabit) {
-            selectedHabitNode = habit
+            habitToShow = habit
             transitionMode = .showHabit
             
             vc.transitioningDelegate = self
@@ -98,7 +98,7 @@ extension HabitsViewController {
         case .createHabit:
             return #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
         case .showHabit:
-            guard let color = selectedHabitNode?.habit.color else { fatalError("somebody is dumb") }
+            guard let color = habitToShow?.habit.color else { fatalError("somebody is dumb") }
             return color
         }
     }
@@ -108,7 +108,7 @@ extension HabitsViewController {
         case .createHabit:
             return createHabitButton.center
         case .showHabit:
-            guard let position = selectedHabitNode?.position else { fatalError("somebody is dumb") }
+            guard let position = habitToShow?.position else { fatalError("somebody is dumb") }
             let y = (position.y - view.frame.height) < 0 ? (position.y - view.frame.height) * (-1) : (position.y - view.frame.height)
             return CGPoint(x: position.x, y: y)
         }

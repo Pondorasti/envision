@@ -41,7 +41,7 @@ class HabitsScene: SKScene {
     
     @objc func handleDoubleTap(_ sender: UIGestureRecognizer) {
         let location = sender.location(in: view)
-        print(location.y)
+        print("double tap")
         
         if let height = view?.frame.height {
             let x = location.x
@@ -93,7 +93,7 @@ class HabitsScene: SKScene {
         animationState = .startingToShrink
     }
     
-    public func createHabitBubble(_ habit: Habit, in skview: SKView, at position: CGPoint) {
+    public func createHabitBubble(_ habit: Habit, in skview: SKView) {
         let habit = SKHabitNode(for: habit, in: skview)
         addChild(habit)
         habit.connectSpringJoint(to: middleNode)
@@ -103,7 +103,20 @@ class HabitsScene: SKScene {
 
 extension HabitsScene: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
+        var firstBody: SKPhysicsBody
+        var secondBody: SKPhysicsBody
         
+        if contact.bodyA.node?.name == selectedHabitNode?.name {
+            firstBody = contact.bodyA
+            secondBody = contact.bodyB
+            
+            secondBody.applyForce(CGVector(dx: -200000, dy: 300000))
+        } else if contact.bodyB.node?.name == selectedHabitNode?.name {
+            firstBody = contact.bodyB
+            secondBody = contact.bodyA
+            
+            secondBody.applyForce(CGVector(dx: -200000, dy: 300000))
+        }
     }
 }
 

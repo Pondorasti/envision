@@ -40,9 +40,9 @@ extension CGPoint {
         return self / length()
     }
     
-    static func randomPoint(inRange range: CountableClosedRange<Int>) -> CGPoint {
-        let x = CGFloat(Int.randomNumber(inRange: range))
-        let y = CGFloat(Int.randomNumber(inRange: range))
+    static func randomPoint(inXRange xRange: CountableClosedRange<Int>, andYRange yRange: CountableClosedRange<Int>) -> CGPoint {
+        let x = CGFloat(Int.randomNumber(inRange: xRange))
+        let y = CGFloat(Int.randomNumber(inRange: yRange))
         
         return CGPoint(x: x, y: y)
     }

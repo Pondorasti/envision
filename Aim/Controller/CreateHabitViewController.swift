@@ -31,12 +31,6 @@ class CreateHabitViewController: UIViewController {
     @IBOutlet weak var habitTypeStackView: UIStackView!
     
     @IBAction func goodTypeButtonPressed(_ sender: Any) {
-        let vc = HabitDaysPicker(headerText: "header", messageText: "message")
-        vc.addAction(UIPickerAction(title: "Done", style: .cancel, action: { (_) in
-            vc.dismiss(animated: true)
-        }))
-        vc.present(in: self)
-        return
         if !isGoodHabit {
             animateTransion(from: badTypeButton, to: goodTypeButton, withDuration: 0.25)
             isGoodHabit = true
@@ -48,6 +42,14 @@ class CreateHabitViewController: UIViewController {
             animateTransion(from: goodTypeButton, to: badTypeButton, withDuration: 0.25)
             isGoodHabit = false
         }
+    }
+    
+    @IBAction func habitDaysButtonPressed(_ sender: Any) {
+        let vc = HabitDaysPicker(headerText: "header", messageText: "message")
+        vc.addAction(UIPickerAction(title: "Done", style: .cancel, action: { (_) in
+            vc.dismiss(animated: true)
+        }))
+        vc.present(in: self)
     }
     
     override func viewDidLoad() {
@@ -172,6 +174,7 @@ extension CreateHabitViewController {
         
         view.layer.add(shakingAnimation, forKey: "position")
     }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
         super.touchesBegan(touches, with: event)

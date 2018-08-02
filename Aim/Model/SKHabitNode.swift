@@ -67,10 +67,12 @@ class SKHabitNode: SKNode {
         name = habit.name
         zPosition = 1
         
-        
-        let start = Int(skView.frame.width * 0.3)
-        let end = Int(skView.frame.width * 0.6)
-        position = CGPoint.randomPoint(inRange: start...end)
+        let center = skView.center
+        let startX = Int(center.x - 100)
+        let endX = Int(center.x + 100)
+        let startY = Int(center.y - 100)
+        let endY = Int(center.y + 100)
+        position = CGPoint.randomPoint(inXRange: startX...endX, andYRange: startY...endY)
         
         setUpPhysicsBody()
         addChild(labelNode)
@@ -151,6 +153,9 @@ extension SKHabitNode {
         physicsBody?.categoryBitMask = 1
         physicsBody?.collisionBitMask = 1
         physicsBody?.usesPreciseCollisionDetection = true
+        physicsBody?.categoryBitMask = 1
+        physicsBody?.collisionBitMask = 1
+        physicsBody?.contactTestBitMask = 1
     }
     
     private func setUpLabel() {
@@ -171,8 +176,8 @@ extension SKHabitNode {
         mainShapeNode = SKShapeNode(circleOfRadius: minWidth / 2)
         
         mainShapeNode.lineWidth = 0.1
-        mainShapeNode.strokeColor = habit.color ?? UIColor.purple
-        mainShapeNode.fillColor = habit.color ?? UIColor.purple
+        mainShapeNode.strokeColor = habit.color
+        mainShapeNode.fillColor = habit.color
         mainShapeNode.alpha = 1
         mainShapeNode.name = habit.name
         mainShapeNode.zPosition = 2
@@ -183,7 +188,7 @@ extension SKHabitNode {
         temporaryShapeNode = SKShapeNode(circleOfRadius: 0.1)
         temporaryShapeNode?.lineWidth = 0
         temporaryShapeNode?.strokeColor = #colorLiteral(red: 0.1568627451, green: 0.368627451, blue: 0.5137254902, alpha: 0)
-        temporaryShapeNode?.fillColor = #colorLiteral(red: 0.6705882353, green: 0.8509803922, blue: 0.9725490196, alpha: 0.5)
+        temporaryShapeNode?.fillColor = habit.color.lighter(by: 20) ?? UIColor.white
         temporaryShapeNode?.alpha = 0.5
         temporaryShapeNode?.name = "temp"
         temporaryShapeNode?.zPosition = 2
