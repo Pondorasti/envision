@@ -29,7 +29,7 @@ class HabitsScene: SKScene {
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
         
-//        showDebugger()
+        showDebugger()
         
         let doubleTapGesture = UITapGestureRecognizer()
         
@@ -59,14 +59,12 @@ class HabitsScene: SKScene {
                 }
             }
         }
-        
     }
     
     override func update(_ currentTime: TimeInterval) {
-        if let status = selectedHabitNode?.habit.isDoneToday, !status {
+//        if let status = selectedHabitNode?.habit.isDoneToday, !status {
             selectedHabitNode?.updateHabit(for: &animationState, in: currentTime)
-        }
-        
+//        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -94,7 +92,6 @@ class HabitsScene: SKScene {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        //TODO: check whether it was inside habit before
         animationState = .startingToShrink
     }
     

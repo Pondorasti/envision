@@ -45,6 +45,11 @@ struct CoreDataHelper {
         saveHabit()
     }
     
+    static func deletedLog(_ log: Log) {
+        context.delete(log)
+        saveHabit()
+    }
+    
     static func retrieveHabits() -> [Habit] {
         do {
             let fetchRequest = NSFetchRequest<Habit>(entityName: "Habits")

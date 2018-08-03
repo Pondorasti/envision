@@ -31,14 +31,16 @@ class DetailedHabitViewController: UIViewController {
         calendarView.backgroundColor = .clear
         
         calendarView.scrollToDate(Date())
-//        calendarView.scrollToSegment(SegmentDestination.next)
-        
+
         view.backgroundColor = habit?.color
     }
     
-    override func performSegue(withIdentifier identifier: String, sender: Any?) {
-        switch identifier {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let id = segue.identifier else { return }
+        switch id {
         case Constant.Segue.goBack:
+            guard let mainVC = segue.destination as? HabitsViewController else { return }
+            mainVC.reloadBubbles()
             print("going back")
         default:
             fatalError("unknown segue identifier")
@@ -52,7 +54,6 @@ extension DetailedHabitViewController: JTAppleCalendarViewDataSource {
         dateFormatter.dateFormat = "yyyy MM dd"
         dateFormatter.timeZone = Calendar.current.timeZone
         dateFormatter.locale = Calendar.current.locale
-        let start = "Alex"
         
         let startDate = dateFormatter.date(from: "2018 1 1")
         let endDate = dateFormatter.date(from: "2019 1 1")
@@ -82,11 +83,17 @@ extension DetailedHabitViewController: JTAppleCalendarViewDelegate {
     
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         guard let cell = cell as? DateCell else { return }
+        
+        
         handleCellColors(for: cell, inCellState: cellState)
     }
-    
+
     func calendar(_ calendar: JTAppleCalendarView, shouldSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) -> Bool {
-        return true
+        if let habit = habit, habit.creationDate.format(with: Constant.Calendar.format) <= date.format(with: Constant.Calendar.format) {
+            return true
+        }
+        //TODO: show error message
+        return false
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
@@ -102,9 +109,11 @@ extension DetailedHabitViewController: JTAppleCalendarViewDelegate {
 
 extension DetailedHabitViewController {
     private func handleCellColors(for cell: DateCell, inCellState cellState: CellState) {
+        let dateStringFormat = cellState.date.format(with: Constant.Calendar.format)
         cell.dateLabel.alpha = 1
+        
         if cellState.dateBelongsTo == .thisMonth {
-            if cellState.isSelected {
+            if let state = habit?.completedDays[dateStringFormat], state {
                 cell.dateLabel.textColor = habit?.color
                 
                 cell.completedDayView.isHidden = false
@@ -115,7 +124,7 @@ extension DetailedHabitViewController {
                 cell.completedDayView.isHidden = true
             }
         } else {
-            if cellState.isSelected {
+            if let state = habit?.completedDays[dateStringFormat], state {
                 cell.dateLabel.textColor = habit?.color
                 cell.dateLabel.alpha = 0.5
                 

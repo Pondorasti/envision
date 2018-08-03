@@ -40,6 +40,9 @@ class HabitsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(appBecomeActive), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+        
         habitsScene = HabitsScene(size: view.bounds.size)
         habitsScene.scaleMode = .aspectFill
         habitsScene.backgroundColor = #colorLiteral(red: 0.1568627451, green: 0.07058823529, blue: 0.2509803922, alpha: 1)
@@ -50,11 +53,29 @@ class HabitsViewController: UIViewController {
         reloadBubbles()
     }
     
-    private func reloadBubbles() {
+    @objc func appBecomeActive() {
+        reloadBubbles()
+    }
+    
+    //TODO delete this shit
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(true)
+//        reloadBubbles()
+//    }
+//    
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(true)
+//        reloadBubbles()
+//    }
+    
+    func reloadBubbles() {
         habits = CoreDataHelper.retrieveHabits()
         
         for habit in habits {
-            if habitsScene.childNode(withName: habit.name) == nil {
+            
+            if let habitNode = habitsScene.childNode(withName: habit.name) as? SKHabitNode {
+                habitNode.updateLabel()
+            } else {
                 habitsScene.createHabitBubble(habit, in: skView)
             }
         }

@@ -198,9 +198,9 @@ extension SKHabitNode {
         temporaryShapeNode?.zPosition = 2
     }
     
-    private func updateLabel() {
+    public func updateLabel() {
         labelNode.text = (habit.isGood ? "" : "🚫") + habit.name + "\nStreak: \(habit.streak)"
-        labelNode.fontColor = Constant.Layer.habitTextColor
+        labelNode.fontColor = habit.isDoneToday ? Constant.Layer.habitTextColor : Constant.Layer.backgroundColor
     }
     
     public func connectSpringJoint(to node: SKShapeNode) {
