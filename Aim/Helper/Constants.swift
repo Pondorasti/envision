@@ -16,6 +16,8 @@ struct Constant {
         static let shadowOffset = CGSize(width: 0, height: 2)
         static let shadowOpacity: Float = 18
         static let shadowRadius: CGFloat = 2
+        static let backgroundColor: UIColor = #colorLiteral(red: 0.1568627451, green: 0.07058823529, blue: 0.2509803922, alpha: 1)
+        static let habitTextColor: UIColor = #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1)
     }
     
     struct Color {
@@ -46,11 +48,11 @@ struct Constant {
     }
     
     struct Storyboard {
-        static let detailedHabit = "detailedHabit"
+        static let detailedHabit: String = "detailedHabit"
     }
     
     struct Cell {
-        static let dateCell = "dateCell"
+        static let dateCell: String = "dateCell"
     }
     
     struct Segue {

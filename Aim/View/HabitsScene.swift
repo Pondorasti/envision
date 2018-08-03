@@ -29,7 +29,7 @@ class HabitsScene: SKScene {
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
         
-        showDebugger()
+//        showDebugger()
         
         let doubleTapGesture = UITapGestureRecognizer()
         
@@ -63,7 +63,10 @@ class HabitsScene: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        selectedHabitNode?.updateHabit(for: &animationState, in: currentTime)
+        if let status = selectedHabitNode?.habit.isDoneToday, !status {
+            selectedHabitNode?.updateHabit(for: &animationState, in: currentTime)
+        }
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -97,39 +100,54 @@ class HabitsScene: SKScene {
     
     public func createHabitBubble(_ habit: Habit, in skview: SKView) {
         let habit = SKHabitNode(for: habit, in: skview)
+        habit.delegate = self
+        habit.delegate?.didHabitNodeExpand(habit)
         addChild(habit)
         habit.connectSpringJoint(to: middleNode)
     }
 }
 
-
-extension HabitsScene: SKPhysicsContactDelegate {
-    func didBegin(_ contact: SKPhysicsContact) {
-        var firstBody: SKPhysicsBody
-        var secondBody: SKPhysicsBody
-        
-        if contact.bodyA.node?.name == selectedHabitNode?.name {
-            firstBody = contact.bodyA
-            secondBody = contact.bodyB
-            
-            if let bodyAPosition = firstBody.node?.position, let bodyBPosition = secondBody.node?.position {
-                let offset = bodyAPosition - bodyBPosition
+extension HabitsScene: SKHabitNodeDelegate {
+    func didHabitNodeExpand(_ habitNode: SKHabitNode) {
+        for child in self.children {
+            if let nodeToPush = child as? SKHabitNode, nodeToPush.name != habitNode.name, let mass = nodeToPush.physicsBody?.mass {
+                let offset = nodeToPush.position - habitNode.position
                 let direction = offset.normalized()
                 
-                secondBody.applyImpulse(CGVector(dx: direction.x * 100, dy: direction.y * 100))
-            }
-        } else if contact.bodyB.node?.name == selectedHabitNode?.name {
-            firstBody = contact.bodyB
-            secondBody = contact.bodyA
-            
-            if let bodyAPosition = firstBody.node?.position, let bodyBPosition = secondBody.node?.position {
-                let offset = bodyBPosition - bodyAPosition
-                let direction = offset.normalized()
-                
-                secondBody.applyImpulse(CGVector(dx: direction.x * 100, dy: direction.y * 100))
+                nodeToPush.physicsBody?.applyImpulse(CGVector(dx: direction.x * mass * 500, dy: direction.y * mass * 500))
             }
         }
     }
+}
+
+
+extension HabitsScene: SKPhysicsContactDelegate {
+//    func didBegin(_ contact: SKPhysicsContact) {
+//        var firstBody: SKPhysicsBody
+//        var secondBody: SKPhysicsBody
+//
+//        if contact.bodyA.node?.name == selectedHabitNode?.name {
+//            firstBody = contact.bodyA
+//            secondBody = contact.bodyB
+//
+//            if let bodyAPosition = firstBody.node?.position, let bodyBPosition = secondBody.node?.position {
+//                let offset = bodyBPosition - bodyAPosition
+//                let direction = offset.normalized()
+//
+//                secondBody.applyImpulse(CGVector(dx: direction.x * 50, dy: direction.y * 50))
+//            }
+//        } else if contact.bodyB.node?.name == selectedHabitNode?.name {
+//            firstBody = contact.bodyB
+//            secondBody = contact.bodyA
+//
+//            if let bodyAPosition = firstBody.node?.position, let bodyBPosition = secondBody.node?.position {
+//                let offset = bodyBPosition - bodyAPosition
+//                let direction = offset.normalized()
+//
+//                secondBody.applyImpulse(CGVector(dx: direction.x * 50, dy: direction.y * 50))
+//            }
+//        }
+//    }
 }
 
 extension HabitsScene {

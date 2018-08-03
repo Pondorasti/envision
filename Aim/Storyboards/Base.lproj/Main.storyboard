@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -58,8 +57,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Gbh-gG-lPZ">
-                                <rect key="frame" x="16" y="25" width="343" height="400"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Gbh-gG-lPZ">
+                                <rect key="frame" x="16" y="25" width="343" height="618"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zAh-w9-I0S">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="37"/>
@@ -92,8 +91,15 @@
                                             <constraint firstItem="Vki-jL-dO7" firstAttribute="width" secondItem="0rk-HX-sL7" secondAttribute="width" id="wRY-x3-fKZ"/>
                                         </constraints>
                                     </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bc9-Y6-V77">
+                                        <rect key="frame" x="0.0" y="37" width="343" height="30"/>
+                                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="AaM-1T-m73"/>
+                                        </constraints>
+                                    </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="2KG-8i-3wa">
-                                        <rect key="frame" x="0.0" y="45" width="343" height="19.5"/>
+                                        <rect key="frame" x="0.0" y="67" width="343" height="19.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MON" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mu3-ZA-c3a">
                                                 <rect key="frame" x="0.0" y="0.0" width="49" height="19.5"/>
@@ -140,24 +146,24 @@
                                         </subviews>
                                     </stackView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TyG-tr-XI5" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
-                                        <rect key="frame" x="0.0" y="72.5" width="343" height="327.5"/>
+                                        <rect key="frame" x="0.0" y="86.5" width="343" height="531.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uss-ut-4bd">
-                                            <size key="itemSize" width="100" height="102"/>
+                                            <size key="itemSize" width="89" height="104"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="dateCell" id="u3x-AZ-Tv4" customClass="DateCell" customModule="Aim" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="100" height="102"/>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="dateCell" id="u3x-AZ-Tv4" customClass="DateCell" customModule="Aim" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="89" height="104"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="102"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="89" height="104"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AiR-EC-bfd">
-                                                            <rect key="frame" x="30" y="31" width="40" height="40"/>
+                                                            <rect key="frame" x="24.5" y="47" width="40" height="40"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="pJH-ib-qv3"/>
@@ -165,7 +171,7 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwY-VC-t2h">
-                                                            <rect key="frame" x="29" y="40.5" width="42" height="21"/>
+                                                            <rect key="frame" x="23.5" y="56.5" width="42" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -190,10 +196,10 @@
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="aO9-kr-uTb" firstAttribute="bottom" secondItem="Gbh-gG-lPZ" secondAttribute="bottom" constant="24" id="ST1-QW-olq"/>
                             <constraint firstItem="Gbh-gG-lPZ" firstAttribute="leading" secondItem="aO9-kr-uTb" secondAttribute="leading" constant="16" id="l0z-8L-QnT"/>
                             <constraint firstItem="Gbh-gG-lPZ" firstAttribute="top" secondItem="aO9-kr-uTb" secondAttribute="top" constant="5" id="l5i-DR-jMc"/>
                             <constraint firstAttribute="trailing" secondItem="Gbh-gG-lPZ" secondAttribute="trailing" constant="16" id="nUk-dE-snJ"/>
-                            <constraint firstItem="Gbh-gG-lPZ" firstAttribute="height" secondItem="8Ek-R2-1QU" secondAttribute="height" multiplier="0.6" id="pBB-Jz-YRm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aO9-kr-uTb"/>
                     </view>

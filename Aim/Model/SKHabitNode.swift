@@ -32,12 +32,7 @@ class SKHabitNode: SKNode {
     var animationStartingTime: TimeInterval?
     var animationEndTime: TimeInterval?
     var nodeToConnect: SKShapeNode?
-    
-    var counter = 0 {
-        didSet {
-            labelNode.text = (habit.isGood ? "" : "🚫") + habit.name + "\nStreak: \(counter)"
-        }
-    }
+    var delegate: SKHabitNodeDelegate?
     
     let animationDuration: TimeInterval = 0.45
     let maxWidth: CGFloat
@@ -68,10 +63,10 @@ class SKHabitNode: SKNode {
         zPosition = 1
         
         let center = skView.center
-        let startX = Int(center.x - 100)
-        let endX = Int(center.x + 100)
-        let startY = Int(center.y - 100)
-        let endY = Int(center.y + 100)
+        let startX = Int(center.x - 50)
+        let endX = Int(center.x + 50)
+        let startY = Int(center.y - 50)
+        let endY = Int(center.y + 50)
         position = CGPoint.randomPoint(inXRange: startX...endX, andYRange: startY...endY)
         
         setUpPhysicsBody()
@@ -86,17 +81,22 @@ class SKHabitNode: SKNode {
                 if endTime <= currentTime {
                     state = .none
                     animationStartingTime = nil
-                    counter += 1
                     
                     let newLog = CoreDataHelper.newLog()
                     newLog.day = Date()
                     CoreDataHelper.linkLog(newLog, to: habit)
                     
                     self.removeAllActions()
-                    mainShapeNode.run(SKAction.scale(by: nextWidth / mainShapeNode.frame.width, duration: 0))
-                    setUpPhysicsBody()
-                    createSpringJoint()
+                    
+                    if habit.iteration <= 49 {
+                        mainShapeNode.run(SKAction.scale(by: nextWidth / mainShapeNode.frame.width, duration: 0))
+                        setUpPhysicsBody()
+                        createSpringJoint()
+                    }
+                    
                     temporaryShapeNode?.removeFromParent()
+                    delegate?.didHabitNodeExpand(self)
+                    updateLabel()
                 }
             }
         case .shrink:
@@ -165,9 +165,9 @@ extension SKHabitNode {
     private func setUpLabel() {
         labelNode = SKLabelNode(fontNamed: "Avenir")
         labelNode.name = "Label"
-        labelNode.text = (habit.isGood ? "" : "🚫") + habit.name + "\nStreak: \(counter)"
+        labelNode.text = (habit.isGood ? "" : "🚫") + habit.name + "\nStreak: \(habit.streak)"
         labelNode.position = self.position
-        labelNode.fontColor = #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1)
+        labelNode.fontColor = habit.isDoneToday ? Constant.Layer.habitTextColor : Constant.Layer.backgroundColor
         labelNode.fontSize = 12
         labelNode.numberOfLines = 2
         labelNode.verticalAlignmentMode = .center
@@ -177,7 +177,7 @@ extension SKHabitNode {
     }
     
     private func setUpMainNode() {
-        mainShapeNode = SKShapeNode(circleOfRadius: minWidth / 2)
+        mainShapeNode = SKShapeNode(circleOfRadius: (minWidth + increment * CGFloat(habit.iteration)) / 2)
         
         mainShapeNode.lineWidth = 0.1
         mainShapeNode.strokeColor = habit.color
@@ -198,6 +198,11 @@ extension SKHabitNode {
         temporaryShapeNode?.zPosition = 2
     }
     
+    private func updateLabel() {
+        labelNode.text = (habit.isGood ? "" : "🚫") + habit.name + "\nStreak: \(habit.streak)"
+        labelNode.fontColor = Constant.Layer.habitTextColor
+    }
+    
     public func connectSpringJoint(to node: SKShapeNode) {
         nodeToConnect = node
         createSpringJoint()
@@ -214,4 +219,8 @@ extension SKHabitNode {
         scene?.physicsWorld.add(springJoint)
     }
     
+}
+
+protocol SKHabitNodeDelegate {
+    func didHabitNodeExpand(_ habitNode: SKHabitNode)
 }

@@ -40,10 +40,6 @@ class HabitsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        if traitCollection.forceTouchCapability == .available {
-//            registerForPreviewingWithDelegate(self, sourceView: view)
-//        }
-        
         habitsScene = HabitsScene(size: view.bounds.size)
         habitsScene.scaleMode = .aspectFill
         habitsScene.backgroundColor = #colorLiteral(red: 0.1568627451, green: 0.07058823529, blue: 0.2509803922, alpha: 1)

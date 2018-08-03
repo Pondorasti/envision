@@ -69,7 +69,6 @@ class CreateHabitViewController: UIViewController {
             newHabit.name = habitNameTextField.text ?? ""
             newHabit.isGood = isGoodHabit
             newHabit.creationDate = Date()
-            newHabit.iteration = 0
             
             CoreDataHelper.saveHabit()
             

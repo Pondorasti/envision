@@ -21,7 +21,7 @@ class DetailedHabitViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(habit?.completedDays)
+        print(habit?.iteration)
         
         calendarView.calendarDelegate = self
         calendarView.calendarDataSource = self
