@@ -9,7 +9,9 @@
 import UIKit
 import SpriteKit
 
+
 class HabitsViewController: UIViewController {
+    
     let transition = CircularTransition()
     
     var habits = [Habit]()
@@ -35,6 +37,10 @@ class HabitsViewController: UIViewController {
             createHabitVC.transitioningDelegate = self
             createHabitVC.modalPresentationStyle = .custom
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
     }
 
     override func viewDidLoad() {
@@ -107,6 +113,7 @@ extension HabitsViewController: HabitsSceneDelegate {
             transitionMode = .showHabit
             
             detailedHabitVC.habit = habitNode.habit
+//            detailedHabitVC.calendarView.scrollToDate(Date())
             
             detailedHabitVC.transitioningDelegate = self
             detailedHabitVC.modalPresentationStyle = .custom
@@ -138,4 +145,5 @@ extension HabitsViewController {
         }
     }
 }
+
 

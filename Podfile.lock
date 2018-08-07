@@ -1,16 +1,20 @@
 PODS:
+  - BulletinBoard (2.0.1)
   - JTAppleCalendar (7.1.5)
 
 DEPENDENCIES:
+  - BulletinBoard
   - JTAppleCalendar (~> 7.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - BulletinBoard
     - JTAppleCalendar
 
 SPEC CHECKSUMS:
+  BulletinBoard: 99a428f91f64d0ffabf8a8104f79ecd064e2a4db
   JTAppleCalendar: 2d4f974f9f3c8b4964d51ca1f6e004883c031fbe
 
-PODFILE CHECKSUM: e311d44143cf179efb4dfc7995ffeb8dbce79071
+PODFILE CHECKSUM: 7f06d5abff04f94a52bf27a41287a284a88a990b
 
 COCOAPODS: 1.5.3

@@ -47,7 +47,7 @@ extension Habit {
             if let date = calendar.date(byAdding: .day, value: -1, to: startDate) {
                 startDate = date
                 let stringFormat = startDate.format(with: Constant.Calendar.format)
-                if let state = completedDays[stringFormat], state == true {
+                if let state = completedDays[stringFormat], state == isGood {
                     ans += 1
                 } else {
                     break
@@ -58,7 +58,7 @@ extension Habit {
         }
         
         let stringFormat = Date().format(with: Constant.Calendar.format)
-        if let state = completedDays[stringFormat], state == true {
+        if let state = completedDays[stringFormat], state == isGood {
             ans += 1
         }
         return ans
@@ -101,6 +101,18 @@ extension Habit {
             return true
         } else {
             return false
+        }
+    }
+    
+    func removeLog(for dateToRemove: String) {
+        guard let arrayOfLogs = logs?.allObjects as? [Log] else { return }
+        
+        for log in arrayOfLogs {
+            let logStringFormat = log.day.format(with: Constant.Calendar.format)
+            if dateToRemove == logStringFormat {
+                CoreDataHelper.deletedLog(log)
+                return
+            }
         }
     }
 }

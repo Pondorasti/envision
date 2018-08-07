@@ -13,7 +13,7 @@ class DetailedHabitViewController: UIViewController {
     
     let dateFormatter = DateFormatter()
     
-    var habit: Habit?
+    var habit: Habit!
 
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     @IBOutlet weak var calendarTitleLabel: UILabel!
@@ -84,12 +84,21 @@ extension DetailedHabitViewController: JTAppleCalendarViewDelegate {
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         guard let cell = cell as? DateCell else { return }
         
+        let dateStringFormat = cellState.date.format(with: Constant.Calendar.format)
+
+        if let state = habit?.completedDays[dateStringFormat], state {
+            habit?.removeLog(for: dateStringFormat)
+        } else {
+            let newLog = CoreDataHelper.newLog()
+            newLog.day = cellState.date
+            CoreDataHelper.linkLog(newLog, to: habit)
+        }
         
         handleCellColors(for: cell, inCellState: cellState)
     }
 
     func calendar(_ calendar: JTAppleCalendarView, shouldSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) -> Bool {
-        if let habit = habit, habit.creationDate.format(with: Constant.Calendar.format) <= date.format(with: Constant.Calendar.format) {
+        if habit.creationDate.format(with: Constant.Calendar.format) <= date.format(with: Constant.Calendar.format) {
             return true
         }
         //TODO: show error message

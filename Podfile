@@ -7,6 +7,7 @@ target 'Aim' do
 
   # Pods for Aim
   pod 'JTAppleCalendar', '~> 7.0'
+  pod 'BulletinBoard'
 
   target 'AimTests' do
     inherit! :search_paths

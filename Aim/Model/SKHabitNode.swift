@@ -154,8 +154,6 @@ extension SKHabitNode {
         physicsBody = SKPhysicsBody(circleOfRadius:  mainShapeNode.frame.width / 2 + 0.1)
         physicsBody?.allowsRotation = false
         physicsBody?.linearDamping = 0.3
-        physicsBody?.categoryBitMask = 1
-        physicsBody?.collisionBitMask = 1
         physicsBody?.usesPreciseCollisionDetection = true
         physicsBody?.categoryBitMask = 1
         physicsBody?.collisionBitMask = 1

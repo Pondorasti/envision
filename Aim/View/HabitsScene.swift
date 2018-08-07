@@ -22,14 +22,14 @@ class HabitsScene: SKScene {
         addChild(middleNode)
         
         let viewBorder = SKPhysicsBody(edgeLoopFrom: view.bounds)
-        //set bit mask
+        viewBorder.collisionBitMask = 1
         viewBorder.friction = 0
         self.physicsBody = viewBorder
         
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
         
-        showDebugger()
+//        showDebugger()
         
         let doubleTapGesture = UITapGestureRecognizer()
         
@@ -111,7 +111,7 @@ extension HabitsScene: SKHabitNodeDelegate {
                 let offset = nodeToPush.position - habitNode.position
                 let direction = offset.normalized()
                 
-                nodeToPush.physicsBody?.applyImpulse(CGVector(dx: direction.x * mass * 500, dy: direction.y * mass * 500))
+                nodeToPush.physicsBody?.applyImpulse(CGVector(dx: direction.x * mass * Constant.SpriteKit.force, dy: direction.y * mass * Constant.SpriteKit.force))
             }
         }
     }

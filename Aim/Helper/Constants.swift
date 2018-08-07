@@ -61,4 +61,8 @@ struct Constant {
         static let cancelHabit: String = "cancelHabit"
         static let actuallyCreateHabit: String = "actuallyCreateHabit"
     }
+    
+    struct SpriteKit {
+        static let force: CGFloat = 400
+    }
 }
