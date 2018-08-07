@@ -9,6 +9,7 @@
 import Foundation
 import BLTNBoard
 import UIKit
+import TapticEngine
 
 struct BulletinHelper {
     static func rootItem() -> BLTNPageItem {
@@ -21,6 +22,7 @@ struct BulletinHelper {
         rootItem.isDismissable = false
         
         rootItem.actionHandler = { item in
+            TapticEngine.selection.feedback()
             item.manager?.displayNextItem()
         }
         
@@ -37,6 +39,7 @@ struct BulletinHelper {
         rootItem.isDismissable = false
         
         rootItem.actionHandler = { item in
+            TapticEngine.selection.feedback()
             item.manager?.displayNextItem()
         }
         

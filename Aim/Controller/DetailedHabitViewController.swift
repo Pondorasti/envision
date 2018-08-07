@@ -8,6 +8,7 @@
 
 import UIKit
 import JTAppleCalendar
+import TapticEngine
 
 class DetailedHabitViewController: UIViewController {
     
@@ -93,6 +94,7 @@ extension DetailedHabitViewController: JTAppleCalendarViewDelegate {
         }
         
         handleCellColors(for: cell, inCellState: cellState)
+        TapticEngine.impact.feedback(.light)
     }
 
     func calendar(_ calendar: JTAppleCalendarView, shouldSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) -> Bool {
@@ -100,8 +102,8 @@ extension DetailedHabitViewController: JTAppleCalendarViewDelegate {
         let currentDateStringFormat = Date().format(with: Constant.Calendar.format)
         let creationDateStringFormat = habit.creationDate.format(with: Constant.Calendar.format)
         
-        
         if creationDateStringFormat <= selectedDateStringFormat && selectedDateStringFormat <= currentDateStringFormat {
+            TapticEngine.impact.prepare(.light)
             return true
         }
         //TODO: show error message

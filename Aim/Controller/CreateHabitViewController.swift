@@ -9,6 +9,7 @@
 import UIKit
 import SpriteKit
 import BLTNBoard
+import TapticEngine
 
 
 class CreateHabitViewController: UIViewController {
@@ -82,6 +83,7 @@ class CreateHabitViewController: UIViewController {
             
             print("creating new habit")
         case Constant.Segue.cancelHabit:
+            TapticEngine.impact.feedback(.light)
             print("cancel creation")
         default:
             print("unknown segue identifier")

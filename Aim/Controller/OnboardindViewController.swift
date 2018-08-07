@@ -18,7 +18,6 @@ class OnboardindViewController: UIViewController {
         let rootItem = BulletinHelper.rootItem()
         rootItem.next = holdItem
         
-        
         return BLTNItemManager(rootItem: rootItem)
     }()
     
@@ -27,7 +26,6 @@ class OnboardindViewController: UIViewController {
         holdItem.next = detailItem
         
         detailItem.actionHandler = { item in
-//            item.manager?.dismissBulletin()
             self.dismissScreen()
         }
         

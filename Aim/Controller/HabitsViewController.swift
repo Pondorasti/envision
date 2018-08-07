@@ -8,6 +8,7 @@
 
 import UIKit
 import SpriteKit
+import TapticEngine
 
 
 class HabitsViewController: UIViewController {
@@ -26,6 +27,10 @@ class HabitsViewController: UIViewController {
     }
     
     @IBOutlet weak var createHabitButton: UIButton!
+    @IBAction func createHabitButtonPressed(_ sender: Any) {
+        TapticEngine.impact.prepare(.light)
+        TapticEngine.impact.feedback(.light)
+    }
     
     @IBAction func unwindWithSegue(_ segue: UIStoryboardSegue) {
         reloadBubbles()
@@ -33,6 +38,7 @@ class HabitsViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let createHabitVC = segue.destination as? CreateHabitViewController {
+            TapticEngine.impact.feedback(.light)
             transitionMode = .createHabit
             createHabitVC.transitioningDelegate = self
             createHabitVC.modalPresentationStyle = .custom
@@ -109,7 +115,6 @@ extension HabitsViewController: HabitsSceneDelegate {
             transitionMode = .showHabit
             
             detailedHabitVC.habit = habitNode.habit
-//            detailedHabitVC.calendarView.scrollToDate(Date())
             
             detailedHabitVC.transitioningDelegate = self
             detailedHabitVC.modalPresentationStyle = .custom

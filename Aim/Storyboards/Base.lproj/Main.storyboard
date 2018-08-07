@@ -47,6 +47,7 @@
                                     <color key="titleColor" red="0.15686274509803921" green="0.070588235294117646" blue="0.25098039215686274" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
+                                    <action selector="createHabitButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="thM-2p-SPO"/>
                                     <segue destination="j56-e9-wgP" kind="show" identifier="createHabit" id="UdQ-t9-dsx"/>
                                 </connections>
                             </button>
