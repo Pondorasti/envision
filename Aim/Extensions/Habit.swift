@@ -40,7 +40,7 @@ extension Habit {
         let calendar = Calendar.current
         
         var startDate = Date()
-        var endDate = self.creationDate
+        let endDate = self.creationDate
         var ans = 0
         
         while startDate >= endDate {

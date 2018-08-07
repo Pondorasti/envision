@@ -21,8 +21,6 @@ class DetailedHabitViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(habit?.iteration)
-        
         calendarView.calendarDelegate = self
         calendarView.calendarDataSource = self
 

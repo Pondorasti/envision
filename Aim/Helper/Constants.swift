@@ -60,9 +60,16 @@ struct Constant {
         static let createHabit: String = "createHabit"
         static let cancelHabit: String = "cancelHabit"
         static let actuallyCreateHabit: String = "actuallyCreateHabit"
+        static let finishOnboarding: String = "finishOnboarding"
     }
     
     struct SpriteKit {
         static let force: CGFloat = 400
+    }
+    
+    struct ImageName {
+        static let oneFingerHold: String = "OneFingerHold"
+        static let twoFingers: String = "TwoFingers"
+        static let roundedIcon: String = "RoundedIcon"
     }
 }

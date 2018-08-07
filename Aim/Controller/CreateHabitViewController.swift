@@ -13,20 +13,6 @@ import BLTNBoard
 class CreateHabitViewController: UIViewController {
     var isGoodHabit = true
     
-    lazy var bulletinManager: BLTNItemManager = {
-        let rootItem = BLTNPageItem(title: "Envision")
-        rootItem.image = UIImage(named: "RoundedIcon")
-        rootItem.descriptionText = "Create the foundation for your daily habits and improve your personal life"
-        rootItem.actionButtonTitle = "Continue"
-        
-        rootItem.actionHandler = { item in
-            item.manager?.displayNextItem()
-        }
-        
-        return BLTNItemManager(rootItem: rootItem)
-        
-    }()
-    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var habitNameLabel: UILabel!
     @IBOutlet weak var typeHabit: UILabel!
@@ -199,11 +185,6 @@ extension CreateHabitViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
         super.touchesBegan(touches, with: event)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        bulletinManager.showBulletin(above: self)
     }
 }
 
