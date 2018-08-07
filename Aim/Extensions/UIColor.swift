@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 extension UIColor {
-    static let AIMGreen = #colorLiteral(red: 0.4431372549, green: 0.968627451, blue: 0.6235294118, alpha: 1)
+    static let AIMGreen = #colorLiteral(red: 0.01176470588, green: 0.4745098039, blue: 0.4431372549, alpha: 1)
     static let AIMDarkBlue = #colorLiteral(red: 0.2039215686, green: 0.3490196078, blue: 0.5843137255, alpha: 1)
     static let AIMBlue = #colorLiteral(red: 0.2823529412, green: 0.6745098039, blue: 0.9411764706, alpha: 1)
     static let AIMLightBlue = #colorLiteral(red: 0, green: 0.8039215686, blue: 0.7764705882, alpha: 1)
@@ -21,7 +21,7 @@ extension UIColor {
     static let AIMBrown = #colorLiteral(red: 0.8705882353, green: 0.7960784314, blue: 0.7176470588, alpha: 1)
     static let AIMRed = #colorLiteral(red: 0.9529411765, green: 0.1411764706, blue: 0.4431372549, alpha: 1)
     
-    static let AIMFadedGreen = #colorLiteral(red: 0.4431372549, green: 0.968627451, blue: 0.6235294118, alpha: 1)
+    static let AIMFadedGreen = #colorLiteral(red: 0.01176470588, green: 0.4745098039, blue: 0.4431372549, alpha: 1)
     static let AIMFadedDarkBlue = #colorLiteral(red: 0.2039215686, green: 0.3490196078, blue: 0.5843137255, alpha: 1)
     static let AIMFadedBlue = #colorLiteral(red: 0.2823529412, green: 0.6745098039, blue: 0.9411764706, alpha: 1)
     static let AIMFadedLightBlue = #colorLiteral(red: 0, green: 0.8039215686, blue: 0.7764705882, alpha: 1)

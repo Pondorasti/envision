@@ -25,6 +25,7 @@ class CreateHabitViewController: UIViewController {
     
     @IBOutlet weak var goodTypeButton: UIButton!
     @IBOutlet weak var badTypeButton: UIButton!
+    @IBOutlet weak var habitDaysButton: UIButton!
     
     @IBOutlet weak var colorPicker: UIEntryPickerView!
     
@@ -126,8 +127,8 @@ extension CreateHabitViewController {
         habitNameView.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1))
         habitNameTextField.delegate = self
         
-        badTypeButton.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1), andTitle: "Destroy")
-        goodTypeButton.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1), andTitle: "Create")
+        badTypeButton.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1), andTitle: "Negative")
+        goodTypeButton.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1), andTitle: "Positive")
         badTypeButton.layer.zPosition = 5
         goodTypeButton.layer.zPosition = 5
         
@@ -135,6 +136,9 @@ extension CreateHabitViewController {
         goodTypeButton.setTitleColor(#colorLiteral(red: 0.2901960784, green: 0.2901960784, blue: 0.2901960784, alpha: 1), for: .normal)
         
         badTypeButton.backgroundColor = nil
+        
+        habitDaysButton.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1), andTitle: "Coming Soon")
+        habitDaysButton.setTitleColor(#colorLiteral(red: 0.2901960784, green: 0.2901960784, blue: 0.2901960784, alpha: 1), for: .normal)
         
         cancelButton.configure(with: #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1), andTitle: "Cancel")
         createButton.configure(with: #colorLiteral(red: 0.2039215686, green: 0.8039215686, blue: 0.3215686275, alpha: 1), andTitle: "Create")
@@ -158,7 +162,7 @@ extension CreateHabitViewController {
             firstButton.isUserInteractionEnabled = false
             secondButton.isUserInteractionEnabled = false
         }) { (_) in
-            let buttonName = self.isGoodHabit ? "Create" : "Destroy"
+            let buttonName = self.isGoodHabit ? "Positive" : "Negative"
             secondButton.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1), andTitle: buttonName)
             secondButton.setTitleColor(#colorLiteral(red: 0.2901960784, green: 0.2901960784, blue: 0.2901960784, alpha: 1), for: .normal)
             secondButton.isUserInteractionEnabled = true

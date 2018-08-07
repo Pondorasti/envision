@@ -50,10 +50,23 @@
                                     <segue destination="j56-e9-wgP" kind="show" identifier="createHabit" id="UdQ-t9-dsx"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IAh-ze-EAa">
+                                <rect key="frame" x="16" y="582" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="F2F-1r-PgQ"/>
+                                    <constraint firstAttribute="width" constant="50" id="q2j-eO-fo0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="40"/>
+                                <state key="normal" image="SettingButton">
+                                    <color key="titleColor" red="0.15686274510000001" green="0.070588235289999995" blue="0.25098039220000001" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="IAh-ze-EAa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="2TF-i0-MvJ"/>
                             <constraint firstAttribute="bottom" secondItem="r1B-PB-Kd0" secondAttribute="bottom" constant="35" id="3He-uE-zqu"/>
+                            <constraint firstAttribute="bottom" secondItem="IAh-ze-EAa" secondAttribute="bottom" constant="35" id="SSy-Pd-fr1"/>
                             <constraint firstItem="r1B-PB-Kd0" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="rFZ-GH-uMK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -292,10 +305,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="1zq-Fc-GdD">
-                                        <rect key="frame" x="0.0" y="189.5" width="156" height="40"/>
+                                        <rect key="frame" x="0.0" y="189.5" width="175" height="40"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5NJ-B4-ohU">
-                                                <rect key="frame" x="0.0" y="1.5" width="62" height="37"/>
+                                                <rect key="frame" x="0.0" y="1.5" width="75" height="37"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="75" id="QUy-Xc-OCq"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                                 <state key="normal" title="Positive"/>
                                                 <connections>
@@ -303,7 +319,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O31-RZ-N2b">
-                                                <rect key="frame" x="82" y="1.5" width="74" height="37"/>
+                                                <rect key="frame" x="95" y="1.5" width="80" height="37"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="80" id="cBP-hL-x3P"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                                 <state key="normal" title="Negative"/>
                                                 <connections>
@@ -322,27 +341,32 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4jn-ck-vpR">
-                                        <rect key="frame" x="0.0" y="287" width="92" height="30"/>
+                                        <rect key="frame" x="0.0" y="287" width="150" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="150" id="Hhv-Pg-5cJ"/>
+                                            <constraint firstAttribute="height" constant="40" id="laC-ng-gji"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="20"/>
                                         <state key="normal" title="Coming Soon"/>
                                         <connections>
                                             <action selector="habitDaysButtonPressed:" destination="j56-e9-wgP" eventType="touchUpInside" id="kfy-SZ-pcE"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Color of your bubble" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2uN-ZF-bVD">
-                                        <rect key="frame" x="0.0" y="332" width="189.5" height="27.5"/>
+                                        <rect key="frame" x="0.0" y="342" width="189.5" height="27.5"/>
                                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fJo-iP-v8G" customClass="UIEntryPickerView" customModule="Aim" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="374.5" width="335" height="44"/>
+                                        <rect key="frame" x="0.0" y="384.5" width="335" height="44"/>
                                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="QJB-sV-3L9"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="MvP-OO-GSj">
-                                        <rect key="frame" x="0.0" y="433.5" width="240" height="114.5"/>
+                                        <rect key="frame" x="0.0" y="443.5" width="240" height="104.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="BpO-3w-pPS">
@@ -404,6 +428,7 @@
                         <outlet property="colorPicker" destination="fJo-iP-v8G" id="fQY-fd-uBo"/>
                         <outlet property="createButton" destination="WUf-pw-rBT" id="v9V-J5-Oi3"/>
                         <outlet property="goodTypeButton" destination="5NJ-B4-ohU" id="6j7-LF-FyP"/>
+                        <outlet property="habitDaysButton" destination="4jn-ck-vpR" id="gT6-Ta-EI2"/>
                         <outlet property="habitDaysLabel" destination="zpb-Vr-kQH" id="Emh-s2-naG"/>
                         <outlet property="habitNameLabel" destination="zD6-mP-jSP" id="YNk-fr-lRL"/>
                         <outlet property="habitNameTextField" destination="wWD-H1-0O3" id="Kmh-lT-ih5"/>
@@ -421,5 +446,6 @@
     </scenes>
     <resources>
         <image name="Create Habit Button" width="68" height="68"/>
+        <image name="SettingButton" width="68" height="68"/>
     </resources>
 </document>

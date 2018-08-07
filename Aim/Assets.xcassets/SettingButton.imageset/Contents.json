@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "AIMGreen.png",
+      "filename" : "SettingButton.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "AIMGreen@2x.png",
+      "filename" : "SettingButton@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "AIMGreen@3x.png",
+      "filename" : "SettingButton@3x.png",
       "scale" : "3x"
     }
   ],
