@@ -96,7 +96,12 @@ extension DetailedHabitViewController: JTAppleCalendarViewDelegate {
     }
 
     func calendar(_ calendar: JTAppleCalendarView, shouldSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) -> Bool {
-        if habit.creationDate.format(with: Constant.Calendar.format) <= date.format(with: Constant.Calendar.format) {
+        let selectedDateStringFormat = date.format(with: Constant.Calendar.format)
+        let currentDateStringFormat = Date().format(with: Constant.Calendar.format)
+        let creationDateStringFormat = habit.creationDate.format(with: Constant.Calendar.format)
+        
+        
+        if creationDateStringFormat <= selectedDateStringFormat && selectedDateStringFormat <= currentDateStringFormat {
             return true
         }
         //TODO: show error message

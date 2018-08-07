@@ -291,34 +291,29 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="1zq-Fc-GdD">
-                                        <rect key="frame" x="0.0" y="189.5" width="180" height="40"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="1zq-Fc-GdD">
+                                        <rect key="frame" x="0.0" y="189.5" width="156" height="40"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5NJ-B4-ohU">
-                                                <rect key="frame" x="0.0" y="0.0" width="80" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="mcV-g5-yX1"/>
-                                                    <constraint firstAttribute="width" constant="80" id="n9J-7j-sgR"/>
-                                                </constraints>
+                                                <rect key="frame" x="0.0" y="1.5" width="62" height="37"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
-                                                <state key="normal" title="Create"/>
+                                                <state key="normal" title="Positive"/>
                                                 <connections>
                                                     <action selector="goodTypeButtonPressed:" destination="j56-e9-wgP" eventType="touchUpInside" id="AUz-j8-bpo"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O31-RZ-N2b">
-                                                <rect key="frame" x="100" y="0.0" width="80" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="XgX-6N-l87"/>
-                                                    <constraint firstAttribute="width" constant="80" id="aaH-WU-Ori"/>
-                                                </constraints>
+                                                <rect key="frame" x="82" y="1.5" width="74" height="37"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
-                                                <state key="normal" title="Destroy"/>
+                                                <state key="normal" title="Negative"/>
                                                 <connections>
                                                     <action selector="badTypeButtonPressed:" destination="j56-e9-wgP" eventType="touchUpInside" id="Cy0-Kg-R3I"/>
                                                 </connections>
                                             </button>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="ozr-xn-Gat"/>
+                                        </constraints>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Habit Days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zpb-Vr-kQH">
                                         <rect key="frame" x="0.0" y="244.5" width="99.5" height="27.5"/>
