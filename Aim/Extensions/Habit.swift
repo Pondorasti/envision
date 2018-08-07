@@ -44,7 +44,7 @@ extension Habit {
         var ans = 0
         
         while startDate >= endDate {
-            if let date = calendar.date(byAdding: .day, value: -1, to: startDate) {
+            if let date = calendar.date(byAdding: .day, value: -1, to: startDate), endDate <= date {
                 startDate = date
                 let stringFormat = startDate.format(with: Constant.Calendar.format)
                 if let state = completedDays[stringFormat], state == isGood {

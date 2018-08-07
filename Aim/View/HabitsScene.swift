@@ -8,6 +8,7 @@
 
 import UIKit
 import SpriteKit
+import TapticEngine
 
 class HabitsScene: SKScene {
     
@@ -106,6 +107,8 @@ class HabitsScene: SKScene {
 
 extension HabitsScene: SKHabitNodeDelegate {
     func didHabitNodeExpand(_ habitNode: SKHabitNode) {
+        
+        TapticEngine.notification.feedback(.success)
         for child in self.children {
             if let nodeToPush = child as? SKHabitNode, nodeToPush.name != habitNode.name, let mass = nodeToPush.physicsBody?.mass {
                 let offset = nodeToPush.position - habitNode.position
