@@ -81,12 +81,10 @@ class CreateHabitViewController: UIViewController {
             
             destination.habitsScene.selectedHabitNode = newHabitNode
             
-            print("creating new habit")
         case Constant.Segue.cancelHabit:
             TapticEngine.impact.feedback(.light)
-            print("cancel creation")
         default:
-            print("unknown segue identifier")
+            fatalError("unknown segue identifier")
         }
     }
     

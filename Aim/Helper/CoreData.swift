@@ -36,7 +36,7 @@ struct CoreDataHelper {
         do {
             try context.save()
         } catch let error {
-            print("Could not save \(error.localizedDescription)")
+            assertionFailure("Could not save \(error.localizedDescription)")
         }
     }
     
@@ -57,7 +57,7 @@ struct CoreDataHelper {
             
             return results
         } catch let error {
-            print("Could not fetch \(error.localizedDescription)")
+            assertionFailure("Could not fetch \(error.localizedDescription)")
             return []
         }
     }

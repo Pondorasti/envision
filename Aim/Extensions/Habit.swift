@@ -60,8 +60,8 @@ extension Habit {
         let stringFormat = Date().format(with: Constant.Calendar.format)
         if let state = completedDays[stringFormat], state == isGood {
             ans += 1
-        } else {
-            if completedDays[stringFormat] == nil, !isGood {
+        } else if !isGood {
+            if completedDays[stringFormat] == nil {
                 ans += 1
             } else {
                 ans = 0

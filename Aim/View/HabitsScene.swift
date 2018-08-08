@@ -54,7 +54,6 @@ class HabitsScene: SKScene {
     
     @objc func handleDoubleTap(_ sender: UIGestureRecognizer) {
         let location = sender.location(in: view)
-        print("double tap")
         
         if let height = view?.frame.height {
             let x = location.x
@@ -87,6 +86,8 @@ class HabitsScene: SKScene {
                 animationState = .startingToExpand
                 
                 if let status = selectedHabitNode?.habit.isDoneToday, status {
+                    selectedHabitNode?.springJoint.damping = 0
+                    selectedHabitNode?.springJoint.frequency = 0.00001
                     touchNode.position = location
                     
                     touchJoint = SKPhysicsJointLimit.joint(withBodyA: touchNode.physicsBody!, bodyB: habitNode.physicsBody!, anchorA: location, anchorB: location)
@@ -124,6 +125,8 @@ class HabitsScene: SKScene {
         animationState = .startingToShrink
         
         if let touchJoint = touchJoint {
+            selectedHabitNode?.springJoint.damping = 0.3
+            selectedHabitNode?.springJoint.frequency = 0.5
             physicsWorld.remove(touchJoint)
         }
     }

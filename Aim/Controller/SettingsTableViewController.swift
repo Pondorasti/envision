@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MessageUI
 
-class SettingsTableViewController: UITableViewController {
+class SettingsTableViewController: UITableViewController, MFMailComposeViewControllerDelegate {
     
     var loadingAnimation = UIActivityIndicatorView()
 
@@ -42,34 +43,75 @@ class SettingsTableViewController: UITableViewController {
         
         return spinner
     }
-
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func sendEmail() {
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setToRecipients(["alexandru.turcanu@icloud.com"])
+            mail.setSubject("Feedback Form")
+            mail.setMessageBody("<p>Tell us what you like, what you hate, don't be shy!</p> </p> Feedback is the most valuable thing you can give us.", isHTML: true)
+            
+            present(mail, animated: true)
+        } else {
+            // show failure alert
+        }
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
     }
 
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 3
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        
+        switch indexPath.row {
+        case 0:
+            cell.textLabel?.text = "🤔 Contact Me"
+        case 1:
+            cell.textLabel?.text = "🤭 Rate my app"
+        case 2:
+            cell.textLabel?.text = "📖 Tutorial"
+        default:
+            assertionFailure("unknown row")
+        }
+        
         return cell
     }
-    */
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            sendEmail()
+        case 1:
+            print("rating")
+        case 2:
+//            loadingAnimation = showLoader(view: view)
+//            UIApplication.shared.endIgnoringInteractionEvents()
+            
+//            dismiss(animated: true) {
+            
+                //                self.loadingAnimation.removeFromSuperview()
+                let tutorialVC = UIStoryboard.initialViewController(for: .onboarding)
+                self.view.window?.rootViewController = tutorialVC
+                self.view.window?.makeKeyAndVisible()
+            
+            
+            
+            
+            
+        default:
+            assertionFailure("unknown row")
+        }
+    }
+ 
 
     /*
     // Override to support conditional editing of the table view.

@@ -21,7 +21,7 @@ class DetailedHabitViewController: UIViewController {
     
     @IBAction func deleteButtonPressed(_ sender: Any) {
         let ac = UIAlertController(title: habit.name, message: "Are you sure you want to delete this habit?", preferredStyle: .alert)
-        let deleteAction = UIAlertAction(title: "Destroy", style: .destructive) { (_) in
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
             self.performSegue(withIdentifier: Constant.Segue.destoryHabit, sender: self)
             
             CoreDataHelper.deleteHabit(self.habit)
@@ -55,7 +55,6 @@ class DetailedHabitViewController: UIViewController {
         switch id {
         case Constant.Segue.goBack:
             mainVC.reloadBubbles()
-            print("going back")
         case Constant.Segue.destoryHabit:
             if let habitToDelete = mainVC.habitsScene.childNode(withName: habit.name) as? SKHabitNode {
                 habitToDelete.removeFromParent()
@@ -78,8 +77,8 @@ extension DetailedHabitViewController: JTAppleCalendarViewDataSource {
         
         let startDate = dateFormatter.date(from: "2018 1 1")
         let endDate = dateFormatter.date(from: "2019 1 1")
-        
-        let parameters = ConfigurationParameters(startDate: startDate!, endDate: endDate!)
+        let parameters = ConfigurationParameters(startDate: habit.creationDate, endDate: endDate!, numberOfRows: nil, calendar: nil, generateInDates: nil, generateOutDates: nil, firstDayOfWeek: DaysOfWeek.monday, hasStrictBoundaries: nil)
+//        let parameters = ConfigurationParameters(startDate: startDate!, endDate: endDate!)
         return parameters
     }
     

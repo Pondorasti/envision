@@ -27,6 +27,7 @@ class SKHabitNode: SKNode {
     var labelNode: SKLabelNode!
     
     var mainShapeNode = SKShapeNode()
+    var springJoint = SKPhysicsJointSpring()
     var temporaryShapeNode: SKShapeNode? = nil
     
     var animationStartingTime: TimeInterval?
@@ -211,7 +212,7 @@ extension SKHabitNode {
             let nodePhysicsBody = nodeToConnect?.physicsBody,
             let nodePosition = nodeToConnect?.position else { return }
         
-        let springJoint = SKPhysicsJointSpring.joint(withBodyA: myPhysicsBody, bodyB: nodePhysicsBody, anchorA: position, anchorB: nodePosition)
+        springJoint = SKPhysicsJointSpring.joint(withBodyA: myPhysicsBody, bodyB: nodePhysicsBody, anchorA: position, anchorB: nodePosition)
         springJoint.frequency = 0.5
         springJoint.damping = 0.3
         scene?.physicsWorld.add(springJoint)

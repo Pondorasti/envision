@@ -53,8 +53,7 @@ class HabitsViewController: UIViewController {
             createHabitVC.modalPresentationStyle = .custom
             
         case Constant.Segue.showSettings:
-//            TapticEngine.impact.feedback(.light)
-            print("poof")
+            TapticEngine.impact.feedback(.light)
         default:
             assertionFailure("somebody is dumb")
         }

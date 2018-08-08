@@ -8,6 +8,7 @@
 
 import UIKit
 import BLTNBoard
+import TapticEngine
 
 class OnboardindViewController: UIViewController {
     
@@ -26,6 +27,7 @@ class OnboardindViewController: UIViewController {
         holdItem.next = detailItem
         
         detailItem.actionHandler = { item in
+            TapticEngine.selection.feedback()
             self.dismissScreen()
         }
         
