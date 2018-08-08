@@ -17,7 +17,8 @@ class SettingsTableViewController: UITableViewController {
     }
     
     @objc func unwindSettings() {
-        performSegue(withIdentifier: Constant.Segue.goBackHomeFromSettings, sender: self)
+//        performSegue(withIdentifier: Constant.Segue.goBackHomeFromSettings, sender: self)
+        dismiss(animated: true)
     }
 
     override func didReceiveMemoryWarning() {

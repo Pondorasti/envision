@@ -13,14 +13,23 @@ import TapticEngine
 class HabitsScene: SKScene {
     
     var middleNode = SKShapeNode()
+    var touchNode = SKSpriteNode()
     
     var habitsDelegate: HabitsSceneDelegate?
     var selectedHabitNode: SKHabitNode?
+    var touchJoint: SKPhysicsJointLimit?
     var animationState = SKHabitNode.BeautyAnimation.none
     
     override func didMove(to view: SKView) {
         setUpMiddleNode(in: view)
         addChild(middleNode)
+        
+        touchNode = SKSpriteNode(color: UIColor.clear, size: CGSize(width: 25, height: 25))
+        touchNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 25, height: 25))
+        touchNode.physicsBody?.collisionBitMask = 11
+        
+        addChild(touchNode)
+        
         
         let viewBorder = SKPhysicsBody(edgeLoopFrom: view.bounds)
         viewBorder.collisionBitMask = 1
@@ -76,6 +85,17 @@ class HabitsScene: SKScene {
             if let habitNode = body.node as? SKHabitNode {
                 selectedHabitNode = habitNode
                 animationState = .startingToExpand
+                
+                if let status = selectedHabitNode?.habit.isDoneToday, status {
+                    touchNode.position = location
+                    
+                    touchJoint = SKPhysicsJointLimit.joint(withBodyA: touchNode.physicsBody!, bodyB: habitNode.physicsBody!, anchorA: location, anchorB: location)
+                    
+                    
+                    touchJoint?.maxLength = 0
+                    physicsWorld.add(touchJoint!)
+                }
+                
             }
         }
     }
@@ -83,6 +103,14 @@ class HabitsScene: SKScene {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
+        
+        if let status = selectedHabitNode?.habit.isDoneToday, status {
+            for touch in touches {
+                let location = touch.location(in: self)
+                touchNode.position = location
+            }
+            return
+        }
 
         if let body = physicsWorld.body(at: location) {
             if selectedHabitNode != body.node as? SKHabitNode {
@@ -94,6 +122,10 @@ class HabitsScene: SKScene {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         animationState = .startingToShrink
+        
+        if let touchJoint = touchJoint {
+            physicsWorld.remove(touchJoint)
+        }
     }
     
     public func createHabitBubble(_ habit: Habit, in skview: SKView) {

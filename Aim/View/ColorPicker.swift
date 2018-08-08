@@ -147,12 +147,7 @@ open class UIEntryPickerView: UIView {
             
             colorImageView.translatesAutoresizingMaskIntoConstraints = false
             
-            
             colorImageView.layer.cornerRadius = Constant.Layer.cornerRadius
-//            colorImageView.layer.shadowColor = anEntry.color?.cgColor
-//            colorImageView.layer.shadowOffset = CGSize(width: 0, height: 0)
-//            colorImageView.layer.shadowOpacity = 1
-//            colorImageView.layer.shadowRadius = 2
             colorImageView.layer.masksToBounds = false
             
             colorImageView.heightAnchor.constraint(equalToConstant: focusSize.height).isActive = true

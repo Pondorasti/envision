@@ -32,6 +32,7 @@ class HabitsViewController: UIViewController {
     @IBAction func createHabitButtonPressed(_ sender: Any) {
         TapticEngine.impact.prepare(.light)
         TapticEngine.impact.feedback(.light)
+        
     }
     
     @IBAction func unwindWithSegue(_ segue: UIStoryboardSegue) {
@@ -51,7 +52,8 @@ class HabitsViewController: UIViewController {
             createHabitVC.modalPresentationStyle = .custom
             
         case Constant.Segue.showSettings:
-            TapticEngine.impact.feedback(.light)
+//            TapticEngine.impact.feedback(.light)
+            print("poof")
         default:
             assertionFailure("somebody is dumb")
         }

@@ -124,12 +124,25 @@ extension DetailedHabitViewController: JTAppleCalendarViewDelegate {
         let currentDateStringFormat = Date().format(with: Constant.Calendar.format)
         let creationDateStringFormat = habit.creationDate.format(with: Constant.Calendar.format)
         
-        if creationDateStringFormat <= selectedDateStringFormat && selectedDateStringFormat <= currentDateStringFormat {
-            TapticEngine.impact.prepare(.light)
-            return true
+        if creationDateStringFormat > selectedDateStringFormat {
+            let ac = UIAlertController(title: "Error", message: "You cannot complete habits before the creation date.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Ok", style: .cancel))
+            
+            present(ac, animated: true)
+            
+            return false
         }
-        //TODO: show error message
-        return false
+        
+        if selectedDateStringFormat > currentDateStringFormat {
+            let ac = UIAlertController(title: "Error", message: "You cannot complete habits in the future.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Ok", style: .cancel))
+            
+            present(ac, animated: true)
+            
+            return false
+        }
+
+        return true
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
@@ -137,10 +150,6 @@ extension DetailedHabitViewController: JTAppleCalendarViewDelegate {
         dateFormatter.dateFormat = "MMMM yyyy"
         calendarTitleLabel.text = dateFormatter.string(from: date)
     }
-    
-    
-    
-    
 }
 
 extension DetailedHabitViewController {
