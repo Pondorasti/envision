@@ -20,11 +20,13 @@ class HabitsViewController: UIViewController {
     var skView: SKView { return view as! SKView }
     
     var habitNodeToShow: SKHabitNode?
+    var colorOfHabitNodeToShow: UIColor?
     var transitionMode = TransitionMode.createHabit
 
     enum TransitionMode {
         case createHabit, showHabit
     }
+    
     
     @IBOutlet weak var createHabitButton: UIButton!
     @IBAction func createHabitButtonPressed(_ sender: Any) {
@@ -37,12 +39,23 @@ class HabitsViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let createHabitVC = segue.destination as? CreateHabitViewController {
+        guard let id = segue.identifier else { return }
+        
+        switch id {
+        case Constant.Segue.createHabit:
+            guard let createHabitVC = segue.destination as? CreateHabitViewController else { return }
+            
             TapticEngine.impact.feedback(.light)
             transitionMode = .createHabit
             createHabitVC.transitioningDelegate = self
             createHabitVC.modalPresentationStyle = .custom
+            
+        case Constant.Segue.showSettings:
+            TapticEngine.impact.feedback(.light)
+        default:
+            assertionFailure("somebody is dumb")
         }
+
     }
 
     override func viewDidLoad() {
@@ -112,6 +125,9 @@ extension HabitsViewController: HabitsSceneDelegate {
     func didDoubleTapHabit(_ habitNode: SKHabitNode) {
         if let detailedHabitVC = storyboard?.instantiateViewController(withIdentifier: Constant.Storyboard.detailedHabit) as? DetailedHabitViewController {
             habitNodeToShow = habitNode
+            
+            colorOfHabitNodeToShow = habitNode.habit.color
+
             transitionMode = .showHabit
             
             detailedHabitVC.habit = habitNode.habit
@@ -130,7 +146,7 @@ extension HabitsViewController {
         case .createHabit:
             return #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
         case .showHabit:
-            guard let color = habitNodeToShow?.habit.color else { fatalError("somebody is dumb") }
+            guard let color = colorOfHabitNodeToShow else { fatalError("somebody is dumb") }
             return color
         }
     }

@@ -19,6 +19,21 @@ class DetailedHabitViewController: UIViewController {
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     @IBOutlet weak var calendarTitleLabel: UILabel!
     
+    @IBAction func deleteButtonPressed(_ sender: Any) {
+        let ac = UIAlertController(title: habit.name, message: "Are you sure you want to delete this habit?", preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "Destroy", style: .destructive) { (_) in
+            self.performSegue(withIdentifier: Constant.Segue.destoryHabit, sender: self)
+            
+            CoreDataHelper.deleteHabit(self.habit)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
+        }
+        
+        ac.addAction(cancelAction)
+        ac.addAction(deleteAction)
+        
+        present(ac, animated: true)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,12 +50,19 @@ class DetailedHabitViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let id = segue.identifier else { return }
+        guard let id = segue.identifier,
+            let mainVC = segue.destination as? HabitsViewController else { return }
         switch id {
         case Constant.Segue.goBack:
-            guard let mainVC = segue.destination as? HabitsViewController else { return }
             mainVC.reloadBubbles()
             print("going back")
+        case Constant.Segue.destoryHabit:
+            if let habitToDelete = mainVC.habitsScene.childNode(withName: habit.name) as? SKHabitNode {
+                habitToDelete.removeFromParent()
+                CoreDataHelper.deleteHabit(habit)
+            } else {
+                fatalError("trying to delete unknown habit")
+            }
         default:
             fatalError("unknown segue identifier")
         }

@@ -63,9 +63,9 @@ class HabitsScene: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
-//        if let status = selectedHabitNode?.habit.isDoneToday, !status {
+        if let status = selectedHabitNode?.habit.isDoneToday, !status {
             selectedHabitNode?.updateHabit(for: &animationState, in: currentTime)
-//        }
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

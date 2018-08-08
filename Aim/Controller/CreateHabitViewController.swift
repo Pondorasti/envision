@@ -96,8 +96,11 @@ class CreateHabitViewController: UIViewController {
             if habitNameTextField.text == nil || habitNameTextField.text == "" {
                 habitNameTextField.placeholder = "Required Field"
                 shakeAnimation(for: habitNameView)
+                TapticEngine.notification.feedback(.error)
                 return false
             }
+            
+            
             return true
         default:
             return true

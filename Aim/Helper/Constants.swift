@@ -61,6 +61,9 @@ struct Constant {
         static let cancelHabit: String = "cancelHabit"
         static let actuallyCreateHabit: String = "actuallyCreateHabit"
         static let finishOnboarding: String = "finishOnboarding"
+        static let showSettings: String = "showSettings"
+        static let goBackHomeFromSettings: String = "goBackHomeFromSettings"
+        static let destoryHabit: String = "destoryHabit"
     }
     
     struct SpriteKit {

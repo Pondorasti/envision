@@ -13,9 +13,9 @@ extension Habit {
     var color: UIColor {
         get {
             guard let colorFromHex = UIColor(hex: colorInHex) else { fatalError() }
-            
             return colorFromHex
         }
+        
         set(newColor) {
             guard let hex = newColor.hex else { fatalError() }
             
