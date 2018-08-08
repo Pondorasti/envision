@@ -60,7 +60,6 @@ struct Constant {
         static let createHabit: String = "createHabit"
         static let cancelHabit: String = "cancelHabit"
         static let actuallyCreateHabit: String = "actuallyCreateHabit"
-        static let finishOnboarding: String = "finishOnboarding"
         static let showSettings: String = "showSettings"
         static let goBackHomeFromSettings: String = "goBackHomeFromSettings"
         static let destoryHabit: String = "destoryHabit"
@@ -74,5 +73,9 @@ struct Constant {
         static let oneFingerHold: String = "OneFingerHold"
         static let twoFingers: String = "TwoFingers"
         static let roundedIcon: String = "RoundedIcon"
+    }
+    
+    struct UserDefaults {
+        static let notFirstInApp = "notFirstInApp"
     }
 }

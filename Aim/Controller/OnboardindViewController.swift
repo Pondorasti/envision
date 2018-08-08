@@ -42,6 +42,11 @@ class OnboardindViewController: UIViewController {
     }
     
     private func dismissScreen() {
-        performSegue(withIdentifier: Constant.Segue.finishOnboarding, sender: nil)
+        let mainVC = UIStoryboard.initialViewController(for: .main)
+        
+        dismiss(animated: true) {
+            self.view.window?.rootViewController = mainVC
+            self.view.window?.makeKeyAndVisible()
+        }
     }
 }

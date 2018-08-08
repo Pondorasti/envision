@@ -9,6 +9,8 @@
 import UIKit
 
 class SettingsTableViewController: UITableViewController {
+    
+    var loadingAnimation = UIActivityIndicatorView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,8 +20,29 @@ class SettingsTableViewController: UITableViewController {
     
     @objc func unwindSettings() {
 //        performSegue(withIdentifier: Constant.Segue.goBackHomeFromSettings, sender: self)
-        dismiss(animated: true)
+        loadingAnimation = showLoader(view: view)
+        UIApplication.shared.endIgnoringInteractionEvents()
+        
+        dismiss(animated: true) {
+            self.loadingAnimation.removeFromSuperview()
+        }
     }
+
+    func showLoader(view: UIView) -> UIActivityIndicatorView {
+        let spinner = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height:40))
+        spinner.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        spinner.layer.cornerRadius = 3.0
+        spinner.clipsToBounds = true
+        spinner.hidesWhenStopped = true
+        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.white;
+        spinner.center = view.center
+        view.addSubview(spinner)
+        spinner.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        
+        return spinner
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

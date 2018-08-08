@@ -11,6 +11,8 @@
 		276F418D792FF14703088F13 /* Pods_Aim.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC025B6D9E9D05C322C0AB15 /* Pods_Aim.framework */; };
 		42AFA65D398C4E188F699635 /* Pods_AimUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 744C3FB315EF8685BFFC065D /* Pods_AimUITests.framework */; };
 		C5238F58211AA95E00AD8949 /* Bubble Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5238F57211AA95E00AD8949 /* Bubble Launch Screen.storyboard */; };
+		C5238F5A211B5EE300AD8949 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5238F59211B5EE300AD8949 /* Onboarding.storyboard */; };
+		C5238F5C211B5F2000AD8949 /* Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5238F5B211B5F2000AD8949 /* Storyboard.swift */; };
 		C53630032105ACFD007DFC7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53630022105ACFD007DFC7A /* AppDelegate.swift */; };
 		C53630082105ACFD007DFC7A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C53630062105ACFD007DFC7A /* Main.storyboard */; };
 		C536300B2105ACFD007DFC7A /* Aim.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C53630092105ACFD007DFC7A /* Aim.xcdatamodeld */; };
@@ -69,6 +71,8 @@
 		9682D75A170B94DBD19815B9 /* Pods-AimUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AimUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AimUITests/Pods-AimUITests.release.xcconfig"; sourceTree = "<group>"; };
 		AC025B6D9E9D05C322C0AB15 /* Pods_Aim.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aim.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5238F57211AA95E00AD8949 /* Bubble Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Bubble Launch Screen.storyboard"; sourceTree = "<group>"; };
+		C5238F59211B5EE300AD8949 /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
+		C5238F5B211B5F2000AD8949 /* Storyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboard.swift; sourceTree = "<group>"; };
 		C5362FFF2105ACFD007DFC7A /* Aim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C53630022105ACFD007DFC7A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C53630072105ACFD007DFC7A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -243,6 +247,7 @@
 			children = (
 				C53630062105ACFD007DFC7A /* Main.storyboard */,
 				C5238F57211AA95E00AD8949 /* Bubble Launch Screen.storyboard */,
+				C5238F59211B5EE300AD8949 /* Onboarding.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -267,6 +272,7 @@
 				C5A35183210A385200A717D3 /* CGPoint.swift */,
 				C5A35187210A6BE800A717D3 /* Habit.swift */,
 				C5B5839921139A0F006E25B6 /* Date.swift */,
+				C5238F5B211B5F2000AD8949 /* Storyboard.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -404,6 +410,7 @@
 				C5238F58211AA95E00AD8949 /* Bubble Launch Screen.storyboard in Resources */,
 				C536300D2105ACFE007DFC7A /* Assets.xcassets in Resources */,
 				C53630082105ACFD007DFC7A /* Main.storyboard in Resources */,
+				C5238F5A211B5EE300AD8949 /* Onboarding.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,6 +521,7 @@
 				C5A35186210A663B00A717D3 /* CoreData.swift in Sources */,
 				C53630342106B74C007DFC7A /* HabitsScene.swift in Sources */,
 				C5F7B74B210A2EBA0094A09E /* UIView.swift in Sources */,
+				C5238F5C211B5F2000AD8949 /* Storyboard.swift in Sources */,
 				C5B0CBA02112D15B004C1B55 /* Habit+CoreDataClass.swift in Sources */,
 				C5F7B74321095E360094A09E /* ColorPicker.swift in Sources */,
 				C5A35184210A385200A717D3 /* CGPoint.swift in Sources */,

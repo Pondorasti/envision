@@ -29,6 +29,7 @@ class HabitsViewController: UIViewController {
     
     
     @IBOutlet weak var createHabitButton: UIButton!
+    
     @IBAction func createHabitButtonPressed(_ sender: Any) {
         TapticEngine.impact.prepare(.light)
         TapticEngine.impact.feedback(.light)
@@ -79,17 +80,6 @@ class HabitsViewController: UIViewController {
     @objc func appBecomeActive() {
         reloadBubbles()
     }
-    
-    //TODO delete this shit
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(true)
-//        reloadBubbles()
-//    }
-//    
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(true)
-//        reloadBubbles()
-//    }
     
     func reloadBubbles() {
         habits = CoreDataHelper.retrieveHabits()
