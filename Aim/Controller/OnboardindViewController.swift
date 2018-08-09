@@ -43,12 +43,9 @@ class OnboardindViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    private func dismissScreen() {
-        let mainVC = UIStoryboard.initialViewController(for: .main)
-        
+    private func dismissScreen() {        
         dismiss(animated: true) {
-            self.view.window?.rootViewController = mainVC
-            self.view.window?.makeKeyAndVisible()
+            self.dismiss(animated: true)
         }
     }
 }

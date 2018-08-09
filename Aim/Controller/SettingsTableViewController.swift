@@ -93,20 +93,9 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         case 1:
             print("rating")
         case 2:
-//            loadingAnimation = showLoader(view: view)
-//            UIApplication.shared.endIgnoringInteractionEvents()
+            let tutorialVC = UIStoryboard.initialViewController(for: .onboarding)
             
-//            dismiss(animated: true) {
-            
-                //                self.loadingAnimation.removeFromSuperview()
-                let tutorialVC = UIStoryboard.initialViewController(for: .onboarding)
-                self.view.window?.rootViewController = tutorialVC
-                self.view.window?.makeKeyAndVisible()
-            
-            
-            
-            
-            
+            present(tutorialVC, animated: true)
         default:
             assertionFailure("unknown row")
         }

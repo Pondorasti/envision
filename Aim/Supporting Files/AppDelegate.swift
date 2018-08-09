@@ -17,8 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        configureInitialRootViewController(for: window)
-        
         return true
     }
 
@@ -95,24 +93,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
-
-extension AppDelegate {
-    
-    func configureInitialRootViewController(for window: UIWindow?) {
-        let defaults = UserDefaults.standard
-        let initialViewController: UIViewController
-        
-        if defaults.object(forKey: Constant.UserDefaults.notFirstInApp) != nil {
-            initialViewController = UIStoryboard.initialViewController(for: .main)
-        } else {
-            initialViewController = UIStoryboard.initialViewController(for: .onboarding)
-            
-            defaults.set("No", forKey: Constant.UserDefaults.notFirstInApp)
-            defaults.synchronize()
-        }
-        
-        window?.rootViewController = initialViewController
-        window?.makeKeyAndVisible()
-    }
-}
 

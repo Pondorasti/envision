@@ -74,6 +74,32 @@ class HabitsViewController: UIViewController {
         skView.presentScene(habitsScene)
         
         reloadBubbles()
+        
+        
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        super.viewWillAppear(animated)
+        
+        let defaults = UserDefaults.standard
+        
+        if defaults.object(forKey: Constant.UserDefaults.notFirstInApp) == nil {
+            let tutorialVC = UIStoryboard.initialViewController(for: .onboarding)
+            present(tutorialVC, animated: true)
+            
+            defaults.set("No", forKey: Constant.UserDefaults.notFirstInApp)
+            defaults.synchronize()
+        }
     }
     
     @objc func appBecomeActive() {
