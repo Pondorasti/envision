@@ -373,39 +373,21 @@
                                             <constraint firstAttribute="height" constant="40" id="ozr-xn-Gat"/>
                                         </constraints>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Habit Days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zpb-Vr-kQH">
-                                        <rect key="frame" x="0.0" y="244.5" width="99.5" height="27.5"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="20"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4jn-ck-vpR">
-                                        <rect key="frame" x="0.0" y="287" width="150" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="150" id="Hhv-Pg-5cJ"/>
-                                            <constraint firstAttribute="height" constant="40" id="laC-ng-gji"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="20"/>
-                                        <state key="normal" title="Coming Soon"/>
-                                        <connections>
-                                            <action selector="habitDaysButtonPressed:" destination="j56-e9-wgP" eventType="touchUpInside" id="kfy-SZ-pcE"/>
-                                        </connections>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Color of your bubble" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2uN-ZF-bVD">
-                                        <rect key="frame" x="0.0" y="342" width="189.5" height="27.5"/>
+                                        <rect key="frame" x="0.0" y="244.5" width="189.5" height="27.5"/>
                                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fJo-iP-v8G" customClass="UIEntryPickerView" customModule="Aim" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="384.5" width="335" height="44"/>
+                                        <rect key="frame" x="0.0" y="287" width="335" height="44"/>
                                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="QJB-sV-3L9"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="MvP-OO-GSj">
-                                        <rect key="frame" x="0.0" y="443.5" width="240" height="104.5"/>
+                                        <rect key="frame" x="0.0" y="346" width="240" height="202"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="BpO-3w-pPS">
@@ -467,8 +449,6 @@
                         <outlet property="colorPicker" destination="fJo-iP-v8G" id="fQY-fd-uBo"/>
                         <outlet property="createButton" destination="WUf-pw-rBT" id="v9V-J5-Oi3"/>
                         <outlet property="goodTypeButton" destination="5NJ-B4-ohU" id="6j7-LF-FyP"/>
-                        <outlet property="habitDaysButton" destination="4jn-ck-vpR" id="gT6-Ta-EI2"/>
-                        <outlet property="habitDaysLabel" destination="zpb-Vr-kQH" id="Emh-s2-naG"/>
                         <outlet property="habitNameLabel" destination="zD6-mP-jSP" id="YNk-fr-lRL"/>
                         <outlet property="habitNameTextField" destination="wWD-H1-0O3" id="Kmh-lT-ih5"/>
                         <outlet property="habitNameView" destination="xgj-cy-wRG" id="Mqa-s4-Pg1"/>
