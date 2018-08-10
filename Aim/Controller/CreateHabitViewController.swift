@@ -14,6 +14,7 @@ import TapticEngine
 
 class CreateHabitViewController: UIViewController {
     var isGoodHabit = true
+    var habits = [Habit]()
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var habitNameLabel: UILabel!
@@ -99,11 +100,40 @@ class CreateHabitViewController: UIViewController {
                 return false
             }
             
+            if let habitName = habitNameTextField.text {
+                let trimmedHabitName = habitName.trimmingCharacters(in: .whitespacesAndNewlines)
+                habitNameTextField.text = trimmedHabitName
+                
+                if habitNameExist(trimmedHabitName) {
+                    habitNameTextField.text = ""
+                    habitNameTextField.placeholder = "No duplicate habit names"
+                    shakeAnimation(for: habitNameView)
+                    TapticEngine.notification.feedback(.error)
+                    return false
+                }
+                
+                if trimmedHabitName == "" {
+                    
+                    
+                    return false
+                }
+                return true
+            }
             
-            return true
+            return false
         default:
             return true
         }
+    }
+    
+    private func habitNameExist(_ habitName: String) -> Bool {
+        for habit in habits {
+            if habit.name == habitName {
+                return true
+            }
+        }
+        
+        return false
     }
 }
 

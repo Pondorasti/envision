@@ -191,6 +191,8 @@ extension HabitsScene {
         middleNode.position = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
         middleNode.physicsBody = SKPhysicsBody(circleOfRadius: 1)
         middleNode.physicsBody?.collisionBitMask = 10
+        middleNode.fillColor = Constant.Layer.backgroundColor
+        middleNode.strokeColor = Constant.Layer.backgroundColor
         
         middleNode.physicsBody?.isDynamic = false
         

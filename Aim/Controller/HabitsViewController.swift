@@ -47,6 +47,8 @@ class HabitsViewController: UIViewController {
         case Constant.Segue.createHabit:
             guard let createHabitVC = segue.destination as? CreateHabitViewController else { return }
             
+            createHabitVC.habits = habits
+            
             TapticEngine.impact.feedback(.light)
             transitionMode = .createHabit
             createHabitVC.transitioningDelegate = self
