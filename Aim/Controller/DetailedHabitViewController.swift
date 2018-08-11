@@ -51,7 +51,7 @@ class DetailedHabitViewController: UIViewController {
         calendarView.minimumInteritemSpacing = 0
         calendarView.backgroundColor = .clear
         
-        calendarView.scrollToDate(Date())
+        calendarView.scrollToDate(Date(), animateScroll: false)
 
         detailView.backgroundColor = habit.color
         view.backgroundColor = habit?.color
@@ -70,17 +70,22 @@ class DetailedHabitViewController: UIViewController {
         
         basicAnimation.fromValue = lastValue
         basicAnimation.toValue = habit.percentage
-        detailView.percentageLabel.text = String(format: "%.0f", habit.percentage * 100) + "%"
         
         currentValue = habit.percentage
-        lastValue = habit.percentage
+        
 
         basicAnimation.duration = duration
 
         basicAnimation.fillMode = kCAFillModeForwards
         basicAnimation.isRemovedOnCompletion = false
         
+        if duration == 1{
+            detailView.percentageLabel.countFrom(fromValue: Float(lastValue * 100), to: Float(habit.percentage * 100), withDuration: duration, andAnimationType: .EaseIn, andCountingType: .Int)
+        }
+        
+        lastValue = habit.percentage
         detailView.shapeLayer.add(basicAnimation, forKey: "poof")
+        detailView.percentageLabel.text = String(format: "%.0f", habit.percentage * 100) + "%"
     }
 
     

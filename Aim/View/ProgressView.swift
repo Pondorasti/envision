@@ -7,15 +7,17 @@
 //
 
 import UIKit
+import SACountingLabel
+
 
 class ProgressView: UIView {
 
     let dateFormatter = DateFormatter()
     let shapeLayer = CAShapeLayer()
     
-    let percentageLabel: UILabel = {
-        let label = UILabel()
-        label.text = "100%"
+    let percentageLabel: SACountingLabel = {
+        let label = SACountingLabel(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+        label.text = "0%"
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 30)
         label.textColor = #colorLiteral(red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
@@ -26,7 +28,7 @@ class ProgressView: UIView {
         super.awakeFromNib()
         self.backgroundColor =  .red //habit.color
         
-        percentageLabel.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
+//        percentageLabel.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
         self.addSubview(percentageLabel)
         percentageLabel.translatesAutoresizingMaskIntoConstraints = false
         percentageLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true

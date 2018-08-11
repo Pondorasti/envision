@@ -9,6 +9,7 @@ target 'Aim' do
   pod 'JTAppleCalendar', '~> 7.0'
   pod 'BulletinBoard'
   pod 'TapticEngine'
+  pod 'SACountingLabel'
 
   target 'AimTests' do
     inherit! :search_paths

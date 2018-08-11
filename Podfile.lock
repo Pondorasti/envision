@@ -1,24 +1,28 @@
 PODS:
   - BulletinBoard (2.0.1)
   - JTAppleCalendar (7.1.5)
+  - SACountingLabel (0.1.1)
   - TapticEngine (1.1.0)
 
 DEPENDENCIES:
   - BulletinBoard
   - JTAppleCalendar (~> 7.0)
+  - SACountingLabel
   - TapticEngine
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - BulletinBoard
     - JTAppleCalendar
+    - SACountingLabel
     - TapticEngine
 
 SPEC CHECKSUMS:
   BulletinBoard: 99a428f91f64d0ffabf8a8104f79ecd064e2a4db
   JTAppleCalendar: 2d4f974f9f3c8b4964d51ca1f6e004883c031fbe
+  SACountingLabel: 6b0c2a177b77e65ea63772e50f4d4285bb6d5a71
   TapticEngine: b78b5513432b3c01af2ebbe018c0995778306757
 
-PODFILE CHECKSUM: 389b46d2d2a2428b271c4ddee8c2bd7fd80ef0ac
+PODFILE CHECKSUM: f5059567d3eca017bd5d62e6b3ee1407cf55f0b1
 
 COCOAPODS: 1.5.3
