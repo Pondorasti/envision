@@ -12,12 +12,17 @@ import TapticEngine
 
 class DetailedHabitViewController: UIViewController {
     
+    var habit: Habit!
+    var timer: Timer?
     let dateFormatter = DateFormatter()
     
-    var habit: Habit!
+    @IBOutlet weak var detailView: ProgressView!
 
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     @IBOutlet weak var calendarTitleLabel: UILabel!
+    
+    var lastValue: Double = 0.0
+    var currentValue: Double = 0.0
     
     @IBAction func deleteButtonPressed(_ sender: Any) {
         let ac = UIAlertController(title: habit.name, message: "Are you sure you want to delete this habit?", preferredStyle: .alert)
@@ -37,6 +42,8 @@ class DetailedHabitViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print(habit.percentage)
+        
         calendarView.calendarDelegate = self
         calendarView.calendarDataSource = self
 
@@ -46,8 +53,36 @@ class DetailedHabitViewController: UIViewController {
         
         calendarView.scrollToDate(Date())
 
+        detailView.backgroundColor = habit.color
         view.backgroundColor = habit?.color
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        view.addSubview(detailView)
+        animateCircle()
+    }
+    
+    
+    
+    func animateCircle(with duration: Double = 1) {
+        let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        
+        basicAnimation.fromValue = lastValue
+        basicAnimation.toValue = habit.percentage
+        detailView.percentageLabel.text = String(format: "%.0f", habit.percentage * 100) + "%"
+        
+        currentValue = habit.percentage
+        lastValue = habit.percentage
+
+        basicAnimation.duration = duration
+
+        basicAnimation.fillMode = kCAFillModeForwards
+        basicAnimation.isRemovedOnCompletion = false
+        
+        detailView.shapeLayer.add(basicAnimation, forKey: "poof")
+    }
+
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let id = segue.identifier,
@@ -116,6 +151,8 @@ extension DetailedHabitViewController: JTAppleCalendarViewDelegate {
         
         handleCellColors(for: cell, inCellState: cellState)
         TapticEngine.impact.feedback(.light)
+        
+        animateCircle(with: 0.45)
     }
 
     func calendar(_ calendar: JTAppleCalendarView, shouldSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) -> Bool {

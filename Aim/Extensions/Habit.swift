@@ -123,4 +123,32 @@ extension Habit {
             }
         }
     }
+    
+    var percentage: Double {
+        let calendar = Calendar.current
+        var startDate = self.creationDate
+        let endDate = Date()
+        
+        var completions: Double = 0
+        var totalNumber: Double = 0
+        
+        while startDate <= endDate {
+            
+            let stringFormat = startDate.format(with: Constant.Calendar.format)
+            if let state = completedDays[stringFormat], state == true {
+                completions += 1
+            }
+            totalNumber += 1
+            
+            
+            if let date = calendar.date(byAdding: .day, value: 1, to: startDate) {
+                startDate = date
+            } else {
+                return completions / totalNumber
+            }
+        }
+        
+
+        return completions / totalNumber
+    }
 }

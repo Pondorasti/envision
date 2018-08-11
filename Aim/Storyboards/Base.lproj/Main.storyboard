@@ -75,7 +75,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Gbh-gG-lPZ">
-                                <rect key="frame" x="16" y="25" width="343" height="618"/>
+                                <rect key="frame" x="16" y="25" width="343" height="506"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zAh-w9-I0S">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="37"/>
@@ -166,7 +166,7 @@
                                         </subviews>
                                     </stackView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TyG-tr-XI5" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
-                                        <rect key="frame" x="0.0" y="86.5" width="343" height="531.5"/>
+                                        <rect key="frame" x="0.0" y="86.5" width="343" height="419.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uss-ut-4bd">
                                             <size key="itemSize" width="89" height="104"/>
@@ -213,10 +213,20 @@
                                     </collectionView>
                                 </subviews>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yEV-YW-CqJ" customClass="ProgressView" customModule="Aim" customModuleProvider="target">
+                                <rect key="frame" x="16" y="531" width="343" height="120"/>
+                                <color key="backgroundColor" red="1" green="0.15863744252918455" blue="0.80877116288602524" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="CsK-ZZ-YOk"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="aO9-kr-uTb" firstAttribute="bottom" secondItem="Gbh-gG-lPZ" secondAttribute="bottom" constant="24" id="ST1-QW-olq"/>
+                            <constraint firstItem="aO9-kr-uTb" firstAttribute="trailing" secondItem="yEV-YW-CqJ" secondAttribute="trailing" constant="16" id="SCk-Hn-8M8"/>
+                            <constraint firstItem="yEV-YW-CqJ" firstAttribute="leading" secondItem="aO9-kr-uTb" secondAttribute="leading" constant="16" id="Wjd-x6-FyN"/>
+                            <constraint firstItem="aO9-kr-uTb" firstAttribute="bottom" secondItem="yEV-YW-CqJ" secondAttribute="bottom" constant="16" id="YSD-tN-sPx"/>
+                            <constraint firstItem="yEV-YW-CqJ" firstAttribute="top" secondItem="Gbh-gG-lPZ" secondAttribute="bottom" id="dHS-7g-Nvc"/>
                             <constraint firstItem="Gbh-gG-lPZ" firstAttribute="leading" secondItem="aO9-kr-uTb" secondAttribute="leading" constant="16" id="l0z-8L-QnT"/>
                             <constraint firstItem="Gbh-gG-lPZ" firstAttribute="top" secondItem="aO9-kr-uTb" secondAttribute="top" constant="5" id="l5i-DR-jMc"/>
                             <constraint firstAttribute="trailing" secondItem="Gbh-gG-lPZ" secondAttribute="trailing" constant="16" id="nUk-dE-snJ"/>
@@ -226,13 +236,14 @@
                     <connections>
                         <outlet property="calendarTitleLabel" destination="RaU-RN-jRs" id="6vX-fa-swz"/>
                         <outlet property="calendarView" destination="TyG-tr-XI5" id="JPc-QQ-5va"/>
+                        <outlet property="detailView" destination="yEV-YW-CqJ" id="6nh-hb-2hU"/>
                         <segue destination="IWB-wj-z4p" kind="unwind" identifier="destoryHabit" unwindAction="unwindWithSegue:" id="Kbk-sW-kT6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ub3-GV-hRQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="IWB-wj-z4p" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1226" y="8"/>
+            <point key="canvasLocation" x="1224.8" y="7.6461769115442282"/>
         </scene>
         <!--Settings-->
         <scene sceneID="Et6-zb-fTa">
@@ -461,6 +472,31 @@
                 <exit id="7n8-aT-ihD" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="380" y="797"/>
+        </scene>
+        <!--UchennaVC-->
+        <scene sceneID="YZ0-ra-iwR">
+            <objects>
+                <viewController id="RtX-vY-DPU" customClass="UchennaVC" customModule="Aim" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CcI-yy-zxC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="id3-UR-5fD" customClass="ProgressView" customModule="Aim" customModuleProvider="target">
+                                <rect key="frame" x="32" y="45" width="315" height="438"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="hkD-GJ-QKF"/>
+                    </view>
+                    <connections>
+                        <outlet property="badView" destination="id3-UR-5fD" id="nVA-SM-ikg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pgi-kt-pId" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1880.8" y="843.32833583208401"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JPK-H5-YcD">
