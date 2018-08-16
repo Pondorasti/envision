@@ -57,35 +57,19 @@ class DetailedHabitViewController: UIViewController {
         view.backgroundColor = habit?.color
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        detailView.setUp()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        view.addSubview(detailView)
         animateCircle()
     }
     
-    
-    
-    func animateCircle(with duration: Double = 1) {
-        let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
-        
-        basicAnimation.fromValue = lastValue
-        basicAnimation.toValue = habit.percentage
-        
-        currentValue = habit.percentage
-        
-
-        basicAnimation.duration = duration
-
-        basicAnimation.fillMode = kCAFillModeForwards
-        basicAnimation.isRemovedOnCompletion = false
-        
-        if duration == 1{
-            detailView.percentageLabel.countFrom(fromValue: Float(lastValue * 100), to: Float(habit.percentage * 100), withDuration: duration, andAnimationType: .EaseIn, andCountingType: .Int)
-        }
-        
-        lastValue = habit.percentage
-        detailView.shapeLayer.add(basicAnimation, forKey: "poof")
-        detailView.percentageLabel.text = String(format: "%.0f", habit.percentage * 100) + "%"
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
     }
 
     
@@ -222,5 +206,26 @@ extension DetailedHabitViewController {
                 cell.completedDayView.isHidden = true
             }
         }
+    }
+    
+    
+    private func animateCircle(with duration: Double = 1) {
+        let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        
+        basicAnimation.fromValue = lastValue
+        basicAnimation.toValue = habit.percentage
+        
+        currentValue = habit.percentage
+        
+        
+        basicAnimation.duration = duration
+        
+        basicAnimation.fillMode = kCAFillModeForwards
+        basicAnimation.isRemovedOnCompletion = false
+        
+        detailView.percentageLabel.countFrom(fromValue: Float(lastValue * 100), to: Float(habit.percentage * 100), withDuration: duration, andAnimationType: .EaseIn, andCountingType: .Int)
+        
+        lastValue = habit.percentage
+        detailView.shapeLayer.add(basicAnimation, forKey: "poof")
     }
 }
