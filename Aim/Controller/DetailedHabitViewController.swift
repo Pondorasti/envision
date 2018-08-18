@@ -9,20 +9,21 @@
 import UIKit
 import JTAppleCalendar
 import TapticEngine
+import SACountingLabel
 
 class DetailedHabitViewController: UIViewController {
     
-    var habit: Habit!
-    var timer: Timer?
     let dateFormatter = DateFormatter()
     
-    @IBOutlet weak var detailView: ProgressView!
+    var habit: Habit!
+    var lastValue: Double = 0.0
+    var progressLayer = CAShapeLayer()
 
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     @IBOutlet weak var calendarTitleLabel: UILabel!
     
-    var lastValue: Double = 0.0
-    var currentValue: Double = 0.0
+    @IBOutlet weak var progressBarView: UIView!
+    @IBOutlet weak var percentageLabel: SACountingLabel!
     
     @IBAction func deleteButtonPressed(_ sender: Any) {
         let ac = UIAlertController(title: habit.name, message: "Are you sure you want to delete this habit?", preferredStyle: .alert)
@@ -39,10 +40,9 @@ class DetailedHabitViewController: UIViewController {
         
         present(ac, animated: true)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print(habit.percentage)
         
         calendarView.calendarDelegate = self
         calendarView.calendarDataSource = self
@@ -53,25 +53,16 @@ class DetailedHabitViewController: UIViewController {
         
         calendarView.scrollToDate(Date(), animateScroll: false)
 
-        detailView.backgroundColor = habit.color
-        view.backgroundColor = habit?.color
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        progressBarView.backgroundColor = UIColor.clear
+        setUpProgressView()
         
-        detailView.setUp()
+        view.backgroundColor = habit?.color
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         animateCircle()
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-    }
-
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let id = segue.identifier,
@@ -93,25 +84,26 @@ class DetailedHabitViewController: UIViewController {
 }
 
 extension DetailedHabitViewController: JTAppleCalendarViewDataSource {
+    
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
         
         dateFormatter.dateFormat = "yyyy MM dd"
         dateFormatter.timeZone = Calendar.current.timeZone
         dateFormatter.locale = Calendar.current.locale
         
-        let startDate = dateFormatter.date(from: "2018 1 1")
+        //TODO: creation date as start date
+//        let startDate = dateFormatter.date(from: "2018 1 1")
         let endDate = dateFormatter.date(from: "2019 1 1")
+        
         let parameters = ConfigurationParameters(startDate: habit.creationDate, endDate: endDate!, numberOfRows: nil, calendar: nil, generateInDates: nil, generateOutDates: nil, firstDayOfWeek: DaysOfWeek.monday, hasStrictBoundaries: nil)
-//        let parameters = ConfigurationParameters(startDate: startDate!, endDate: endDate!)
+        
         return parameters
     }
-    
-    
 }
 
 extension DetailedHabitViewController: JTAppleCalendarViewDelegate {
+    
     func calendar(_ calendar: JTAppleCalendarView, willDisplay cell: JTAppleCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
-        
     }
     
     func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {
@@ -215,17 +207,40 @@ extension DetailedHabitViewController {
         basicAnimation.fromValue = lastValue
         basicAnimation.toValue = habit.percentage
         
-        currentValue = habit.percentage
-        
-        
         basicAnimation.duration = duration
         
         basicAnimation.fillMode = kCAFillModeForwards
         basicAnimation.isRemovedOnCompletion = false
         
-        detailView.percentageLabel.countFrom(fromValue: Float(lastValue * 100), to: Float(habit.percentage * 100), withDuration: duration, andAnimationType: .EaseIn, andCountingType: .Int)
+        percentageLabel.countFrom(fromValue: Float(lastValue * 100), to: Float(habit.percentage * 100), withDuration: duration, andAnimationType: .EaseIn, andCountingType: .Int)
         
         lastValue = habit.percentage
-        detailView.shapeLayer.add(basicAnimation, forKey: "poof")
+        progressLayer.add(basicAnimation, forKey: "poof")
+    }
+    
+    private func setUpProgressView() {
+        let trackLayer = CAShapeLayer()
+
+        let lineWidth:CGFloat = 10
+        let rectFofOval = CGRect(x: lineWidth / 2, y: lineWidth / 2, width: 100 - lineWidth, height: 100 - lineWidth)
+        let circlePath = UIBezierPath(ovalIn: rectFofOval)
+        
+        trackLayer.path = circlePath.cgPath
+        trackLayer.strokeColor = Constant.Calendar.outsideMonthDateColor.cgColor
+        trackLayer.lineWidth = lineWidth
+        trackLayer.fillColor = UIColor.clear.cgColor
+        trackLayer.lineCap = kCALineCapRound
+        
+        progressBarView.layer.addSublayer(trackLayer)
+        
+        progressLayer.path = circlePath.cgPath
+        
+        progressLayer.strokeColor = Constant.Calendar.insideMonthDateColor.cgColor
+        progressLayer.lineWidth = 10
+        progressLayer.fillColor = UIColor.clear.cgColor
+        progressLayer.lineCap = kCALineCapRound
+        
+        progressLayer.strokeEnd = 0
+        progressBarView.layer.addSublayer(progressLayer)
     }
 }

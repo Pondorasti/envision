@@ -74,8 +74,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Gbh-gG-lPZ">
-                                <rect key="frame" x="16" y="25" width="343" height="506"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Gbh-gG-lPZ">
+                                <rect key="frame" x="16" y="28" width="343" height="623"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zAh-w9-I0S">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="37"/>
@@ -166,7 +166,7 @@
                                         </subviews>
                                     </stackView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TyG-tr-XI5" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
-                                        <rect key="frame" x="0.0" y="86.5" width="343" height="419.5"/>
+                                        <rect key="frame" x="0.0" y="86.5" width="343" height="336.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uss-ut-4bd">
                                             <size key="itemSize" width="89" height="104"/>
@@ -211,24 +211,52 @@
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9f0-sm-ZO2">
+                                        <rect key="frame" x="71.5" y="423" width="200" height="200"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oqq-Bq-ecs">
+                                                <rect key="frame" x="0.0" y="50" width="100" height="100"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ATZ-mO-eN1" customClass="SACountingLabel" customModule="SACountingLabel">
+                                                        <rect key="frame" x="29" y="30" width="42.5" height="41"/>
+                                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="30"/>
+                                                        <color key="textColor" red="0.99215686274509807" green="0.99215686274509807" blue="0.99215686274509807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.26613334760273971" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstItem="ATZ-mO-eN1" firstAttribute="centerX" secondItem="Oqq-Bq-ecs" secondAttribute="centerX" id="ER1-FD-G4i"/>
+                                                    <constraint firstAttribute="width" constant="100" id="JmO-SL-GOT"/>
+                                                    <constraint firstItem="ATZ-mO-eN1" firstAttribute="centerY" secondItem="Oqq-Bq-ecs" secondAttribute="centerY" id="OAw-hP-XnI"/>
+                                                    <constraint firstAttribute="height" constant="100" id="fAu-O2-CTT"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oGf-z8-EnT">
+                                                <rect key="frame" x="100" y="0.0" width="100" height="200"/>
+                                                <color key="backgroundColor" red="1" green="0.2527923882" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="200" id="IAB-Wa-rZ2"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
-                            </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yEV-YW-CqJ" customClass="ProgressView" customModule="Aim" customModuleProvider="target">
-                                <rect key="frame" x="16" y="531" width="343" height="120"/>
-                                <color key="backgroundColor" red="1" green="0.15863744252918455" blue="0.80877116288602524" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="CsK-ZZ-YOk"/>
+                                    <constraint firstItem="TyG-tr-XI5" firstAttribute="leading" secondItem="Gbh-gG-lPZ" secondAttribute="leading" id="DHY-k2-8tw"/>
+                                    <constraint firstAttribute="trailing" secondItem="zAh-w9-I0S" secondAttribute="trailing" id="Y9T-Eg-N1Y"/>
+                                    <constraint firstItem="2KG-8i-3wa" firstAttribute="leading" secondItem="Gbh-gG-lPZ" secondAttribute="leading" id="rmJ-Us-aea"/>
+                                    <constraint firstAttribute="trailing" secondItem="TyG-tr-XI5" secondAttribute="trailing" id="s2h-zf-bN5"/>
+                                    <constraint firstAttribute="trailing" secondItem="2KG-8i-3wa" secondAttribute="trailing" id="t1t-sQ-LK9"/>
+                                    <constraint firstItem="zAh-w9-I0S" firstAttribute="leading" secondItem="Gbh-gG-lPZ" secondAttribute="leading" id="yB0-nN-cOp"/>
                                 </constraints>
-                            </view>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="aO9-kr-uTb" firstAttribute="trailing" secondItem="yEV-YW-CqJ" secondAttribute="trailing" constant="16" id="SCk-Hn-8M8"/>
-                            <constraint firstItem="yEV-YW-CqJ" firstAttribute="leading" secondItem="aO9-kr-uTb" secondAttribute="leading" constant="16" id="Wjd-x6-FyN"/>
-                            <constraint firstItem="aO9-kr-uTb" firstAttribute="bottom" secondItem="yEV-YW-CqJ" secondAttribute="bottom" constant="16" id="YSD-tN-sPx"/>
-                            <constraint firstItem="yEV-YW-CqJ" firstAttribute="top" secondItem="Gbh-gG-lPZ" secondAttribute="bottom" id="dHS-7g-Nvc"/>
+                            <constraint firstItem="aO9-kr-uTb" firstAttribute="bottom" secondItem="Gbh-gG-lPZ" secondAttribute="bottom" constant="16" id="A0M-Yf-T1U"/>
                             <constraint firstItem="Gbh-gG-lPZ" firstAttribute="leading" secondItem="aO9-kr-uTb" secondAttribute="leading" constant="16" id="l0z-8L-QnT"/>
-                            <constraint firstItem="Gbh-gG-lPZ" firstAttribute="top" secondItem="aO9-kr-uTb" secondAttribute="top" constant="5" id="l5i-DR-jMc"/>
+                            <constraint firstItem="Gbh-gG-lPZ" firstAttribute="top" secondItem="aO9-kr-uTb" secondAttribute="top" constant="8" id="l5i-DR-jMc"/>
                             <constraint firstAttribute="trailing" secondItem="Gbh-gG-lPZ" secondAttribute="trailing" constant="16" id="nUk-dE-snJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aO9-kr-uTb"/>
@@ -236,7 +264,8 @@
                     <connections>
                         <outlet property="calendarTitleLabel" destination="RaU-RN-jRs" id="6vX-fa-swz"/>
                         <outlet property="calendarView" destination="TyG-tr-XI5" id="JPc-QQ-5va"/>
-                        <outlet property="detailView" destination="yEV-YW-CqJ" id="6nh-hb-2hU"/>
+                        <outlet property="percentageLabel" destination="ATZ-mO-eN1" id="SUC-hA-GSw"/>
+                        <outlet property="progressBarView" destination="Oqq-Bq-ecs" id="UZE-cz-9ya"/>
                         <segue destination="IWB-wj-z4p" kind="unwind" identifier="destoryHabit" unwindAction="unwindWithSegue:" id="Kbk-sW-kT6"/>
                     </connections>
                 </viewController>
@@ -472,31 +501,6 @@
                 <exit id="7n8-aT-ihD" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="380" y="797"/>
-        </scene>
-        <!--UchennaVC-->
-        <scene sceneID="YZ0-ra-iwR">
-            <objects>
-                <viewController id="RtX-vY-DPU" customClass="UchennaVC" customModule="Aim" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="CcI-yy-zxC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="id3-UR-5fD" customClass="ProgressView" customModule="Aim" customModuleProvider="target">
-                                <rect key="frame" x="32" y="45" width="315" height="438"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="hkD-GJ-QKF"/>
-                    </view>
-                    <connections>
-                        <outlet property="badView" destination="id3-UR-5fD" id="nVA-SM-ikg"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="pgi-kt-pId" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1880.8" y="843.32833583208401"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JPK-H5-YcD">

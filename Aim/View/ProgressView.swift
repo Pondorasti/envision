@@ -32,16 +32,14 @@ class ProgressView: UIView {
         
         percentageLabel.translatesAutoresizingMaskIntoConstraints = false
         percentageLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        percentageLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        
-        
-        
-        
+        percentageLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true  
     }
     
     func setUp() {
+        print(self.bounds.width)
+        
         let trackLayer = CAShapeLayer()
-        let circularPath = UIBezierPath(arcCenter: .zero, radius: 50, startAngle: -0.5 * .pi, endAngle: 1.5 * CGFloat.pi, clockwise: true)
+        let circularPath = UIBezierPath(arcCenter: CGPoint(x: 0, y: 0), radius: 50, startAngle: 0 * .pi, endAngle: 2 * CGFloat.pi, clockwise: true)
         
         trackLayer.path = circularPath.cgPath
         trackLayer.strokeColor = Constant.Calendar.outsideMonthDateColor.cgColor
@@ -49,12 +47,12 @@ class ProgressView: UIView {
         trackLayer.fillColor = UIColor.clear.cgColor
         trackLayer.lineCap = kCALineCapRound
         
-        let rect = CGRect(x: self.bounds.width / 2, y: self.bounds.height / 2, width: 100, height: 100)
-        trackLayer.frame = rect
+//        trackLayer.anchorPoint = CGPoint(x: 10.0, y: 10.0)
+        trackLayer.position = CGPoint(x: self.layer.bounds.midX, y: self.layer.bounds.midY)
         
-        print(rect)
-        print(self.bounds)
-        print(percentageLabel.frame)
+        let rect = CGRect(x: self.bounds.width / 2, y: self.bounds.height / 2, width: 100, height: 100)
+//        trackLayer.frame = rect
+
         
         self.layer.addSublayer(trackLayer)
         
