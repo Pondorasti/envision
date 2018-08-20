@@ -52,12 +52,14 @@ extension Habit {
                 } else {
                     break
                 }
+                
             } else {
                 break
             }
         }
         
         let stringFormat = Date().format(with: Constant.Calendar.format)
+        
         if let state = completedDays[stringFormat], state == isGood {
             ans += 1
         } else if !isGood {

@@ -166,8 +166,11 @@
                                         </subviews>
                                     </stackView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TyG-tr-XI5" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
-                                        <rect key="frame" x="0.0" y="86.5" width="343" height="336.5"/>
+                                        <rect key="frame" x="0.0" y="86.5" width="343" height="300"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="300" id="cvI-Tv-l7b"/>
+                                        </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uss-ut-4bd">
                                             <size key="itemSize" width="89" height="104"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -183,7 +186,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AiR-EC-bfd">
-                                                            <rect key="frame" x="24.5" y="47" width="40" height="40"/>
+                                                            <rect key="frame" x="-20" y="147" width="40" height="40"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="pJH-ib-qv3"/>
@@ -191,7 +194,7 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwY-VC-t2h">
-                                                            <rect key="frame" x="23.5" y="56.5" width="42" height="21"/>
+                                                            <rect key="frame" x="-21" y="156.5" width="42" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -212,7 +215,7 @@
                                         </cells>
                                     </collectionView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9f0-sm-ZO2">
-                                        <rect key="frame" x="71.5" y="423" width="200" height="200"/>
+                                        <rect key="frame" x="21.5" y="386.5" width="300" height="200"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oqq-Bq-ecs">
                                                 <rect key="frame" x="0.0" y="50" width="100" height="100"/>
@@ -233,14 +236,22 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oGf-z8-EnT">
-                                                <rect key="frame" x="100" y="0.0" width="100" height="200"/>
+                                                <rect key="frame" x="200" y="0.0" width="100" height="200"/>
                                                 <color key="backgroundColor" red="1" green="0.2527923882" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="200" id="IAB-Wa-rZ2"/>
+                                                    <constraint firstAttribute="width" constant="100" id="2dO-GE-Zm4"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="300" id="1B6-V7-8aI"/>
+                                            <constraint firstAttribute="height" constant="200" id="yGU-cd-8Bg"/>
+                                        </constraints>
                                     </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J3l-6K-D0h">
+                                        <rect key="frame" x="51.5" y="586.5" width="240" height="36.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="TyG-tr-XI5" firstAttribute="leading" secondItem="Gbh-gG-lPZ" secondAttribute="leading" id="DHY-k2-8tw"/>
@@ -255,6 +266,7 @@
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="aO9-kr-uTb" firstAttribute="bottom" secondItem="Gbh-gG-lPZ" secondAttribute="bottom" constant="16" id="A0M-Yf-T1U"/>
+                            <constraint firstItem="Gbh-gG-lPZ" firstAttribute="centerX" secondItem="8Ek-R2-1QU" secondAttribute="centerX" id="GLG-ya-Dqa"/>
                             <constraint firstItem="Gbh-gG-lPZ" firstAttribute="leading" secondItem="aO9-kr-uTb" secondAttribute="leading" constant="16" id="l0z-8L-QnT"/>
                             <constraint firstItem="Gbh-gG-lPZ" firstAttribute="top" secondItem="aO9-kr-uTb" secondAttribute="top" constant="8" id="l5i-DR-jMc"/>
                             <constraint firstAttribute="trailing" secondItem="Gbh-gG-lPZ" secondAttribute="trailing" constant="16" id="nUk-dE-snJ"/>
@@ -266,6 +278,8 @@
                         <outlet property="calendarView" destination="TyG-tr-XI5" id="JPc-QQ-5va"/>
                         <outlet property="percentageLabel" destination="ATZ-mO-eN1" id="SUC-hA-GSw"/>
                         <outlet property="progressBarView" destination="Oqq-Bq-ecs" id="UZE-cz-9ya"/>
+                        <outlet property="progressBarViewHeightAnchor" destination="fAu-O2-CTT" id="cnR-1U-ERI"/>
+                        <outlet property="progressBarViewWidthAnchor" destination="JmO-SL-GOT" id="LPf-72-TCB"/>
                         <segue destination="IWB-wj-z4p" kind="unwind" identifier="destoryHabit" unwindAction="unwindWithSegue:" id="Kbk-sW-kT6"/>
                     </connections>
                 </viewController>

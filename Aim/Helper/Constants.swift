@@ -47,6 +47,11 @@ struct Constant {
         static let format: String = "yyyy MM dd"
     }
     
+    struct StatisticsView {
+        static let percentageLineWidth: CGFloat = 10
+        static let percentageDiameter: CGFloat = 100
+    }
+    
     struct Storyboard {
         static let detailedHabit: String = "detailedHabit"
     }

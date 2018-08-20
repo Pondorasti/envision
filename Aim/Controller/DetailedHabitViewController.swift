@@ -17,8 +17,13 @@ class DetailedHabitViewController: UIViewController {
     
     var habit: Habit!
     var lastValue: Double = 0.0
+    
     var progressLayer = CAShapeLayer()
-
+    var trackLayer = CAShapeLayer()
+    
+    @IBOutlet weak var progressBarViewWidthAnchor: NSLayoutConstraint!
+    @IBOutlet weak var progressBarViewHeightAnchor: NSLayoutConstraint!
+    
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     @IBOutlet weak var calendarTitleLabel: UILabel!
     
@@ -26,14 +31,16 @@ class DetailedHabitViewController: UIViewController {
     @IBOutlet weak var percentageLabel: SACountingLabel!
     
     @IBAction func deleteButtonPressed(_ sender: Any) {
-        let ac = UIAlertController(title: habit.name, message: "Are you sure you want to delete this habit?", preferredStyle: .alert)
+        let ac = UIAlertController(title: habit.name,
+                                   message: "Are you sure you want to delete this habit?",
+                                   preferredStyle: .alert)
+        
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
             self.performSegue(withIdentifier: Constant.Segue.destoryHabit, sender: self)
-            
             CoreDataHelper.deleteHabit(self.habit)
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
-        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
         ac.addAction(cancelAction)
         ac.addAction(deleteAction)
@@ -86,11 +93,11 @@ class DetailedHabitViewController: UIViewController {
 extension DetailedHabitViewController: JTAppleCalendarViewDataSource {
     
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
-        
         dateFormatter.dateFormat = "yyyy MM dd"
         dateFormatter.timeZone = Calendar.current.timeZone
         dateFormatter.locale = Calendar.current.locale
         
+        //TODO: create DateFormatter extension
         //TODO: creation date as start date
 //        let startDate = dateFormatter.date(from: "2018 1 1")
         let endDate = dateFormatter.date(from: "2019 1 1")
@@ -142,20 +149,22 @@ extension DetailedHabitViewController: JTAppleCalendarViewDelegate {
         let creationDateStringFormat = habit.creationDate.format(with: Constant.Calendar.format)
         
         if creationDateStringFormat > selectedDateStringFormat {
-            let ac = UIAlertController(title: "Error", message: "You cannot complete habits before the creation date.", preferredStyle: .alert)
+            let ac = UIAlertController(title: "Error",
+                                       message: "You cannot complete habits before the creation date.",
+                                       preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "Ok", style: .cancel))
             
             present(ac, animated: true)
-            
             return false
         }
         
         if selectedDateStringFormat > currentDateStringFormat {
-            let ac = UIAlertController(title: "Error", message: "You cannot complete habits in the future.", preferredStyle: .alert)
+            let ac = UIAlertController(title: "Error",
+                                       message: "You cannot complete habits in the future.",
+                                       preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "Ok", style: .cancel))
             
             present(ac, animated: true)
-            
             return false
         }
 
@@ -182,7 +191,6 @@ extension DetailedHabitViewController {
                 cell.completedDayView.backgroundColor = Constant.Calendar.insideMonthSelectedViewColor
             } else {
                 cell.dateLabel.textColor = Constant.Calendar.insideMonthDateColor
-                
                 cell.completedDayView.isHidden = true
             }
         } else {
@@ -194,7 +202,6 @@ extension DetailedHabitViewController {
                 cell.completedDayView.backgroundColor = Constant.Calendar.outsideMonthSelectedViewColor
             } else {
                 cell.dateLabel.textColor = Constant.Calendar.outsideMonthDateColor
-                
                 cell.completedDayView.isHidden = true
             }
         }
@@ -202,32 +209,36 @@ extension DetailedHabitViewController {
     
     
     private func animateCircle(with duration: Double = 1) {
-        let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        let percentageAnimation = CABasicAnimation(keyPath: "strokeEnd")
         
-        basicAnimation.fromValue = lastValue
-        basicAnimation.toValue = habit.percentage
+        percentageAnimation.fromValue = lastValue
+        percentageAnimation.toValue = habit.percentage
         
-        basicAnimation.duration = duration
+        percentageAnimation.duration = duration
         
-        basicAnimation.fillMode = kCAFillModeForwards
-        basicAnimation.isRemovedOnCompletion = false
+        percentageAnimation.fillMode = kCAFillModeForwards
+        percentageAnimation.isRemovedOnCompletion = false
         
         percentageLabel.countFrom(fromValue: Float(lastValue * 100), to: Float(habit.percentage * 100), withDuration: duration, andAnimationType: .EaseIn, andCountingType: .Int)
         
         lastValue = habit.percentage
-        progressLayer.add(basicAnimation, forKey: "poof")
+        progressLayer.add(percentageAnimation, forKey: "percentageAnimation")
     }
     
     private func setUpProgressView() {
-        let trackLayer = CAShapeLayer()
-
-        let lineWidth:CGFloat = 10
-        let rectFofOval = CGRect(x: lineWidth / 2, y: lineWidth / 2, width: 100 - lineWidth, height: 100 - lineWidth)
+        progressBarViewWidthAnchor.constant = Constant.StatisticsView.percentageDiameter
+        progressBarViewHeightAnchor.constant = Constant.StatisticsView.percentageDiameter
+        
+        let rectFofOval = CGRect(x: Constant.StatisticsView.percentageLineWidth / 2,
+                                 y: Constant.StatisticsView.percentageLineWidth / 2,
+                                 width: Constant.StatisticsView.percentageDiameter - Constant.StatisticsView.percentageLineWidth,
+                                 height: Constant.StatisticsView.percentageDiameter - Constant.StatisticsView.percentageLineWidth)
+        
         let circlePath = UIBezierPath(ovalIn: rectFofOval)
         
         trackLayer.path = circlePath.cgPath
         trackLayer.strokeColor = Constant.Calendar.outsideMonthDateColor.cgColor
-        trackLayer.lineWidth = lineWidth
+        trackLayer.lineWidth = Constant.StatisticsView.percentageLineWidth
         trackLayer.fillColor = UIColor.clear.cgColor
         trackLayer.lineCap = kCALineCapRound
         
@@ -241,6 +252,10 @@ extension DetailedHabitViewController {
         progressLayer.lineCap = kCALineCapRound
         
         progressLayer.strokeEnd = 0
+        
+        progressBarView.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2)
+        percentageLabel.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
+        
         progressBarView.layer.addSublayer(progressLayer)
     }
 }
