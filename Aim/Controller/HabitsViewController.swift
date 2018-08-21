@@ -102,7 +102,7 @@ class HabitsViewController: UIViewController {
         habits = CoreDataHelper.retrieveHabits()
         
         for habit in habits {
-            
+            habit.wasCompletedToday = habit.wasCompleted(for: Date())
             if let habitNode = habitsScene.childNode(withName: habit.name) as? SKHabitNode {
                 habitNode.updateLabel()
             } else {

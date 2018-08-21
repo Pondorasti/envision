@@ -20,6 +20,7 @@ extension Habit {
     @NSManaged public var colorInHex: String
     @NSManaged public var creationDate: Date
     @NSManaged public var isGood: Bool
+    @NSManaged public var wasCompletedToday: Bool
     @NSManaged public var name: String
     @NSManaged public var logs: NSSet?
 

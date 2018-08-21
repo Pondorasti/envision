@@ -16,6 +16,7 @@ class DetailedHabitViewController: UIViewController {
     let dateFormatter = DateFormatter()
     
     var habit: Habit!
+    var completedDays = [String: Bool]()
     var lastValue: Double = 0.0
     
     var progressLayer = CAShapeLayer()
@@ -63,7 +64,9 @@ class DetailedHabitViewController: UIViewController {
         progressBarView.backgroundColor = UIColor.clear
         setUpProgressView()
         
-        view.backgroundColor = habit?.color
+        view.backgroundColor = habit.color
+        
+        completedDays = habit.retrieveCompletedDays()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -129,12 +132,12 @@ extension DetailedHabitViewController: JTAppleCalendarViewDelegate {
         
         let dateStringFormat = cellState.date.format(with: Constant.Calendar.format)
 
-        if let state = habit?.completedDays[dateStringFormat], state {
-            habit?.removeLog(for: dateStringFormat)
+        if let state = completedDays[dateStringFormat], state {
+            habit.removeLog(for: dateStringFormat)
+            completedDays[dateStringFormat] = false
         } else {
-            let newLog = CoreDataHelper.newLog()
-            newLog.day = cellState.date
-            CoreDataHelper.linkLog(newLog, to: habit)
+            habit.createLog(for: cellState.date)
+            completedDays[dateStringFormat] = true
         }
         
         handleCellColors(for: cell, inCellState: cellState)
@@ -184,8 +187,8 @@ extension DetailedHabitViewController {
         cell.dateLabel.alpha = 1
         
         if cellState.dateBelongsTo == .thisMonth {
-            if let state = habit?.completedDays[dateStringFormat], state {
-                cell.dateLabel.textColor = habit?.color
+            if let state = completedDays[dateStringFormat], state {
+                cell.dateLabel.textColor = habit.color
                 
                 cell.completedDayView.isHidden = false
                 cell.completedDayView.backgroundColor = Constant.Calendar.insideMonthSelectedViewColor
@@ -194,8 +197,8 @@ extension DetailedHabitViewController {
                 cell.completedDayView.isHidden = true
             }
         } else {
-            if let state = habit?.completedDays[dateStringFormat], state {
-                cell.dateLabel.textColor = habit?.color
+            if let state = completedDays[dateStringFormat], state {
+                cell.dateLabel.textColor = habit.color
                 cell.dateLabel.alpha = 0.5
                 
                 cell.completedDayView.isHidden = false

@@ -13,23 +13,17 @@ import TapticEngine
 class HabitsScene: SKScene {
     
     var middleNode = SKShapeNode()
-    var touchNode = SKSpriteNode()
     
     var habitsDelegate: HabitsSceneDelegate?
     var selectedHabitNode: SKHabitNode?
     var touchJoint: SKPhysicsJointLimit?
     var animationState = SKHabitNode.BeautyAnimation.none
+    var lastTouchLocation: CGPoint?
+    var touchOffset: CGPoint?
     
     override func didMove(to view: SKView) {
         setUpMiddleNode(in: view)
         addChild(middleNode)
-        
-        touchNode = SKSpriteNode(color: UIColor.clear, size: CGSize(width: 25, height: 25))
-        touchNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 25, height: 25))
-        touchNode.physicsBody?.collisionBitMask = 11
-        
-        addChild(touchNode)
-        
         
         let viewBorder = SKPhysicsBody(edgeLoopFrom: view.bounds)
         viewBorder.collisionBitMask = 1
@@ -39,7 +33,7 @@ class HabitsScene: SKScene {
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
         
-//        showDebugger()
+        showDebugger()
         
         let doubleTapGesture = UITapGestureRecognizer()
         
@@ -54,6 +48,7 @@ class HabitsScene: SKScene {
     
     @objc func handleDoubleTap(_ sender: UIGestureRecognizer) {
         let location = sender.location(in: view)
+        deselectHabitNode()
         
         if let height = view?.frame.height {
             let x = location.x
@@ -71,30 +66,36 @@ class HabitsScene: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        if let status = selectedHabitNode?.habit.isDoneToday, !status {
-            selectedHabitNode?.updateHabit(for: &animationState, in: currentTime)
+        
+        if let selectedHabitNode = selectedHabitNode {
+            if !selectedHabitNode.habit.wasCompletedToday {
+                selectedHabitNode.updateHabit(for: &animationState, in: currentTime)
+            } else if let touchOffset = touchOffset, let touchLocation = lastTouchLocation {
+                selectedHabitNode.position = touchLocation + touchOffset
+            }
+
+        }
+        
+        if animationState == .startingToShrink || animationState == .none {
+            deselectHabitNode()
         }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first, touches.count == 1 else { return }
-        let location = touch.location(in: self)
+        let touchLocation = touch.location(in: self)
+        lastTouchLocation = touchLocation
         
-        if let body = physicsWorld.body(at: location) {
+        if let body = physicsWorld.body(at: touchLocation) {
             if let habitNode = body.node as? SKHabitNode {
                 selectedHabitNode = habitNode
                 animationState = .startingToExpand
                 
-                if let status = selectedHabitNode?.habit.isDoneToday, status {
+                if let status = selectedHabitNode?.habit.wasCompletedToday, status {
                     selectedHabitNode?.springJoint.damping = 0
                     selectedHabitNode?.springJoint.frequency = 0.00001
-                    touchNode.position = location
-                    
-                    touchJoint = SKPhysicsJointLimit.joint(withBodyA: touchNode.physicsBody!, bodyB: habitNode.physicsBody!, anchorA: location, anchorB: location)
-                    
-                    
-                    touchJoint?.maxLength = 0
-                    physicsWorld.add(touchJoint!)
+            
+                    touchOffset = selectedHabitNode!.position - touchLocation
                 }
                 
             }
@@ -103,17 +104,17 @@ class HabitsScene: SKScene {
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
-        let location = touch.location(in: self)
         
-        if let status = selectedHabitNode?.habit.isDoneToday, status {
+        if let status = selectedHabitNode?.habit.wasCompletedToday, status {
             for touch in touches {
-                let location = touch.location(in: self)
-                touchNode.position = location
+                let touchLocation = touch.location(in: self)
+                lastTouchLocation = touchLocation
             }
             return
         }
-
-        if let body = physicsWorld.body(at: location) {
+        
+        let touchLocation = touch.location(in: self)
+        if let body = physicsWorld.body(at: touchLocation) {
             if selectedHabitNode != body.node as? SKHabitNode {
                 animationState = .startingToShrink
             }
@@ -124,11 +125,8 @@ class HabitsScene: SKScene {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         animationState = .startingToShrink
         
-        if let touchJoint = touchJoint {
-            selectedHabitNode?.springJoint.damping = 0.3
-            selectedHabitNode?.springJoint.frequency = 0.5
-            physicsWorld.remove(touchJoint)
-        }
+        selectedHabitNode?.springJoint.damping = 0.3
+        selectedHabitNode?.springJoint.frequency = 0.5
     }
     
     public func createHabitBubble(_ habit: Habit, in skview: SKView) {
@@ -157,32 +155,42 @@ extension HabitsScene: SKHabitNodeDelegate {
 
 
 extension HabitsScene: SKPhysicsContactDelegate {
-//    func didBegin(_ contact: SKPhysicsContact) {
-//        var firstBody: SKPhysicsBody
-//        var secondBody: SKPhysicsBody
-//
-//        if contact.bodyA.node?.name == selectedHabitNode?.name {
-//            firstBody = contact.bodyA
-//            secondBody = contact.bodyB
-//
-//            if let bodyAPosition = firstBody.node?.position, let bodyBPosition = secondBody.node?.position {
-//                let offset = bodyBPosition - bodyAPosition
-//                let direction = offset.normalized()
-//
-//                secondBody.applyImpulse(CGVector(dx: direction.x * 50, dy: direction.y * 50))
-//            }
-//        } else if contact.bodyB.node?.name == selectedHabitNode?.name {
-//            firstBody = contact.bodyB
-//            secondBody = contact.bodyA
-//
-//            if let bodyAPosition = firstBody.node?.position, let bodyBPosition = secondBody.node?.position {
-//                let offset = bodyBPosition - bodyAPosition
-//                let direction = offset.normalized()
-//
-//                secondBody.applyImpulse(CGVector(dx: direction.x * 50, dy: direction.y * 50))
-//            }
-//        }
-//    }
+    
+    //TODO: Fix this junk
+    func didBegin(_ contact: SKPhysicsContact) {
+        
+        if let wasCompleted = selectedHabitNode?.habit.wasCompletedToday, !wasCompleted {
+            return
+        }
+        
+        
+        var firstBody: SKPhysicsBody
+        var secondBody: SKPhysicsBody
+
+        if contact.bodyA.node?.name == selectedHabitNode?.name {
+            firstBody = contact.bodyA
+            secondBody = contact.bodyB
+
+            if let bodyAPosition = firstBody.node?.position, let bodyBPosition = secondBody.node?.position {
+                let offset = bodyBPosition - bodyAPosition
+                let direction = offset.normalized()
+
+                secondBody.applyImpulse(CGVector(dx: direction.x * Constant.SpriteKit.force * secondBody.mass / 3, dy: direction.y * Constant.SpriteKit.force * secondBody.mass / 3))
+            }
+        } else if contact.bodyB.node?.name == selectedHabitNode?.name {
+            firstBody = contact.bodyB
+            secondBody = contact.bodyA
+            
+            print("poof")
+
+            if let bodyAPosition = firstBody.node?.position, let bodyBPosition = secondBody.node?.position {
+                let offset = bodyBPosition - bodyAPosition
+                let direction = offset.normalized()
+                
+                secondBody.applyImpulse(CGVector(dx: direction.x * Constant.SpriteKit.force * secondBody.mass / 3, dy: direction.y * Constant.SpriteKit.force * secondBody.mass / 3))
+            }
+        }
+    }
 }
 
 extension HabitsScene {
@@ -204,10 +212,15 @@ extension HabitsScene {
         self.view?.showsNodeCount = true
         self.view?.showsFPS = true
     }
+    
+    private func deselectHabitNode() {
+        selectedHabitNode?.springJoint.damping = 0.3
+        selectedHabitNode?.springJoint.frequency = 0.5
+        selectedHabitNode = nil
+    }
 }
 
 protocol HabitsSceneDelegate: class {
     func didDoubleTapHabit(_ habitNode: SKHabitNode)
 }
-
 

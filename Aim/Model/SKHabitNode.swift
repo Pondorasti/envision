@@ -24,6 +24,7 @@ import CoreGraphics
  */
 
 class SKHabitNode: SKNode {
+    
     var labelNode: SKLabelNode!
     
     var mainShapeNode = SKShapeNode()
@@ -95,6 +96,7 @@ class SKHabitNode: SKNode {
                         createSpringJoint()
                     }
                     
+                    habit.wasCompletedToday = true
                     temporaryShapeNode?.removeFromParent()
                     delegate?.didHabitNodeExpand(self)
                     updateLabel()
@@ -166,7 +168,7 @@ extension SKHabitNode {
         labelNode.name = "Label"
         labelNode.text = (habit.isGood ? "" : "🚫") + habit.name + "\nStreak: \(habit.streak)"
         labelNode.position = self.position
-        labelNode.fontColor = habit.isDoneToday ? Constant.Layer.habitTextColor : Constant.Layer.backgroundColor
+        labelNode.fontColor = habit.wasCompletedToday ? Constant.Layer.habitTextColor : Constant.Layer.backgroundColor
         labelNode.fontSize = 12
         labelNode.numberOfLines = 2
         labelNode.verticalAlignmentMode = .center
@@ -199,7 +201,7 @@ extension SKHabitNode {
     
     public func updateLabel() {
         labelNode.text = (habit.isGood ? "" : "🚫") + habit.name + "\nStreak: \(habit.streak)"
-        labelNode.fontColor = habit.isDoneToday ? Constant.Layer.habitTextColor : Constant.Layer.backgroundColor
+        labelNode.fontColor = habit.wasCompletedToday ? Constant.Layer.habitTextColor : Constant.Layer.backgroundColor
     }
     
     public func connectSpringJoint(to node: SKShapeNode) {

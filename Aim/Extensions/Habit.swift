@@ -23,7 +23,7 @@ extension Habit {
         }
     }
     
-    var completedDays: [String: Bool] {
+    func retrieveCompletedDays() -> [String: Bool] {
         var ans = [String: Bool]()
         if let logs = self.logs?.allObjects as? [Log] {
             for log in logs {
@@ -36,9 +36,10 @@ extension Habit {
     
     var streak: Int {
         let calendar = Calendar.current
+        let endDate = self.creationDate
+        let completedDays = self.retrieveCompletedDays()
         
         var startDate = Date()
-        let endDate = self.creationDate
         var ans = 0
         
         while startDate >= endDate {
@@ -76,9 +77,10 @@ extension Habit {
     
     var iteration: Int {
         let calendar = Calendar.current
-        var startDate = self.creationDate
         let endDate = Date()
+        let completedDays = self.retrieveCompletedDays()
 
+        var startDate = self.creationDate
         var ans = 0
         
         while startDate <= endDate {
@@ -105,8 +107,10 @@ extension Habit {
         return ans
     }
     
-    var isDoneToday: Bool {
-        let stringFormat = Date().format(with: Constant.Calendar.format)
+    func wasCompleted(for date: Date) -> Bool {
+        let stringFormat = date.format(with: Constant.Calendar.format)
+        let completedDays = self.retrieveCompletedDays()
+        
         if let state = completedDays[stringFormat], state == true {
             return true
         } else {
@@ -126,11 +130,18 @@ extension Habit {
         }
     }
     
+    func createLog(for dateToAdd: Date) {
+        let newLog = CoreDataHelper.newLog()
+        newLog.day = dateToAdd
+        CoreDataHelper.linkLog(newLog, to: self)
+    }
+    
     var percentage: Double {
         let calendar = Calendar.current
-        var startDate = self.creationDate
         let endDate = Date()
+        let completedDays = self.retrieveCompletedDays()
         
+        var startDate = self.creationDate
         var completions: Double = 0
         var totalNumber: Double = 0
         

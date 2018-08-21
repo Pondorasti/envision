@@ -74,6 +74,7 @@ class CreateHabitViewController: UIViewController {
             newHabit.colorInHex = colorPicker.entries[colorPicker.selectedPage].color!.hex!
             newHabit.name = habitNameTextField.text ?? ""
             newHabit.isGood = isGoodHabit
+            newHabit.wasCompletedToday = false
             newHabit.creationDate = Date()
             
             CoreDataHelper.saveHabit()
