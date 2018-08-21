@@ -22,14 +22,27 @@ class DetailedHabitViewController: UIViewController {
     var progressLayer = CAShapeLayer()
     var trackLayer = CAShapeLayer()
     
-    @IBOutlet weak var progressBarViewWidthAnchor: NSLayoutConstraint!
-    @IBOutlet weak var progressBarViewHeightAnchor: NSLayoutConstraint!
-    
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     @IBOutlet weak var calendarTitleLabel: UILabel!
     
+    @IBOutlet weak var statisticsTitleLabel: UILabel!
+    
     @IBOutlet weak var progressBarView: UIView!
     @IBOutlet weak var percentageLabel: SACountingLabel!
+    @IBOutlet weak var percentageTitleLabel: UILabel!
+    
+    @IBOutlet weak var progressBarViewWidthAnchor: NSLayoutConstraint!
+    @IBOutlet weak var progressBarViewHeightAnchor: NSLayoutConstraint!
+    
+    @IBOutlet weak var bestStreakLabel: UILabel!
+    @IBOutlet weak var currentStreakLabel: UILabel!
+    @IBOutlet weak var streakTitleLabel: UILabel!
+    
+    @IBOutlet weak var outerStreakView: UIView!
+    @IBOutlet weak var innerStreakView: UIView!
+    
+    @IBOutlet weak var innerStreakTopAnchor: NSLayoutConstraint!
+    
     
     @IBAction func deleteButtonPressed(_ sender: Any) {
         let ac = UIAlertController(title: habit.name,
@@ -101,8 +114,7 @@ extension DetailedHabitViewController: JTAppleCalendarViewDataSource {
         dateFormatter.locale = Calendar.current.locale
         
         //TODO: create DateFormatter extension
-        //TODO: creation date as start date
-//        let startDate = dateFormatter.date(from: "2018 1 1")
+        //TODO: compute endDate
         let endDate = dateFormatter.date(from: "2019 1 1")
         
         let parameters = ConfigurationParameters(startDate: habit.creationDate, endDate: endDate!, numberOfRows: nil, calendar: nil, generateInDates: nil, generateOutDates: nil, firstDayOfWeek: DaysOfWeek.monday, hasStrictBoundaries: nil)
@@ -143,7 +155,7 @@ extension DetailedHabitViewController: JTAppleCalendarViewDelegate {
         handleCellColors(for: cell, inCellState: cellState)
         TapticEngine.impact.feedback(.light)
         
-        animateCircle(with: 0.45)
+        animateCircle(with: Constant.StatisticsView.animationDuration)
     }
 
     func calendar(_ calendar: JTAppleCalendarView, shouldSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) -> Bool {
@@ -155,6 +167,7 @@ extension DetailedHabitViewController: JTAppleCalendarViewDelegate {
             let ac = UIAlertController(title: "Error",
                                        message: "You cannot complete habits before the creation date.",
                                        preferredStyle: .alert)
+            
             ac.addAction(UIAlertAction(title: "Ok", style: .cancel))
             
             present(ac, animated: true)
@@ -165,6 +178,7 @@ extension DetailedHabitViewController: JTAppleCalendarViewDelegate {
             let ac = UIAlertController(title: "Error",
                                        message: "You cannot complete habits in the future.",
                                        preferredStyle: .alert)
+            
             ac.addAction(UIAlertAction(title: "Ok", style: .cancel))
             
             present(ac, animated: true)
@@ -211,7 +225,7 @@ extension DetailedHabitViewController {
     }
     
     
-    private func animateCircle(with duration: Double = 1) {
+    private func animateCircle(with duration: Double = Constant.StatisticsView.initialAnimationDuration) {
         let percentageAnimation = CABasicAnimation(keyPath: "strokeEnd")
         
         percentageAnimation.fromValue = lastValue
@@ -248,9 +262,8 @@ extension DetailedHabitViewController {
         progressBarView.layer.addSublayer(trackLayer)
         
         progressLayer.path = circlePath.cgPath
-        
         progressLayer.strokeColor = Constant.Calendar.insideMonthDateColor.cgColor
-        progressLayer.lineWidth = 10
+        progressLayer.lineWidth = Constant.StatisticsView.percentageLineWidth
         progressLayer.fillColor = UIColor.clear.cgColor
         progressLayer.lineCap = kCALineCapRound
         

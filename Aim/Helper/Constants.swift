@@ -50,6 +50,9 @@ struct Constant {
     struct StatisticsView {
         static let percentageLineWidth: CGFloat = 10
         static let percentageDiameter: CGFloat = 100
+        
+        static let initialAnimationDuration: Double = 1
+        static let animationDuration: Double = 0.45
     }
     
     struct Storyboard {
@@ -71,7 +74,11 @@ struct Constant {
     }
     
     struct SpriteKit {
-        static let force: CGFloat = 400
+        static let expandForce: CGFloat = 400
+        static let movementForce: CGFloat = 400
+        
+        static let magicDamping: CGFloat = 0.3
+        static let magicFrequency: CGFloat = 0.5
     }
     
     struct ImageName {

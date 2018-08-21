@@ -61,6 +61,7 @@ class SKHabitNode: SKNode {
         setUpMainNode()
         setUpLabel()
         
+//        isUserInteractionEnabled = true
         name = habit.name
         zPosition = 1
         
@@ -150,6 +151,10 @@ class SKHabitNode: SKNode {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+    }
 }
 
 extension SKHabitNode {
@@ -214,12 +219,16 @@ extension SKHabitNode {
             let nodePhysicsBody = nodeToConnect?.physicsBody,
             let nodePosition = nodeToConnect?.position else { return }
         
-        springJoint = SKPhysicsJointSpring.joint(withBodyA: myPhysicsBody, bodyB: nodePhysicsBody, anchorA: position, anchorB: nodePosition)
-        springJoint.frequency = 0.5
-        springJoint.damping = 0.3
+        springJoint = SKPhysicsJointSpring.joint(withBodyA: myPhysicsBody,
+                                                 bodyB: nodePhysicsBody,
+                                                 anchorA: position,
+                                                 anchorB: nodePosition)
+        
+        springJoint.frequency = Constant.SpriteKit.magicFrequency
+        springJoint.damping = Constant.SpriteKit.magicDamping
+        
         scene?.physicsWorld.add(springJoint)
     }
-    
 }
 
 protocol SKHabitNodeDelegate {

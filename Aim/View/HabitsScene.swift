@@ -125,8 +125,8 @@ class HabitsScene: SKScene {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         animationState = .startingToShrink
         
-        selectedHabitNode?.springJoint.damping = 0.3
-        selectedHabitNode?.springJoint.frequency = 0.5
+        selectedHabitNode?.springJoint.damping = Constant.SpriteKit.magicDamping
+        selectedHabitNode?.springJoint.frequency = Constant.SpriteKit.magicFrequency
     }
     
     public func createHabitBubble(_ habit: Habit, in skview: SKView) {
@@ -147,7 +147,7 @@ extension HabitsScene: SKHabitNodeDelegate {
                 let offset = nodeToPush.position - habitNode.position
                 let direction = offset.normalized()
                 
-                nodeToPush.physicsBody?.applyImpulse(CGVector(dx: direction.x * mass * Constant.SpriteKit.force, dy: direction.y * mass * Constant.SpriteKit.force))
+                nodeToPush.physicsBody?.applyImpulse(CGVector(dx: direction.x * mass * Constant.SpriteKit.expandForce, dy: direction.y * mass * Constant.SpriteKit.expandForce))
             }
         }
     }
@@ -175,7 +175,7 @@ extension HabitsScene: SKPhysicsContactDelegate {
                 let offset = bodyBPosition - bodyAPosition
                 let direction = offset.normalized()
 
-                secondBody.applyImpulse(CGVector(dx: direction.x * Constant.SpriteKit.force * secondBody.mass / 3, dy: direction.y * Constant.SpriteKit.force * secondBody.mass / 3))
+                secondBody.applyImpulse(CGVector(dx: direction.x * Constant.SpriteKit.expandForce * secondBody.mass, dy: direction.y * Constant.SpriteKit.expandForce * secondBody.mass))
             }
         } else if contact.bodyB.node?.name == selectedHabitNode?.name {
             firstBody = contact.bodyB
@@ -187,7 +187,7 @@ extension HabitsScene: SKPhysicsContactDelegate {
                 let offset = bodyBPosition - bodyAPosition
                 let direction = offset.normalized()
                 
-                secondBody.applyImpulse(CGVector(dx: direction.x * Constant.SpriteKit.force * secondBody.mass / 3, dy: direction.y * Constant.SpriteKit.force * secondBody.mass / 3))
+                secondBody.applyImpulse(CGVector(dx: direction.x * Constant.SpriteKit.expandForce * secondBody.mass, dy: direction.y * Constant.SpriteKit.expandForce * secondBody.mass))
             }
         }
     }
@@ -214,8 +214,8 @@ extension HabitsScene {
     }
     
     private func deselectHabitNode() {
-        selectedHabitNode?.springJoint.damping = 0.3
-        selectedHabitNode?.springJoint.frequency = 0.5
+        selectedHabitNode?.springJoint.damping = Constant.SpriteKit.magicDamping
+        selectedHabitNode?.springJoint.frequency = Constant.SpriteKit.magicFrequency
         selectedHabitNode = nil
     }
 }
