@@ -180,8 +180,6 @@ extension HabitsScene: SKPhysicsContactDelegate {
         } else if contact.bodyB.node?.name == selectedHabitNode?.name {
             firstBody = contact.bodyB
             secondBody = contact.bodyA
-            
-            print("poof")
 
             if let bodyAPosition = firstBody.node?.position, let bodyBPosition = secondBody.node?.position {
                 let offset = bodyBPosition - bodyAPosition

@@ -23,6 +23,8 @@ extension Habit {
         }
     }
     
+    var calendar: Calendar { return Calendar.current }
+    
     func retrieveCompletedDays() -> [String: Bool] {
         var ans = [String: Bool]()
         if let logs = self.logs?.allObjects as? [Log] {
@@ -35,48 +37,40 @@ extension Habit {
     }
     
     var streak: Int {
-        let calendar = Calendar.current
-        let endDate = self.creationDate
-        let completedDays = self.retrieveCompletedDays()
+        var currentDate: Date = Date()
         
-        var startDate = Date()
+        var stringCreationDate = creationDate.format(with: Constant.Calendar.format)
+        var stringNextDate: String {
+            return currentDate.format(with: Constant.Calendar.format)
+        }
+        
+        let completedDays = self.retrieveCompletedDays()
         var ans = 0
         
-        while startDate >= endDate {
-            if let date = calendar.date(byAdding: .day, value: -1, to: startDate), endDate <= date {
-                startDate = date
-                let stringFormat = startDate.format(with: Constant.Calendar.format)
-                if let state = completedDays[stringFormat], state == isGood {
-                    ans += 1
-                } else if completedDays[stringFormat] == nil, !isGood {
-                    ans += 1
-                } else {
-                    break
-                }
-                
-            } else {
-                break
+        repeat {
+            guard let nextDate = calendar.date(byAdding: .day, value: -1, to: currentDate) else {
+                return ans
             }
-        }
-        
-        let stringFormat = Date().format(with: Constant.Calendar.format)
-        
-        if let state = completedDays[stringFormat], state == isGood {
-            ans += 1
-        } else if !isGood {
-            if completedDays[stringFormat] == nil {
+            
+            let stringCurrentDate = currentDate.format(with: Constant.Calendar.format)
+            currentDate = nextDate
+            
+            if let state = completedDays[stringCurrentDate], state == isGood {
+                ans += 1
+            } else if completedDays[stringCurrentDate] == nil, !isGood {
                 ans += 1
             } else {
-                ans = 0
+                if stringCurrentDate != Date().format(with: Constant.Calendar.format) {
+                    break
+                }
             }
-        }
-        
+            
+        } while stringCreationDate <= stringNextDate
         
         return ans
     }
     
     var iteration: Int {
-        let calendar = Calendar.current
         let endDate = Date()
         let completedDays = self.retrieveCompletedDays()
 
@@ -137,7 +131,6 @@ extension Habit {
     }
     
     var percentage: Double {
-        let calendar = Calendar.current
         let endDate = Date()
         let completedDays = self.retrieveCompletedDays()
         

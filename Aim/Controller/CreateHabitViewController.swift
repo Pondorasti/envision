@@ -114,8 +114,6 @@ class CreateHabitViewController: UIViewController {
                 }
                 
                 if trimmedHabitName == "" {
-                    
-                    
                     return false
                 }
                 return true
