@@ -17,6 +17,7 @@ class DetailedHabitViewController: UIViewController {
     
     var habit: Habit!
     var completedDays = [String: Bool]()
+    
     var lastValue: Double = 0.0
     
     var progressLayer = CAShapeLayer()
@@ -227,18 +228,20 @@ extension DetailedHabitViewController {
     
     private func animateCircle(with duration: Double = Constant.StatisticsView.initialAnimationDuration) {
         let percentageAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        let percentageInfo = habit.retrieveCompletionInfo(from: completedDays)
+        let percentage = percentageInfo.numberOfCompletions / percentageInfo.numberOfHabitDays
         
         percentageAnimation.fromValue = lastValue
-        percentageAnimation.toValue = habit.percentage
+        percentageAnimation.toValue = percentage
         
         percentageAnimation.duration = duration
         
         percentageAnimation.fillMode = kCAFillModeForwards
         percentageAnimation.isRemovedOnCompletion = false
         
-        percentageLabel.countFrom(fromValue: Float(lastValue * 100), to: Float(habit.percentage * 100), withDuration: duration, andAnimationType: .EaseIn, andCountingType: .Int)
+        percentageLabel.countFrom(fromValue: Float(lastValue * 100), to: Float(percentage * 100), withDuration: duration, andAnimationType: .EaseIn, andCountingType: .Int)
         
-        lastValue = habit.percentage
+        lastValue = percentage
         progressLayer.add(percentageAnimation, forKey: "percentageAnimation")
     }
     

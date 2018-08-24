@@ -58,6 +58,19 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         }
     }
     
+    func openAppStore() {
+        if let url = URL(string: "itms-apps://itunes.apple.com/app/id1423771095"),
+            UIApplication.shared.canOpenURL(url){
+            UIApplication.shared.open(url, options: [:]) { (opened) in
+                if opened {
+                    print("App Store Opened")
+                }
+            }
+        } else {
+            print("Can't Open URL on Simulator")
+        }
+    }
+    
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true)
     }
@@ -71,12 +84,11 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        
         switch indexPath.row {
         case 0:
-            cell.textLabel?.text = "🤔 Contact Me"
+            cell.textLabel?.text = "🤔 Contact Us"
         case 1:
-            cell.textLabel?.text = "🤭 Rate my app"
+            cell.textLabel?.text = "🤭 Rate Envision"
         case 2:
             cell.textLabel?.text = "📖 Tutorial"
         default:
@@ -91,10 +103,9 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         case 0:
             sendEmail()
         case 1:
-            print("rating")
+            openAppStore()
         case 2:
             let tutorialVC = UIStoryboard.initialViewController(for: .onboarding)
-            
             present(tutorialVC, animated: true)
         default:
             assertionFailure("unknown row")

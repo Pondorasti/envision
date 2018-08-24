@@ -171,7 +171,7 @@ extension SKHabitNode {
     private func setUpLabel() {
         labelNode = SKLabelNode(fontNamed: "Avenir")
         labelNode.name = "Label"
-        labelNode.text = (habit.isGood ? "" : "🚫") + habit.name + "\nStreak: \(habit.streak)"
+        labelNode.text = (habit.isGood ? "" : "🚫") + habit.name + "\nStreak: \(habit.retrieveStreakInfo().current)"
         labelNode.position = self.position
         labelNode.fontColor = habit.wasCompletedToday ? Constant.Layer.habitTextColor : Constant.Layer.backgroundColor
         labelNode.fontSize = 12
@@ -181,7 +181,7 @@ extension SKHabitNode {
         labelNode.preferredMaxLayoutWidth = frame.width * 0.75
         labelNode.zPosition = 5
     }
-    
+
     private func setUpMainNode() {
         mainShapeNode = SKShapeNode(circleOfRadius: (minWidth + increment * CGFloat(habit.iteration)) / 2)
         
@@ -205,7 +205,7 @@ extension SKHabitNode {
     }
     
     public func updateLabel() {
-        labelNode.text = (habit.isGood ? "" : "🚫") + habit.name + "\nStreak: \(habit.streak)"
+        labelNode.text = (habit.isGood ? "" : "🚫") + habit.name + "\nStreak: \(habit.retrieveStreakInfo().current)"
         labelNode.fontColor = habit.wasCompletedToday ? Constant.Layer.habitTextColor : Constant.Layer.backgroundColor
     }
     

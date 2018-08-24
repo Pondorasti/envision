@@ -33,7 +33,6 @@ class HabitsViewController: UIViewController {
     @IBAction func createHabitButtonPressed(_ sender: Any) {
         TapticEngine.impact.prepare(.light)
         TapticEngine.impact.feedback(.light)
-        
     }
     
     @IBAction func unwindWithSegue(_ segue: UIStoryboardSegue) {
@@ -80,8 +79,6 @@ class HabitsViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        super.viewWillAppear(animated)
         
         let defaults = UserDefaults.standard
         
