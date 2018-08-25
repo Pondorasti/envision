@@ -13,6 +13,7 @@ import TapticEngine
 class HabitsScene: SKScene {
     
     var middleNode = SKShapeNode()
+    var viewBorder = SKPhysicsBody()
     
     var habitsDelegate: HabitsSceneDelegate?
     var selectedHabitNode: SKHabitNode?
@@ -25,11 +26,13 @@ class HabitsScene: SKScene {
         setUpMiddleNode(in: view)
         addChild(middleNode)
         
-        let viewBorder = SKPhysicsBody(edgeLoopFrom: view.bounds)
+        viewBorder = SKPhysicsBody(edgeLoopFrom: view.bounds)
         viewBorder.collisionBitMask = 1
         viewBorder.friction = 0
-        self.physicsBody = viewBorder
-        
+        viewBorder.usesPreciseCollisionDetection = true
+
+        name = "borderView"
+        physicsBody = viewBorder
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
         
@@ -48,7 +51,6 @@ class HabitsScene: SKScene {
     
     @objc func handleDoubleTap(_ sender: UIGestureRecognizer) {
         let location = sender.location(in: view)
-        deselectHabitNode()
         
         if let height = view?.frame.height {
             let x = location.x
@@ -70,10 +72,12 @@ class HabitsScene: SKScene {
         if let selectedHabitNode = selectedHabitNode {
             if !selectedHabitNode.habit.wasCompletedToday {
                 selectedHabitNode.updateHabit(for: &animationState, in: currentTime)
-            } else if let touchOffset = touchOffset, let touchLocation = lastTouchLocation {
+            } else if let touchOffset = touchOffset,
+                let touchLocation = lastTouchLocation,
+                let viewFrame = view?.frame,
+                viewFrame.contains(touchOffset + touchLocation) {
                 selectedHabitNode.position = touchLocation + touchOffset
             }
-
         }
         
         if animationState == .startingToShrink || animationState == .none {
@@ -132,16 +136,19 @@ class HabitsScene: SKScene {
     public func createHabitBubble(_ habit: Habit, in skview: SKView) {
         let habit = SKHabitNode(for: habit, in: skview)
         habit.delegate = self
-        habit.delegate?.didHabitNodeExpand(habit)
+        habit.delegate?.didHabitNodeExpand(habit, withFeedback: false)
         addChild(habit)
         habit.connectSpringJoint(to: middleNode)
     }
 }
 
 extension HabitsScene: SKHabitNodeDelegate {
-    func didHabitNodeExpand(_ habitNode: SKHabitNode) {
+    func didHabitNodeExpand(_ habitNode: SKHabitNode, withFeedback useFeedback: Bool) {
         
-        TapticEngine.notification.feedback(.success)
+        if useFeedback {
+            TapticEngine.notification.feedback(.success)
+        }
+        
         for child in self.children {
             if let nodeToPush = child as? SKHabitNode, nodeToPush.name != habitNode.name, let mass = nodeToPush.physicsBody?.mass {
                 let offset = nodeToPush.position - habitNode.position
@@ -163,35 +170,39 @@ extension HabitsScene: SKPhysicsContactDelegate {
             return
         }
         
-        
-        var firstBody: SKPhysicsBody
-        var secondBody: SKPhysicsBody
-
-        if contact.bodyA.node?.name == selectedHabitNode?.name {
-            firstBody = contact.bodyA
-            secondBody = contact.bodyB
-
-            if let bodyAPosition = firstBody.node?.position, let bodyBPosition = secondBody.node?.position {
-                let offset = bodyBPosition - bodyAPosition
-                let direction = offset.normalized()
-
-                secondBody.applyImpulse(CGVector(dx: direction.x * Constant.SpriteKit.expandForce * secondBody.mass, dy: direction.y * Constant.SpriteKit.expandForce * secondBody.mass))
-            }
+        if let middleNodePhysicsBody = middleNode.physicsBody,
+            contact.bodyA.node?.name == "borderView" {
+            
+            nodeTouched(middleNodePhysicsBody, withSecondBody: contact.bodyB, pushWithForce: Constant.SpriteKit.wallForce)
+            
+        } else if let middleNodePhysicsBody = middleNode.physicsBody,
+            contact.bodyB.node?.name == "borderView" {
+            
+            nodeTouched(middleNodePhysicsBody, withSecondBody: contact.bodyA, pushWithForce: Constant.SpriteKit.wallForce)
+            
+        } else if contact.bodyA.node?.name == selectedHabitNode?.name {
+            
+            nodeTouched(contact.bodyA, withSecondBody: contact.bodyB, pushWithForce: Constant.SpriteKit.expandForce)
+            
         } else if contact.bodyB.node?.name == selectedHabitNode?.name {
-            firstBody = contact.bodyB
-            secondBody = contact.bodyA
-
-            if let bodyAPosition = firstBody.node?.position, let bodyBPosition = secondBody.node?.position {
-                let offset = bodyBPosition - bodyAPosition
-                let direction = offset.normalized()
-                
-                secondBody.applyImpulse(CGVector(dx: direction.x * Constant.SpriteKit.expandForce * secondBody.mass, dy: direction.y * Constant.SpriteKit.expandForce * secondBody.mass))
-            }
+            
+            nodeTouched(contact.bodyB, withSecondBody: contact.bodyA, pushWithForce: Constant.SpriteKit.expandForce)
+            
         }
     }
 }
 
 extension HabitsScene {
+    private func nodeTouched(_ firstBody: SKPhysicsBody, withSecondBody secondBody: SKPhysicsBody, pushWithForce force: CGFloat) {
+        if let bodyAPosition = firstBody.node?.position, let bodyBPosition = secondBody.node?.position {
+            let offset = bodyBPosition - bodyAPosition
+            let direction = offset.normalized()
+            
+            secondBody.applyImpulse(CGVector(dx: direction.x * force * secondBody.mass, dy: direction.y * force * secondBody.mass))
+        }
+    }
+    
+    
     private func setUpMiddleNode(in view: SKView) {
         middleNode = SKShapeNode(circleOfRadius: 1)
         middleNode.position = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)

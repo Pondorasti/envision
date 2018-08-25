@@ -68,9 +68,10 @@ extension Habit {
             } else if dataSet[stringCurrentDate] == nil, !isGood {
                 currentAns += 1
             } else {
-                if stringCurrentDate != Date().format(with: Constant.Calendar.format) {
+                if stringCurrentDate != Date().format(with: Constant.Calendar.format) || !isGood {
                     if isFirstStreak {
                         currentStreak = currentAns
+                        isFirstStreak = false
                     }
                     
                     currentAns = 0

@@ -31,7 +31,6 @@ class HabitsViewController: UIViewController {
     @IBOutlet weak var createHabitButton: UIButton!
     
     @IBAction func createHabitButtonPressed(_ sender: Any) {
-        TapticEngine.impact.prepare(.light)
         TapticEngine.impact.feedback(.light)
     }
     

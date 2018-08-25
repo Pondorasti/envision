@@ -76,6 +76,7 @@ struct Constant {
     struct SpriteKit {
         static let expandForce: CGFloat = 400
         static let movementForce: CGFloat = 400
+        static let wallForce: CGFloat = 50
         
         static let magicDamping: CGFloat = 0.3
         static let magicFrequency: CGFloat = 0.5

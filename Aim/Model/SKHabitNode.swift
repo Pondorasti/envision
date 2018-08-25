@@ -99,7 +99,7 @@ class SKHabitNode: SKNode {
                     
                     habit.wasCompletedToday = true
                     temporaryShapeNode?.removeFromParent()
-                    delegate?.didHabitNodeExpand(self)
+                    delegate?.didHabitNodeExpand(self, withFeedback: true)
                     updateLabel()
                 }
             }
@@ -232,5 +232,5 @@ extension SKHabitNode {
 }
 
 protocol SKHabitNodeDelegate {
-    func didHabitNodeExpand(_ habitNode: SKHabitNode)
+    func didHabitNodeExpand(_ habitNode: SKHabitNode, withFeedback useFeedback: Bool)
 }

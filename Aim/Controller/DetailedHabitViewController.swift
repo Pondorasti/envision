@@ -16,9 +16,10 @@ class DetailedHabitViewController: UIViewController {
     let dateFormatter = DateFormatter()
     
     var habit: Habit!
-    var completedDays = [String: Bool]()
+    var dataSet = [String: Bool]()
     
-    var lastValue: Double = 0.0
+    var lastPercentageValue: Double = 0.0
+    var lastCurrentStreakValue: Int = 0
     
     var progressLayer = CAShapeLayer()
     var trackLayer = CAShapeLayer()
@@ -36,7 +37,7 @@ class DetailedHabitViewController: UIViewController {
     @IBOutlet weak var progressBarViewHeightAnchor: NSLayoutConstraint!
     
     @IBOutlet weak var bestStreakLabel: UILabel!
-    @IBOutlet weak var currentStreakLabel: UILabel!
+    @IBOutlet weak var currentStreakLabel: SACountingLabel!
     @IBOutlet weak var streakTitleLabel: UILabel!
     
     @IBOutlet weak var outerStreakView: UIView!
@@ -76,16 +77,18 @@ class DetailedHabitViewController: UIViewController {
         calendarView.scrollToDate(Date(), animateScroll: false)
 
         progressBarView.backgroundColor = UIColor.clear
+        
         setUpProgressView()
+        setUpStreakView()
         
         view.backgroundColor = habit.color
         
-        completedDays = habit.retrieveCompletedDays()
+        dataSet = habit.retrieveCompletedDays()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        animateCircle()
+        updateStatisticsView()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -145,18 +148,18 @@ extension DetailedHabitViewController: JTAppleCalendarViewDelegate {
         
         let dateStringFormat = cellState.date.format(with: Constant.Calendar.format)
 
-        if let state = completedDays[dateStringFormat], state {
+        if let state = dataSet[dateStringFormat], state {
             habit.removeLog(for: dateStringFormat)
-            completedDays[dateStringFormat] = false
+            dataSet[dateStringFormat] = false
         } else {
             habit.createLog(for: cellState.date)
-            completedDays[dateStringFormat] = true
+            dataSet[dateStringFormat] = true
         }
         
         handleCellColors(for: cell, inCellState: cellState)
         TapticEngine.impact.feedback(.light)
         
-        animateCircle(with: Constant.StatisticsView.animationDuration)
+        updateStatisticsView(with: Constant.StatisticsView.animationDuration)
     }
 
     func calendar(_ calendar: JTAppleCalendarView, shouldSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) -> Bool {
@@ -202,7 +205,7 @@ extension DetailedHabitViewController {
         cell.dateLabel.alpha = 1
         
         if cellState.dateBelongsTo == .thisMonth {
-            if let state = completedDays[dateStringFormat], state {
+            if let state = dataSet[dateStringFormat], state {
                 cell.dateLabel.textColor = habit.color
                 
                 cell.completedDayView.isHidden = false
@@ -212,7 +215,7 @@ extension DetailedHabitViewController {
                 cell.completedDayView.isHidden = true
             }
         } else {
-            if let state = completedDays[dateStringFormat], state {
+            if let state = dataSet[dateStringFormat], state {
                 cell.dateLabel.textColor = habit.color
                 cell.dateLabel.alpha = 0.5
                 
@@ -225,13 +228,19 @@ extension DetailedHabitViewController {
         }
     }
     
+    private func updateStatisticsView(with duration: Double = Constant.StatisticsView.initialAnimationDuration) {
+        updateProgressView(with: duration)
+        updateStreakView(with: duration)
+    }
     
-    private func animateCircle(with duration: Double = Constant.StatisticsView.initialAnimationDuration) {
-        let percentageAnimation = CABasicAnimation(keyPath: "strokeEnd")
-        let percentageInfo = habit.retrieveCompletionInfo(from: completedDays)
+    private func updateProgressView(with duration: Double) {
+        let percentageInfo = habit.retrieveCompletionInfo(from: dataSet)
         let percentage = percentageInfo.numberOfCompletions / percentageInfo.numberOfHabitDays
         
-        percentageAnimation.fromValue = lastValue
+        percentageTitleLabel.text = "\(Int(percentageInfo.numberOfCompletions))/\(Int(percentageInfo.numberOfHabitDays)) Days"
+        
+        let percentageAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        percentageAnimation.fromValue = lastPercentageValue
         percentageAnimation.toValue = percentage
         
         percentageAnimation.duration = duration
@@ -239,10 +248,28 @@ extension DetailedHabitViewController {
         percentageAnimation.fillMode = kCAFillModeForwards
         percentageAnimation.isRemovedOnCompletion = false
         
-        percentageLabel.countFrom(fromValue: Float(lastValue * 100), to: Float(percentage * 100), withDuration: duration, andAnimationType: .EaseIn, andCountingType: .Int)
+        percentageLabel.countFrom(fromValue: Float(lastPercentageValue * 100), to: Float(percentage * 100), withDuration: duration, andAnimationType: .EaseIn, andCountingType: .Int)
         
-        lastValue = percentage
+        lastPercentageValue = percentage
         progressLayer.add(percentageAnimation, forKey: "percentageAnimation")
+    }
+    
+    private func updateStreakView(with duration: Double) {
+        let streakInfo = habit.retrieveStreakInfo(from: dataSet)
+        
+        bestStreakLabel.text = "Best \(streakInfo.best)"
+        
+        let streakPercentage = Double(streakInfo.current) / Double(streakInfo.best)
+        let anchorPercentage = 1 - streakPercentage
+        innerStreakTopAnchor.constant = CGFloat(anchorPercentage) * (outerStreakView.frame.height - currentStreakLabel.frame.height)
+        
+        currentStreakLabel.countFrom(fromValue: Float(lastCurrentStreakValue), to: Float(streakInfo.current), withDuration: duration, andAnimationType: .EaseIn, andCountingType: .Custom)
+        
+        UIView.animate(withDuration: duration) {
+            self.view.layoutIfNeeded()
+        }
+        
+        lastCurrentStreakValue = streakInfo.current
     }
     
     private func setUpProgressView() {
@@ -276,5 +303,19 @@ extension DetailedHabitViewController {
         percentageLabel.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
         
         progressBarView.layer.addSublayer(progressLayer)
+    }
+    
+    private func setUpStreakView() {
+        currentStreakLabel.textColor = habit.color
+        currentStreakLabel.text = "0"
+        currentStreakLabel.format = "%.0f"
+        
+        outerStreakView.layer.cornerRadius = 10
+        innerStreakView.layer.cornerRadius = 10
+        
+        outerStreakView.backgroundColor = Constant.Calendar.outsideMonthDateColor
+        innerStreakView.backgroundColor = Constant.Calendar.insideMonthDateColor
+        
+        innerStreakTopAnchor.constant = outerStreakView.frame.height - currentStreakLabel.frame.height
     }
 }
