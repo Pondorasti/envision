@@ -57,6 +57,29 @@ extension Int {
     }
 }
 
+extension String {
+    func containsIllegalCharacters() -> Bool {
+        
+        let illegalCharacters = "()-+{}[]|"
+        //()-+/\{}[]|
+        for char in illegalCharacters {
+            if self.contains(char) {
+                return false
+            }
+        }
+        
+        if self.contains("/") {
+            return false
+        }
+        
+        if self.contains("\"") {
+            return false
+        }
+    
+        return true
+    }
+}
+
 
 
 

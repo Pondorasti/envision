@@ -10,6 +10,7 @@ import UIKit
 import SpriteKit
 import BLTNBoard
 import TapticEngine
+import FirebaseAnalytics
 
 
 class CreateHabitViewController: UIViewController {
@@ -60,7 +61,6 @@ class CreateHabitViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setup()
     }
     
@@ -78,6 +78,8 @@ class CreateHabitViewController: UIViewController {
             newHabit.creationDate = Date()
             
             CoreDataHelper.saveHabit()
+            
+            AnalyticsService.logNewHabit(newHabit)
             
             guard let destination = segue.destination as? HabitsViewController else { return }
             let newHabitNode = SKHabitNode(for: newHabit, in: SKView())
@@ -225,5 +227,7 @@ extension CreateHabitViewController {
         super.touchesBegan(touches, with: event)
     }
 }
+
+
 
 

@@ -1,11 +1,34 @@
 PODS:
   - BulletinBoard (2.0.1)
+  - Firebase/Core (5.4.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (= 5.0.1)
+  - Firebase/CoreOnly (5.4.0):
+    - FirebaseCore (= 5.0.5)
+  - FirebaseAnalytics (5.0.1):
+    - FirebaseCore (~> 5.0)
+    - FirebaseInstanceID (~> 3.0)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - nanopb (~> 0.3)
+  - FirebaseCore (5.0.5):
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+  - FirebaseInstanceID (3.1.1):
+    - FirebaseCore (~> 5.0)
+  - GoogleToolboxForMac/Defines (2.1.4)
+  - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
+    - GoogleToolboxForMac/Defines (= 2.1.4)
   - JTAppleCalendar (7.1.5)
+  - nanopb (0.3.8):
+    - nanopb/decode (= 0.3.8)
+    - nanopb/encode (= 0.3.8)
+  - nanopb/decode (0.3.8)
+  - nanopb/encode (0.3.8)
   - SACountingLabel (0.1.1)
   - TapticEngine (1.1.0)
 
 DEPENDENCIES:
   - BulletinBoard
+  - Firebase/Core
   - JTAppleCalendar (~> 7.0)
   - SACountingLabel
   - TapticEngine
@@ -13,16 +36,28 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - BulletinBoard
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseInstanceID
+    - GoogleToolboxForMac
     - JTAppleCalendar
+    - nanopb
     - SACountingLabel
     - TapticEngine
 
 SPEC CHECKSUMS:
   BulletinBoard: 99a428f91f64d0ffabf8a8104f79ecd064e2a4db
+  Firebase: d66f4f29c23f22d96808d9abc174d81d8eee968f
+  FirebaseAnalytics: b3628aea54c50464c32c393fb2ea032566e7ecc2
+  FirebaseCore: 42b3267233bd21a5abd54117ccc38ca3dd0f8e83
+  FirebaseInstanceID: f3f0657372592ecdfdfe2cac604a5a75758376a6
+  GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   JTAppleCalendar: 2d4f974f9f3c8b4964d51ca1f6e004883c031fbe
+  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   SACountingLabel: 6b0c2a177b77e65ea63772e50f4d4285bb6d5a71
   TapticEngine: b78b5513432b3c01af2ebbe018c0995778306757
 
-PODFILE CHECKSUM: f5059567d3eca017bd5d62e6b3ee1407cf55f0b1
+PODFILE CHECKSUM: 746f206bc7468840059460e34b7495e4c5056be7
 
 COCOAPODS: 1.5.3

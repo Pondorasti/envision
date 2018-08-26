@@ -13,6 +13,8 @@
 		C5238F58211AA95E00AD8949 /* Bubble Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5238F57211AA95E00AD8949 /* Bubble Launch Screen.storyboard */; };
 		C5238F5A211B5EE300AD8949 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5238F59211B5EE300AD8949 /* Onboarding.storyboard */; };
 		C5238F5C211B5F2000AD8949 /* Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5238F5B211B5F2000AD8949 /* Storyboard.swift */; };
+		C52C521921316ADA009EA9D6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C52C521821316ADA009EA9D6 /* GoogleService-Info.plist */; };
+		C52C521C21316F85009EA9D6 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52C521B21316F85009EA9D6 /* AnalyticsService.swift */; };
 		C53630032105ACFD007DFC7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53630022105ACFD007DFC7A /* AppDelegate.swift */; };
 		C53630082105ACFD007DFC7A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C53630062105ACFD007DFC7A /* Main.storyboard */; };
 		C536300B2105ACFD007DFC7A /* Aim.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C53630092105ACFD007DFC7A /* Aim.xcdatamodeld */; };
@@ -73,6 +75,8 @@
 		C5238F57211AA95E00AD8949 /* Bubble Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Bubble Launch Screen.storyboard"; sourceTree = "<group>"; };
 		C5238F59211B5EE300AD8949 /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		C5238F5B211B5F2000AD8949 /* Storyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboard.swift; sourceTree = "<group>"; };
+		C52C521821316ADA009EA9D6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C52C521B21316F85009EA9D6 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		C5362FFF2105ACFD007DFC7A /* Aim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C53630022105ACFD007DFC7A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C53630072105ACFD007DFC7A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -151,6 +155,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C52C521A21316F61009EA9D6 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C52C521B21316F85009EA9D6 /* AnalyticsService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		C5362FF62105ACFD007DFC7A = {
 			isa = PBXGroup;
 			children = (
@@ -180,6 +192,7 @@
 				C5A367D92109193B00728525 /* View */,
 				C5A367DA2109194B00728525 /* Controller */,
 				C5A367DB2109195400728525 /* Storyboards */,
+				C52C521A21316F61009EA9D6 /* Services */,
 				C5A367DC2109195D00728525 /* Helper */,
 				C5A367DD2109196200728525 /* Extensions */,
 				C5A367DE2109196C00728525 /* Supporting Files */,
@@ -281,6 +294,7 @@
 			isa = PBXGroup;
 			children = (
 				C53630022105ACFD007DFC7A /* AppDelegate.swift */,
+				C52C521821316ADA009EA9D6 /* GoogleService-Info.plist */,
 				C53630112105ACFE007DFC7A /* Info.plist */,
 			);
 			path = "Supporting Files";
@@ -409,6 +423,7 @@
 			files = (
 				C5238F58211AA95E00AD8949 /* Bubble Launch Screen.storyboard in Resources */,
 				C536300D2105ACFE007DFC7A /* Assets.xcassets in Resources */,
+				C52C521921316ADA009EA9D6 /* GoogleService-Info.plist in Resources */,
 				C53630082105ACFD007DFC7A /* Main.storyboard in Resources */,
 				C5238F5A211B5EE300AD8949 /* Onboarding.storyboard in Resources */,
 			);
@@ -457,16 +472,20 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Aim/Pods-Aim-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BulletinBoard/BLTNBoard.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/SACountingLabel/SACountingLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/TapticEngine/TapticEngine.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BLTNBoard.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SACountingLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TapticEngine.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -542,6 +561,7 @@
 				C5B0CBA12112D15B004C1B55 /* Habit+CoreDataProperties.swift in Sources */,
 				C53630362106D7A9007DFC7A /* HabitsViewController.swift in Sources */,
 				C536300B2105ACFD007DFC7A /* Aim.xcdatamodeld in Sources */,
+				C52C521C21316F85009EA9D6 /* AnalyticsService.swift in Sources */,
 				C5F7B7452109605B0094A09E /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -593,7 +613,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_ID = "com.codingbytes.Aim-developer";
+				BUNDLE_ID = com.codingbytes.Aim;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

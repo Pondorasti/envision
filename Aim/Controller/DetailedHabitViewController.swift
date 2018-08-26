@@ -53,6 +53,7 @@ class DetailedHabitViewController: UIViewController {
         
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
             self.performSegue(withIdentifier: Constant.Segue.destoryHabit, sender: self)
+            AnalyticsService.logDeletedHabit(self.habit)
             CoreDataHelper.deleteHabit(self.habit)
         }
         
@@ -84,6 +85,7 @@ class DetailedHabitViewController: UIViewController {
         view.backgroundColor = habit.color
         
         dataSet = habit.retrieveCompletedDays()
+        bestStreakLabel.text = "\(habit.retrieveStreakInfo(from: dataSet).best)"
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -256,18 +258,19 @@ extension DetailedHabitViewController {
     
     private func updateStreakView(with duration: Double) {
         let streakInfo = habit.retrieveStreakInfo(from: dataSet)
-        
         bestStreakLabel.text = "Best \(streakInfo.best)"
         
-        let streakPercentage = Double(streakInfo.current) / Double(streakInfo.best)
-        let anchorPercentage = 1 - streakPercentage
-        innerStreakTopAnchor.constant = CGFloat(anchorPercentage) * (outerStreakView.frame.height - currentStreakLabel.frame.height)
-        
-        currentStreakLabel.countFrom(fromValue: Float(lastCurrentStreakValue), to: Float(streakInfo.current), withDuration: duration, andAnimationType: .EaseIn, andCountingType: .Custom)
+        if streakInfo.best != 0 {
+            let streakPercentage = Double(streakInfo.current) / Double(streakInfo.best)
+            let anchorPercentage = 1 - streakPercentage
+            innerStreakTopAnchor.constant = CGFloat(anchorPercentage) * (outerStreakView.frame.height - currentStreakLabel.frame.height)
+        }
         
         UIView.animate(withDuration: duration) {
             self.view.layoutIfNeeded()
         }
+        
+        currentStreakLabel.countFrom(fromValue: Float(lastCurrentStreakValue), to: Float(streakInfo.current), withDuration: duration, andAnimationType: .EaseIn, andCountingType: .Custom)
         
         lastCurrentStreakValue = streakInfo.current
     }
