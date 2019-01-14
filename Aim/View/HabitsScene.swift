@@ -36,7 +36,7 @@ class HabitsScene: SKScene {
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
         
-        showDebugger()
+//        showDebugger()
         
         let doubleTapGesture = UITapGestureRecognizer()
         

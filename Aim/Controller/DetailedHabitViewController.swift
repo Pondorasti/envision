@@ -248,9 +248,10 @@ extension DetailedHabitViewController {
         percentageAnimation.duration = duration
         
         percentageAnimation.fillMode = kCAFillModeForwards
+        percentageAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
         percentageAnimation.isRemovedOnCompletion = false
         
-        percentageLabel.countFrom(fromValue: Float(lastPercentageValue * 100), to: Float(percentage * 100), withDuration: duration, andAnimationType: .EaseIn, andCountingType: .Int)
+        percentageLabel.countFrom(fromValue: Float(lastPercentageValue * 100), to: Float(percentage * 100), withDuration: duration, andAnimationType: .EaseOut, andCountingType: .Int)
         
         lastPercentageValue = percentage
         progressLayer.add(percentageAnimation, forKey: "percentageAnimation")
@@ -266,11 +267,11 @@ extension DetailedHabitViewController {
             innerStreakTopAnchor.constant = CGFloat(anchorPercentage) * (outerStreakView.frame.height - currentStreakLabel.frame.height)
         }
         
-        UIView.animate(withDuration: duration) {
+        UIView.animate(withDuration: duration, delay: 0, options: [.curveEaseOut], animations: {
             self.view.layoutIfNeeded()
-        }
+        }, completion: nil)
         
-        currentStreakLabel.countFrom(fromValue: Float(lastCurrentStreakValue), to: Float(streakInfo.current), withDuration: duration, andAnimationType: .EaseIn, andCountingType: .Custom)
+        currentStreakLabel.countFrom(fromValue: Float(lastCurrentStreakValue), to: Float(streakInfo.current), withDuration: duration, andAnimationType: .EaseOut, andCountingType: .Custom)
         
         lastCurrentStreakValue = streakInfo.current
     }

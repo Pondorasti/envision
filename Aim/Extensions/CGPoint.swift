@@ -60,8 +60,8 @@ extension Int {
 extension String {
     func containsIllegalCharacters() -> Bool {
         
-        let illegalCharacters = "()-+{}[]|"
-        //()-+/\{}[]|
+        let illegalCharacters = "()-+{}[]|\\/"
+        
         for char in illegalCharacters {
             if self.contains(char) {
                 return false

@@ -58,7 +58,7 @@ extension CircularTransition: UIViewControllerAnimatedTransitioning {
                 presentedView.alpha = 1
                 presentedView.center = viewCenter
                 
-            }, completion: { (success:Bool) in
+            }, completion: { (success: Bool) in
                 transitionContext.completeTransition(success)
             })
             
