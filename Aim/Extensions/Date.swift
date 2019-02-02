@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import UIKit
 
 extension Date {
     func format(with format: String) -> String {
@@ -19,4 +18,3 @@ extension Date {
         return dateFormatter.string(from: self)
     }
 }
-

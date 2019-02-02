@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 extension Habit {
-    
     var color: UIColor {
         get {
             guard let colorFromHex = UIColor(hex: colorInHex) else { fatalError() }
@@ -156,5 +155,4 @@ extension Habit {
         
         return (numberOfCompletions, numberOfHabitDays)
     }
-    
 }

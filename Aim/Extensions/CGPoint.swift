@@ -46,7 +46,6 @@ extension CGPoint {
         
         return CGPoint(x: x, y: y)
     }
-
 }
 
 extension Int {
@@ -79,7 +78,3 @@ extension String {
         return true
     }
 }
-
-
-
-

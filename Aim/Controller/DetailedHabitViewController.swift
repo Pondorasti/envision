@@ -12,7 +12,7 @@ import TapticEngine
 import SACountingLabel
 
 class DetailedHabitViewController: UIViewController {
-    
+    // MARK: - Variables
     let dateFormatter = DateFormatter()
     
     var habit: Habit!
@@ -44,7 +44,6 @@ class DetailedHabitViewController: UIViewController {
     @IBOutlet weak var innerStreakView: UIView!
     
     @IBOutlet weak var innerStreakTopAnchor: NSLayoutConstraint!
-    
     
     @IBAction func deleteButtonPressed(_ sender: Any) {
         let ac = UIAlertController(title: habit.name,
@@ -112,6 +111,7 @@ class DetailedHabitViewController: UIViewController {
     }
 }
 
+// MARK: - JTAppleCalendarViewDataSource
 extension DetailedHabitViewController: JTAppleCalendarViewDataSource {
     
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
@@ -121,7 +121,7 @@ extension DetailedHabitViewController: JTAppleCalendarViewDataSource {
         
         //TODO: create DateFormatter extension
         //TODO: compute endDate
-        let endDate = dateFormatter.date(from: "2019 1 1")
+        let endDate = dateFormatter.date(from: "2020 1 1")
         
         let parameters = ConfigurationParameters(startDate: habit.creationDate, endDate: endDate!, numberOfRows: nil, calendar: nil, generateInDates: nil, generateOutDates: nil, firstDayOfWeek: DaysOfWeek.monday, hasStrictBoundaries: nil)
         
@@ -129,10 +129,9 @@ extension DetailedHabitViewController: JTAppleCalendarViewDataSource {
     }
 }
 
+// MARK: - JTAppleCalendarViewDelegate
 extension DetailedHabitViewController: JTAppleCalendarViewDelegate {
-    
-    func calendar(_ calendar: JTAppleCalendarView, willDisplay cell: JTAppleCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
-    }
+    func calendar(_ calendar: JTAppleCalendarView, willDisplay cell: JTAppleCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {}
     
     func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {
         guard let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: Constant.Cell.dateCell, for: indexPath) as? DateCell else {
@@ -201,6 +200,7 @@ extension DetailedHabitViewController: JTAppleCalendarViewDelegate {
     }
 }
 
+// MARK: - DetailedHabitViewController Extension
 extension DetailedHabitViewController {
     private func handleCellColors(for cell: DateCell, inCellState cellState: CellState) {
         let dateStringFormat = cellState.date.format(with: Constant.Calendar.format)
