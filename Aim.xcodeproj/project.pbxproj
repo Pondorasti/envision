@@ -10,6 +10,7 @@
 		1050B2A11E056E3F98F72C5B /* Pods_AimTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9B2B16ACE0050B3AAF6C284 /* Pods_AimTests.framework */; };
 		276F418D792FF14703088F13 /* Pods_Aim.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC025B6D9E9D05C322C0AB15 /* Pods_Aim.framework */; };
 		42AFA65D398C4E188F699635 /* Pods_AimUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 744C3FB315EF8685BFFC065D /* Pods_AimUITests.framework */; };
+		C516CE5422674596000F6028 /* CALayerAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516CE5322674596000F6028 /* CALayerAnimations.swift */; };
 		C5238F58211AA95E00AD8949 /* Bubble Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5238F57211AA95E00AD8949 /* Bubble Launch Screen.storyboard */; };
 		C5238F5A211B5EE300AD8949 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5238F59211B5EE300AD8949 /* Onboarding.storyboard */; };
 		C5238F5C211B5F2000AD8949 /* Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5238F5B211B5F2000AD8949 /* Storyboard.swift */; };
@@ -72,6 +73,7 @@
 		744C3FB315EF8685BFFC065D /* Pods_AimUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AimUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9682D75A170B94DBD19815B9 /* Pods-AimUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AimUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AimUITests/Pods-AimUITests.release.xcconfig"; sourceTree = "<group>"; };
 		AC025B6D9E9D05C322C0AB15 /* Pods_Aim.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aim.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C516CE5322674596000F6028 /* CALayerAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerAnimations.swift; sourceTree = "<group>"; };
 		C5238F57211AA95E00AD8949 /* Bubble Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Bubble Launch Screen.storyboard"; sourceTree = "<group>"; };
 		C5238F59211B5EE300AD8949 /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		C5238F5B211B5F2000AD8949 /* Storyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboard.swift; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 				C5A35187210A6BE800A717D3 /* Habit.swift */,
 				C5B5839921139A0F006E25B6 /* Date.swift */,
 				C5238F5B211B5F2000AD8949 /* Storyboard.swift */,
+				C516CE5322674596000F6028 /* CALayerAnimations.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 				C536300B2105ACFD007DFC7A /* Aim.xcdatamodeld in Sources */,
 				C52C521C21316F85009EA9D6 /* AnalyticsService.swift in Sources */,
 				C5F7B7452109605B0094A09E /* Constants.swift in Sources */,
+				C516CE5422674596000F6028 /* CALayerAnimations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

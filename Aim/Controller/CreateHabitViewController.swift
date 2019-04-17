@@ -12,15 +12,15 @@ import BLTNBoard
 import TapticEngine
 import FirebaseAnalytics
 
-
 class CreateHabitViewController: UIViewController {
+    // MARK: - Variables
     var isGoodHabit = true
+    // TODO: retrieve only habit names
     var habits = [Habit]()
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var habitNameLabel: UILabel!
     @IBOutlet weak var typeHabit: UILabel!
-    @IBOutlet weak var habitDaysLabel: UILabel!
     @IBOutlet weak var colorOfBubbleLabel: UILabel!
     
     @IBOutlet weak var habitNameView: UIView!
@@ -29,7 +29,6 @@ class CreateHabitViewController: UIViewController {
     
     @IBOutlet weak var goodTypeButton: UIButton!
     @IBOutlet weak var badTypeButton: UIButton!
-    @IBOutlet weak var habitDaysButton: UIButton!
     
     @IBOutlet weak var colorPicker: UIEntryPickerView!
     
@@ -49,14 +48,6 @@ class CreateHabitViewController: UIViewController {
             animateTransion(from: goodTypeButton, to: badTypeButton, withDuration: 0.25)
             isGoodHabit = false
         }
-    }
-    
-    @IBAction func habitDaysButtonPressed(_ sender: Any) {
-        let vc = HabitDaysPicker(headerText: "header", messageText: "message")
-        vc.addAction(UIPickerAction(title: "Done", style: .cancel, action: { (_) in
-            vc.dismiss(animated: true)
-        }))
-        vc.present(in: self)
     }
     
     override func viewDidLoad() {
@@ -98,7 +89,7 @@ class CreateHabitViewController: UIViewController {
         case Constant.Segue.actuallyCreateHabit:
             if habitNameTextField.text == nil || habitNameTextField.text == "" {
                 habitNameTextField.placeholder = "Required Field"
-                shakeAnimation(for: habitNameView)
+                habitNameView.addShakeAnimation()
                 TapticEngine.notification.feedback(.error)
                 return false
             }
@@ -110,7 +101,7 @@ class CreateHabitViewController: UIViewController {
                 if habitNameExist(trimmedHabitName) {
                     habitNameTextField.text = ""
                     habitNameTextField.placeholder = "No duplicate habit names"
-                    shakeAnimation(for: habitNameView)
+                    habitNameView.addShakeAnimation()
                     TapticEngine.notification.feedback(.error)
                     return false
                 }
@@ -138,7 +129,9 @@ class CreateHabitViewController: UIViewController {
     }
 }
 
+// MARK: - UITextFieldDelegate
 extension CreateHabitViewController: UITextFieldDelegate {
+    // TODO: fix count
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if var numberOfCharacters = textField.text?.count {
             numberOfCharacters = numberOfCharacters + string.count - range.length
@@ -173,9 +166,6 @@ extension CreateHabitViewController {
         
         badTypeButton.backgroundColor = nil
         
-//        habitDaysButton.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1), andTitle: "Coming Soon")
-//        habitDaysButton.setTitleColor(#colorLiteral(red: 0.2901960784, green: 0.2901960784, blue: 0.2901960784, alpha: 1), for: .normal)
-        
         cancelButton.configure(with: #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1), andTitle: "Cancel")
         createButton.configure(with: #colorLiteral(red: 0.2039215686, green: 0.8039215686, blue: 0.3215686275, alpha: 1), andTitle: "Create")
         
@@ -209,25 +199,8 @@ extension CreateHabitViewController {
         }
     }
     
-    private func shakeAnimation(for view: UIView) {
-        let shakingAnimation = CABasicAnimation(keyPath: "position")
-        
-        shakingAnimation.duration = 0.1
-        shakingAnimation.repeatCount = 2
-        shakingAnimation.autoreverses = true
-        
-        shakingAnimation.fromValue = CGPoint(x: view.center.x - 5, y: view.center.y)
-        shakingAnimation.toValue = CGPoint(x: view.center.x + 5, y: view.center.y)
-        
-        view.layer.add(shakingAnimation, forKey: "position")
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
         super.touchesBegan(touches, with: event)
     }
 }
-
-
-
-

@@ -10,10 +10,10 @@ import UIKit
 import SpriteKit
 import TapticEngine
 
-
+// MARK: - HabitsViewController
 class HabitsViewController: UIViewController {
-    
-    let transition = CircularTransition()
+    // MARK: - Properties
+    private let transition = CircularTransition()
     
     var habits = [Habit]()
     var habitsScene: HabitsScene!
@@ -26,8 +26,7 @@ class HabitsViewController: UIViewController {
     enum TransitionMode {
         case createHabit, showHabit
     }
-    
-    
+
     @IBOutlet weak var createHabitButton: UIButton!
     
     @IBAction func createHabitButtonPressed(_ sender: Any) {
@@ -57,14 +56,17 @@ class HabitsViewController: UIViewController {
         default:
             assertionFailure("somebody is dumb")
         }
-
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(appBecomeActive), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(appBecomeActive),
+                                       name: .UIApplicationDidBecomeActive,
+                                       object: nil
+        )
         
         habitsScene = HabitsScene(size: view.bounds.size)
         habitsScene.scaleMode = .aspectFill
@@ -108,6 +110,7 @@ class HabitsViewController: UIViewController {
     }
 }
 
+// MARK: - UIViewControllerTransitionDelegate
 extension HabitsViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         transition.transitionMode = .present
@@ -126,6 +129,7 @@ extension HabitsViewController: UIViewControllerTransitioningDelegate {
     }
 }
 
+// MARK: - HabitsSceneDelegate
 extension HabitsViewController: HabitsSceneDelegate {
     func didDoubleTapHabit(_ habitNode: SKHabitNode) {
         if let detailedHabitVC = storyboard?.instantiateViewController(withIdentifier: Constant.Storyboard.detailedHabit) as? DetailedHabitViewController {
@@ -144,6 +148,7 @@ extension HabitsViewController: HabitsSceneDelegate {
         
     }
 }
+
 
 extension HabitsViewController {
     private func getColor() -> UIColor {
