@@ -68,7 +68,6 @@ class HabitsScene: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        
         if let selectedHabitNode = selectedHabitNode {
             if !selectedHabitNode.habit.wasCompletedToday {
                 selectedHabitNode.updateHabit(for: &animationState, in: currentTime)
@@ -101,7 +100,6 @@ class HabitsScene: SKScene {
             
                     touchOffset = selectedHabitNode!.position - touchLocation
                 }
-                
             }
         }
     }

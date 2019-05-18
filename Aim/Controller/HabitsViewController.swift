@@ -145,10 +145,8 @@ extension HabitsViewController: HabitsSceneDelegate {
             detailedHabitVC.modalPresentationStyle = .custom
             present(detailedHabitVC, animated: true)
         }
-        
     }
 }
-
 
 extension HabitsViewController {
     private func getColor() -> UIColor {

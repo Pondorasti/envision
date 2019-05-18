@@ -11,15 +11,18 @@ import JTAppleCalendar
 import TapticEngine
 import SACountingLabel
 
+//TODO: custom class for streak
+//TODO: custom class for percentage
+
 class DetailedHabitViewController: UIViewController {
     // MARK: - Variables
-    let dateFormatter = DateFormatter()
+    private let dateFormatter = DateFormatter()
     
     var habit: Habit!
     var dataSet = [String: Bool]()
     
-    var lastPercentageValue: Double = 0.0
-    var lastCurrentStreakValue: Int = 0
+    private var lastPercentageValue: Double = 0.0
+    private var lastCurrentStreakValue: Int = 0
     
     var progressLayer = CAShapeLayer()
     var trackLayer = CAShapeLayer()
@@ -63,7 +66,8 @@ class DetailedHabitViewController: UIViewController {
         
         present(ac, animated: true)
     }
-    
+
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -322,4 +326,8 @@ extension DetailedHabitViewController {
         
         innerStreakTopAnchor.constant = outerStreakView.frame.height - currentStreakLabel.frame.height
     }
+}
+
+class StreakView: UIView {
+    
 }

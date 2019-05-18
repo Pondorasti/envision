@@ -66,7 +66,4 @@ struct CoreDataHelper {
         habit.addToLogs(log)
         saveHabit()
     }
-    
-    
-    
 }
