@@ -200,7 +200,6 @@ extension HabitsScene {
         }
     }
     
-    
     private func setUpMiddleNode(in view: SKView) {
         middleNode = SKShapeNode(circleOfRadius: 1)
         middleNode.position = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
