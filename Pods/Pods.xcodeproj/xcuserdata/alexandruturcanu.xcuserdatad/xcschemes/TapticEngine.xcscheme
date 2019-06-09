@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1020"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "944AE7BAB1675BF12741664BA32CB594"
+               BlueprintIdentifier = "C74337A714BFD046036196A6E62EF078"
+               BuildableName = "TapticEngine.framework"
                BlueprintName = "TapticEngine"
-               ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "TapticEngine.framework">
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

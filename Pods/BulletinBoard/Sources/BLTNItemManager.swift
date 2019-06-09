@@ -167,9 +167,9 @@ extension BLTNItemManager {
         bulletinController.loadBackgroundView()
         bulletinController.setNeedsStatusBarAppearanceUpdate()
 
-        if #available(iOS 11.0, *) {
-            bulletinController.setNeedsUpdateOfHomeIndicatorAutoHidden()
-        }
+//        if #available(iOS 11.0, *) {
+//            bulletinController.setNeedsUpdateOfHomeIndicatorAutoHidden()
+//        }
 
         isPrepared = true
         isPreparing = true

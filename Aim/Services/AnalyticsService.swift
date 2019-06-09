@@ -7,29 +7,29 @@
 //
 
 import Foundation
-import FirebaseAnalytics
+//import FirebaseAnalytics
 
 struct AnalyticsService {
     
     static func logNewHabit(_ habit: Habit) {
-        Analytics.logEvent("newHabit", parameters: ["habitName": habit.name,
-                                                    "habitType": habit.isGood])
+//        Analytics.logEvent("newHabit", parameters: ["habitName": habit.name,
+//                                                    "habitType": habit.isGood])
     }
     
     static func logUpdatedHabits(_ habits: [Habit]) {
         for habit in habits {
             let streakInfo = habit.retrieveStreakInfo()
             let completionInfo = habit.retrieveCompletionInfo()
-            Analytics.logEvent("habitInfo", parameters: ["habitName": habit.name,
-                                                        "habitType": habit.isGood,
-                                                        "currentStreak": streakInfo.current,
-                                                        "bestStreak": streakInfo.best,
-                                                        "numberOfCompletionDays": completionInfo.numberOfCompletions,
-                                                        "numberOfHabitDays": completionInfo.numberOfHabitDays])
+//            Analytics.logEvent("habitInfo", parameters: ["habitName": habit.name,
+//                                                        "habitType": habit.isGood,
+//                                                        "currentStreak": streakInfo.current,
+//                                                        "bestStreak": streakInfo.best,
+//                                                        "numberOfCompletionDays": completionInfo.numberOfCompletions,
+//                                                        "numberOfHabitDays": completionInfo.numberOfHabitDays])
         }
     }
     
     static func logDeletedHabit(_ habit: Habit) {
-        Analytics.logEvent("habitDeleted", parameters: ["habitName": habit.name])
+//        Analytics.logEvent("habitDeleted", parameters: ["habitName": habit.name])
     }
 }

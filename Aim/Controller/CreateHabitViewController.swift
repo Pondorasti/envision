@@ -10,7 +10,7 @@ import UIKit
 import SpriteKit
 import BLTNBoard
 import TapticEngine
-import FirebaseAnalytics
+//import FirebaseAnalytics
 
 class CreateHabitViewController: UIViewController {
     // MARK: - Variables

@@ -393,10 +393,10 @@ extension BulletinViewController {
         return manager?.statusBarAppearance == .hidden
     }
 
-    @available(iOS 11.0, *)
-    override func prefersHomeIndicatorAutoHidden() -> Bool {
-        return manager?.hidesHomeIndicator ?? false
-    }
+//    @available(iOS 11.0, *)
+//    override func prefersHomeIndicatorAutoHidden() -> Bool {
+//        return manager?.hidesHomeIndicator ?? false
+//    }
 
 }
 

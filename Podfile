@@ -10,7 +10,7 @@ target 'Aim' do
   pod 'BulletinBoard'
   pod 'TapticEngine'
   pod 'SACountingLabel'
-  pod 'Firebase/Core'
+#  pod 'Firebase/Core'
 
   target 'AimTests' do
     inherit! :search_paths

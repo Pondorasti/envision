@@ -225,7 +225,6 @@ extension UIEntryPickerView: UIScrollViewDelegate {
                 scrollViewSelectedLayer.borderColor =  color
             }
         }
-        
     }
 }
 
