@@ -327,7 +327,3 @@ extension DetailedHabitViewController {
         innerStreakTopAnchor.constant = outerStreakView.frame.height - currentStreakLabel.frame.height
     }
 }
-
-class StreakView: UIView {
-    
-}
