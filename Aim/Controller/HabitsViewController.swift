@@ -24,9 +24,10 @@ class HabitsViewController: UIViewController {
     var transitionMode = TransitionMode.createHabit
 
     enum TransitionMode {
-        case createHabit, showHabit
+        case createHabit, showHabit, showSettings
     }
 
+    @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var createHabitButton: UIButton!
     
     @IBAction func createHabitButtonPressed(_ sender: Any) {
@@ -53,6 +54,10 @@ class HabitsViewController: UIViewController {
             
         case Constant.Segue.showSettings:
             TapticEngine.impact.feedback(.light)
+
+            transitionMode = .showSettings
+            segue.destination.transitioningDelegate = self
+            segue.destination.modalPresentationStyle = .custom
         default:
             assertionFailure("somebody is dumb")
         }
@@ -151,7 +156,7 @@ extension HabitsViewController: HabitsSceneDelegate {
 extension HabitsViewController {
     private func getColor() -> UIColor {
         switch transitionMode {
-        case .createHabit:
+        case .createHabit, .showSettings:
             return #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
         case .showHabit:
             guard let color = colorOfHabitNodeToShow else { fatalError("somebody is dumb") }
@@ -163,6 +168,8 @@ extension HabitsViewController {
         switch transitionMode {
         case .createHabit:
             return createHabitButton.center
+        case .showSettings:
+            return settingsButton.center
         case .showHabit:
             guard let position = habitNodeToShow?.position else { fatalError("somebody is dumb") }
             let y = (position.y - view.frame.height) < 0 ? (position.y - view.frame.height) * (-1) : (position.y - view.frame.height)
