@@ -144,6 +144,7 @@ class HabitsScene: SKScene {
     }
 }
 
+// MARK: - SKHabitNodeDelegate
 extension HabitsScene: SKHabitNodeDelegate {
     func didHabitNodeExpand(_ habitNode: SKHabitNode, withFeedback useFeedback: Bool) {
         
@@ -162,7 +163,6 @@ extension HabitsScene: SKHabitNodeDelegate {
     }
 }
 
-
 extension HabitsScene: SKPhysicsContactDelegate {
     
     //TODO: Fix this junk
@@ -179,9 +179,9 @@ extension HabitsScene: SKPhysicsContactDelegate {
             
         } else if let middleNodePhysicsBody = middleNode.physicsBody,
             contact.bodyB.node?.name == "borderView" {
-            
+
             nodeTouched(middleNodePhysicsBody, withSecondBody: contact.bodyA, pushWithForce: Constant.SpriteKit.wallForce)
-            
+
         } else if contact.bodyA.node?.name == selectedHabitNode?.name {
             
             nodeTouched(contact.bodyA, withSecondBody: contact.bodyB, pushWithForce: Constant.SpriteKit.expandForce)
@@ -230,6 +230,7 @@ extension HabitsScene {
     }
 }
 
+// MARK: - HabitsSceneDelegate
 protocol HabitsSceneDelegate: class {
     func didDoubleTapHabit(_ habitNode: SKHabitNode)
 }

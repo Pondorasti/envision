@@ -87,15 +87,25 @@ extension Habit {
     
     var iteration: Int {
         let completionInfo = retrieveCompletionInfo()
-        let habitIteration = completionInfo.numberOfCompletions < 50 ? completionInfo.numberOfCompletions : 50
+        let rawIteration = Int((completionInfo.numberOfCompletions - completionInfo.numberOfHabitDays * 0.5).rounded(.down))
+
+        let answer: Int
+        if rawIteration < 0 {
+            answer = 0
+        } else if rawIteration > Constant.Habit.maxIteration {
+            answer = Constant.Habit.maxIteration
+        } else {
+            answer = rawIteration
+        }
         
         if !isGood {
-            return Int((50 - habitIteration) * 0.6)
+            return Int(Double(Constant.Habit.maxIteration - answer) * 0.6)
         }
-        return Int(habitIteration)
+        return Int(answer)
     }
     
     func wasCompleted(for date: Date, in _dataSet: [String: Bool]! = nil) -> Bool {
+        // should do some smart queries here
         let dataSet = (_dataSet != nil) ? _dataSet! : retrieveCompletedDays()
         let stringFormat = date.format(with: Constant.Calendar.format)
         

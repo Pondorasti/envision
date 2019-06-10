@@ -102,6 +102,8 @@ class HabitsViewController: UIViewController {
     }
     
     func reloadBubbles() {
+        // CPU Connsuming task, app becomes laggy with 5+ year old habits
+        // optimize needed
         habits = CoreDataHelper.retrieveHabits()
         
         for habit in habits {

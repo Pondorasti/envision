@@ -91,6 +91,10 @@ struct Constant {
     struct UserDefaults {
         static let notFirstInApp = "notFirstInApp"
     }
+
+    struct Habit {
+        static let maxIteration = 60
+    }
 }
 
 // hello code signing
