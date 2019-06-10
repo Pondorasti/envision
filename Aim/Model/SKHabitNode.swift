@@ -224,10 +224,10 @@ extension SKHabitNode {
         let boldFont = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.semibold)
 
         let foregroundColor = habit.wasCompletedToday ? Constant.Layer.habitTextColor : Constant.Layer.backgroundColor
-        let headlineAttributes = [NSAttributedStringKey.foregroundColor: foregroundColor,
-                                  NSAttributedStringKey.font: boldFont]
-        let subheadlineAttributes = [NSAttributedStringKey.foregroundColor: foregroundColor,
-                                     NSAttributedStringKey.font: italicsFont]
+        let headlineAttributes = [NSAttributedString.Key.foregroundColor: foregroundColor,
+                                  NSAttributedString.Key.font: boldFont]
+        let subheadlineAttributes = [NSAttributedString.Key.foregroundColor: foregroundColor,
+                                     NSAttributedString.Key.font: italicsFont]
 
         let headlineAttributedString = NSAttributedString(
             string: (habit.isGood ? "" : "🚫") + habit.name, attributes: headlineAttributes)

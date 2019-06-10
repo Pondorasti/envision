@@ -69,7 +69,7 @@ class HabitsViewController: UIViewController {
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self,
                                        selector: #selector(appBecomeActive),
-                                       name: .UIApplicationDidBecomeActive,
+                                       name: UIApplication.didBecomeActiveNotification,
                                        object: nil
         )
         

@@ -251,8 +251,8 @@ extension DetailedHabitViewController {
         
         percentageAnimation.duration = duration
         
-        percentageAnimation.fillMode = kCAFillModeForwards
-        percentageAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        percentageAnimation.fillMode = CAMediaTimingFillMode.forwards
+        percentageAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
         percentageAnimation.isRemovedOnCompletion = false
         
         percentageLabel.countFrom(fromValue: Float(lastPercentageValue * 100), to: Float(percentage * 100), withDuration: duration, andAnimationType: .EaseOut, andCountingType: .Int)
@@ -295,7 +295,7 @@ extension DetailedHabitViewController {
         trackLayer.strokeColor = Constant.Calendar.outsideMonthDateColor.cgColor
         trackLayer.lineWidth = Constant.StatisticsView.percentageLineWidth
         trackLayer.fillColor = UIColor.clear.cgColor
-        trackLayer.lineCap = kCALineCapRound
+        trackLayer.lineCap = CAShapeLayerLineCap.round
         
         progressBarView.layer.addSublayer(trackLayer)
         
@@ -303,7 +303,7 @@ extension DetailedHabitViewController {
         progressLayer.strokeColor = Constant.Calendar.insideMonthDateColor.cgColor
         progressLayer.lineWidth = Constant.StatisticsView.percentageLineWidth
         progressLayer.fillColor = UIColor.clear.cgColor
-        progressLayer.lineCap = kCALineCapRound
+        progressLayer.lineCap = CAShapeLayerLineCap.round
         
         progressLayer.strokeEnd = 0
         
