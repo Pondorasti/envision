@@ -11,8 +11,8 @@ import SpriteKit
 import TapticEngine
 
 class HabitsScene: SKScene {
-    
-    var middleNode = SKShapeNode()
+    // MARK: - Properties
+    private var middleNode: SKShapeNode!
     var viewBorder = SKPhysicsBody()
     
     var habitsDelegate: HabitsSceneDelegate?
@@ -24,8 +24,12 @@ class HabitsScene: SKScene {
     
     override func didMove(to view: SKView) {
         setUpMiddleNode(in: view)
-        addChild(middleNode)
-        
+        if let node = middleNode {
+            addChild(node)
+        } else {
+            fatalError("Could not find middleNode")
+        }
+
         viewBorder = SKPhysicsBody(edgeLoopFrom: view.bounds)
         viewBorder.collisionBitMask = 1
         viewBorder.friction = 0

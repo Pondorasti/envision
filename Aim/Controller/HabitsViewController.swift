@@ -107,7 +107,7 @@ class HabitsViewController: UIViewController {
         for habit in habits {
             habit.wasCompletedToday = habit.wasCompleted(for: Date())
             if let habitNode = habitsScene.childNode(withName: habit.name) as? SKHabitNode {
-                habitNode.updateLabel()
+                habitNode.updateLabelAttributedString()
             } else {
                 habitsScene.createHabitBubble(habit, in: skView)
             }

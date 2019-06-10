@@ -25,7 +25,17 @@ import CoreGraphics
 
 class SKHabitNode: SKNode {
     
-    var labelNode: SKLabelNode!
+    private let labelNode: SKLabelNode = {
+        let label = SKLabelNode()
+        label.name = "Label"
+
+        label.numberOfLines = 2
+        label.verticalAlignmentMode = .center
+        label.horizontalAlignmentMode = .center
+        label.zPosition = 5
+
+        return label
+    }()
     
     var mainShapeNode = SKShapeNode()
     var springJoint = SKPhysicsJointSpring()
@@ -100,7 +110,7 @@ class SKHabitNode: SKNode {
                     habit.wasCompletedToday = true
                     temporaryShapeNode?.removeFromParent()
                     delegate?.didHabitNodeExpand(self, withFeedback: true)
-                    updateLabel()
+                    updateLabelAttributedString()
                 }
             }
         case .shrink:
@@ -169,29 +179,24 @@ extension SKHabitNode {
     }
     
     private func setUpLabel() {
-        labelNode = SKLabelNode(fontNamed: "Avenir")
-        labelNode.name = "Label"
-        labelNode.text = (habit.isGood ? "" : "🚫") + habit.name + "\nStreak: \(habit.retrieveStreakInfo().current)"
-        labelNode.position = self.position
-        labelNode.fontColor = habit.wasCompletedToday ? Constant.Layer.habitTextColor : Constant.Layer.backgroundColor
-        labelNode.fontSize = 12
-        labelNode.numberOfLines = 2
-        labelNode.verticalAlignmentMode = .center
-        labelNode.horizontalAlignmentMode = .center
+
         labelNode.preferredMaxLayoutWidth = frame.width * 0.75
-        labelNode.zPosition = 5
+        labelNode.position = self.position
+
+        updateLabelAttributedString()
     }
 
     private func setUpMainNode() {
         mainShapeNode = SKShapeNode(circleOfRadius: (minWidth + increment * CGFloat(habit.iteration)) / 2)
-        
+
+        mainShapeNode.position = CGPoint(x: 0, y: 0)
         mainShapeNode.lineWidth = 0.1
+        mainShapeNode.alpha = 1
+        mainShapeNode.zPosition = 2
+
         mainShapeNode.strokeColor = habit.color
         mainShapeNode.fillColor = habit.color
-        mainShapeNode.alpha = 1
         mainShapeNode.name = habit.name
-        mainShapeNode.zPosition = 2
-        mainShapeNode.position = CGPoint(x: 0, y: 0)
     }
     
     private func setUpTemporaryNode() {
@@ -204,9 +209,26 @@ extension SKHabitNode {
         temporaryShapeNode?.zPosition = 2
     }
     
-    public func updateLabel() {
-        labelNode.text = (habit.isGood ? "" : "🚫") + habit.name + "\nStreak: \(habit.retrieveStreakInfo().current)"
-        labelNode.fontColor = habit.wasCompletedToday ? Constant.Layer.habitTextColor : Constant.Layer.backgroundColor
+    public func updateLabelAttributedString() {
+        let italicsFont = UIFont.italicSystemFont(ofSize: 12)
+        let boldFont = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.semibold)
+
+        let foregroundColor = habit.wasCompletedToday ? Constant.Layer.habitTextColor : Constant.Layer.backgroundColor
+        let headlineAttributes = [NSAttributedStringKey.foregroundColor: foregroundColor,
+                                  NSAttributedStringKey.font: boldFont]
+        let subheadlineAttributes = [NSAttributedStringKey.foregroundColor: foregroundColor,
+                                     NSAttributedStringKey.font: italicsFont]
+
+        let headlineAttributedString = NSAttributedString(
+            string: (habit.isGood ? "" : "🚫") + habit.name, attributes: headlineAttributes)
+        let subheadlineAttributedString = NSAttributedString(
+            string: "\nStreak: \(habit.retrieveStreakInfo().current)", attributes: subheadlineAttributes)
+
+        let result = NSMutableAttributedString()
+        result.append(headlineAttributedString)
+        result.append(subheadlineAttributedString)
+
+        labelNode.attributedText = result
     }
     
     public func connectSpringJoint(to node: SKShapeNode) {
@@ -231,6 +253,7 @@ extension SKHabitNode {
     }
 }
 
+// MARK: - SKHabitNodeDelegate
 protocol SKHabitNodeDelegate {
     func didHabitNodeExpand(_ habitNode: SKHabitNode, withFeedback useFeedback: Bool)
 }
