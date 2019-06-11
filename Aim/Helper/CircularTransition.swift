@@ -9,23 +9,32 @@
 import UIKit
 
 class CircularTransition: NSObject {
-    
+    // MARK: - Properties
     enum CircularTransitionMode: Int {
         case present, dismiss
     }
-    
+    public var duration = 0.3
+
     var circle = UIView()
     var transitionMode: CircularTransitionMode = .present
-    public var circleColor = UIColor.blue
-    public var duration = 0.3
-    
-    var startingPoint = CGPoint.zero {
-        didSet {
-            circle.center = startingPoint
+    var delegate: CircularTransitionDelegate?
+
+    private var startingPoint: CGPoint {
+        guard let point = delegate?.retrieveStartingPoint() else {
+            fatalError("Could not retrieve starting point")
         }
+
+        return point
     }
 }
 
+// MARK: - CircularTransitionDelegate
+protocol CircularTransitionDelegate {
+    func retrieveStartingPoint() -> CGPoint
+    func retrieveCircleColor() -> UIColor
+}
+
+// MARK: - UIViewControllerAnimatedTransitioning
 extension CircularTransition: UIViewControllerAnimatedTransitioning {
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return duration
@@ -43,7 +52,7 @@ extension CircularTransition: UIViewControllerAnimatedTransitioning {
             
             circle.layer.cornerRadius = circle.frame.size.height / 2
             circle.center = startingPoint
-            circle.backgroundColor = circleColor
+            circle.backgroundColor = delegate?.retrieveCircleColor() ?? .white
             circle.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
             containerView.addSubview(circle)
             
@@ -87,7 +96,7 @@ extension CircularTransition: UIViewControllerAnimatedTransitioning {
         }
     }
     
-    func frameForCircle (withViewCenter viewCenter: CGPoint, size viewSize: CGSize, startPoint: CGPoint) -> CGRect {
+    private func frameForCircle(withViewCenter viewCenter: CGPoint, size viewSize: CGSize, startPoint: CGPoint) -> CGRect {
         let xLength = fmax(startPoint.x, viewSize.width - startPoint.x)
         let yLength = fmax(startPoint.y, viewSize.height - startPoint.y)
         

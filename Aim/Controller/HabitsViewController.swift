@@ -21,10 +21,10 @@ class HabitsViewController: UIViewController {
     
     var habitNodeToShow: SKHabitNode?
     var colorOfHabitNodeToShow: UIColor?
-    var transitionMode = TransitionMode.createHabit
+    var transitionMode = TransitionDestination.createHabitVC
 
-    enum TransitionMode {
-        case createHabit, showHabit, showSettings
+    enum TransitionDestination {
+        case createHabitVC, detailedHabitVC, settingsVC
     }
 
     @IBOutlet weak var settingsButton: UIButton!
@@ -37,34 +37,12 @@ class HabitsViewController: UIViewController {
     @IBAction func unwindWithSegue(_ segue: UIStoryboardSegue) {
         reloadBubbles()
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let id = segue.identifier else { return }
-        
-        switch id {
-        case Constant.Segue.createHabit:
-            guard let createHabitVC = segue.destination as? CreateHabitViewController else { return }
-            
-            createHabitVC.habits = habits
-            
-            TapticEngine.impact.feedback(.light)
-            transitionMode = .createHabit
-            createHabitVC.transitioningDelegate = self
-            createHabitVC.modalPresentationStyle = .custom
-            
-        case Constant.Segue.showSettings:
-            TapticEngine.impact.feedback(.light)
 
-            transitionMode = .showSettings
-            segue.destination.transitioningDelegate = self
-            segue.destination.modalPresentationStyle = .custom
-        default:
-            assertionFailure("somebody is dumb")
-        }
-    }
-
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        transition.delegate = self
         
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self,
@@ -75,7 +53,7 @@ class HabitsViewController: UIViewController {
         
         habitsScene = HabitsScene(size: view.bounds.size)
         habitsScene.scaleMode = .aspectFill
-        habitsScene.backgroundColor = #colorLiteral(red: 0.1568627451, green: 0.07058823529, blue: 0.2509803922, alpha: 1)
+        habitsScene.backgroundColor = Constant.Layer.backgroundColor
         habitsScene.habitsDelegate = self
 
         skView.presentScene(habitsScene)
@@ -96,7 +74,33 @@ class HabitsViewController: UIViewController {
             defaults.synchronize()
         }
     }
-    
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let id = segue.identifier else { return }
+
+        switch id {
+        case Constant.Segue.createHabit:
+            guard let createHabitVC = segue.destination as? CreateHabitViewController else { return }
+
+            createHabitVC.habits = habits
+
+            TapticEngine.impact.feedback(.light)
+            transitionMode = .createHabitVC
+            createHabitVC.transitioningDelegate = self
+            createHabitVC.modalPresentationStyle = .custom
+
+        case Constant.Segue.showSettings:
+            TapticEngine.impact.feedback(.light)
+
+            transitionMode = .settingsVC
+            segue.destination.transitioningDelegate = self
+            segue.destination.modalPresentationStyle = .custom
+        default:
+            assertionFailure("somebody is dumb")
+        }
+    }
+
+    // MARK: - Methods
     @objc func appBecomeActive() {
         reloadBubbles()
     }
@@ -121,16 +125,12 @@ class HabitsViewController: UIViewController {
 extension HabitsViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         transition.transitionMode = .present
-        transition.startingPoint = getStartingPoint()
-        transition.circleColor = getColor()
         
         return transition
     }
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         transition.transitionMode = .dismiss
-        transition.startingPoint = getStartingPoint()
-        transition.circleColor = getColor()
         
         return transition
     }
@@ -139,52 +139,49 @@ extension HabitsViewController: UIViewControllerTransitioningDelegate {
 // MARK: - HabitsSceneDelegate
 extension HabitsViewController: HabitsSceneDelegate {
     func didDoubleTapHabit(_ habitNode: SKHabitNode) {
-        if let detailedHabitVC = storyboard?.instantiateViewController(withIdentifier: Constant.Storyboard.detailedHabit) as? DetailedHabitViewController {
-            habitNodeToShow = habitNode
-            
-            colorOfHabitNodeToShow = habitNode.habit.color
-
-            transitionMode = .showHabit
-            
-            detailedHabitVC.habit = habitNode.habit
-            
-
-
-
-            let navController = UINavigationController(rootViewController: detailedHabitVC)
-
-            navController.transitioningDelegate = self
-            navController.modalPresentationStyle = .custom
-
-            navController.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-            navController.navigationBar.shadowImage = UIImage()
-            navController.navigationBar.isTranslucent = true
-            navController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-            navController.navigationBar.tintColor = UIColor.white
-
-            present(navController, animated: true)
+        guard let detailedHabitVC = storyboard?.instantiateViewController(withIdentifier: Constant.Storyboard.detailedHabit) as? DetailedHabitViewController else {
+            fatalError("Could not load DetailedHabitVC")
         }
+
+        habitNodeToShow = habitNode
+        colorOfHabitNodeToShow = habitNode.habit.color
+        transitionMode = .detailedHabitVC
+
+        detailedHabitVC.habit = habitNode.habit
+
+        let navController = UINavigationController(rootViewController: detailedHabitVC)
+        navController.transitioningDelegate = self
+        navController.modalPresentationStyle = .custom
+
+        navController.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navController.navigationBar.shadowImage = UIImage()
+        navController.navigationBar.isTranslucent = true
+        navController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        navController.navigationBar.tintColor = UIColor.white
+
+        present(navController, animated: true)
     }
 }
 
-extension HabitsViewController {
-    private func getColor() -> UIColor {
+// MARK: - CircularTransition
+extension HabitsViewController: CircularTransitionDelegate {
+    func retrieveCircleColor() -> UIColor {
         switch transitionMode {
-        case .createHabit, .showSettings:
-            return #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
-        case .showHabit:
+        case .createHabitVC, .settingsVC:
+            return .white
+        case .detailedHabitVC:
             guard let color = colorOfHabitNodeToShow else { fatalError("somebody is dumb") }
             return color
         }
     }
     
-    private func getStartingPoint() -> CGPoint {
+    func retrieveStartingPoint() -> CGPoint {
         switch transitionMode {
-        case .createHabit:
+        case .createHabitVC:
             return createHabitButton.center
-        case .showSettings:
+        case .settingsVC:
             return settingsButton.center
-        case .showHabit:
+        case .detailedHabitVC:
             guard let position = habitNodeToShow?.position else { fatalError("somebody is dumb") }
             let y = (position.y - view.frame.height) < 0 ? (position.y - view.frame.height) * (-1) : (position.y - view.frame.height)
             return CGPoint(x: position.x, y: y)

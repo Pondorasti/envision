@@ -64,13 +64,13 @@ struct Constant {
     }
     
     struct Segue {
-        static let goBack: String = "goBack"
-        static let createHabit: String = "createHabit"
-        static let cancelHabit: String = "cancelHabit"
-        static let actuallyCreateHabit: String = "actuallyCreateHabit"
-        static let showSettings: String = "showSettings"
-        static let goBackHomeFromSettings: String = "goBackHomeFromSettings"
-        static let destoryHabit: String = "destoryHabit"
+        static let goBack = "goBack"
+        static let createHabit = "createHabit"
+        static let cancelHabit = "cancelHabit"
+        static let actuallyCreateHabit = "actuallyCreateHabit"
+        static let showSettings = "showSettings"
+        static let goBackHomeFromSettings = "goBackHomeFromSettings"
+        static let destoryHabit = "destoryHabit"
     }
     
     struct SpriteKit {

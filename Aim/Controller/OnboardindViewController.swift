@@ -38,7 +38,7 @@ class OnboardindViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = #colorLiteral(red: 0.1568627451, green: 0.07058823529, blue: 0.2509803922, alpha: 1)
+        view.backgroundColor = Constant.Layer.backgroundColor
     }
     
     private func dismissScreen() {        
