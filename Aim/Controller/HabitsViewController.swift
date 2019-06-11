@@ -148,9 +148,21 @@ extension HabitsViewController: HabitsSceneDelegate {
             
             detailedHabitVC.habit = habitNode.habit
             
-            detailedHabitVC.transitioningDelegate = self
-            detailedHabitVC.modalPresentationStyle = .custom
-            present(detailedHabitVC, animated: true)
+
+
+
+            let navController = UINavigationController(rootViewController: detailedHabitVC)
+
+            navController.transitioningDelegate = self
+            navController.modalPresentationStyle = .custom
+
+            navController.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+            navController.navigationBar.shadowImage = UIImage()
+            navController.navigationBar.isTranslucent = true
+            navController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+            navController.navigationBar.tintColor = UIColor.white
+
+            present(navController, animated: true)
         }
     }
 }

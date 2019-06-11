@@ -83,9 +83,11 @@ struct Constant {
     }
     
     struct ImageName {
-        static let oneFingerHold: String = "OneFingerHold"
-        static let twoFingers: String = "TwoFingers"
-        static let roundedIcon: String = "RoundedIcon"
+        static let oneFingerHold = "OneFingerHold"
+        static let twoFingers = "TwoFingers"
+        static let roundedIcon = "RoundedIcon"
+        static let trashCan = "TrashCan"
+        static let chevron = "Chevron"
     }
     
     struct UserDefaults {

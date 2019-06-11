@@ -89,6 +89,41 @@ class DetailedHabitViewController: UIViewController {
         
         dataSet = habit.retrieveCompletedDays()
         bestStreakLabel.text = "\(habit.retrieveStreakInfo(from: dataSet).best)"
+
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: Constant.ImageName.chevron),
+            style: .done,
+            target: self,
+            action: #selector(dismissVC)
+        )
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: Constant.ImageName.trashCan),
+            style: .plain,
+            target: self, action: #selector(deleteHabit)
+        )
+    }
+
+    @objc func dismissVC() {
+        dismiss(animated: true)
+    }
+
+    @objc func deleteHabit() {
+        let ac = UIAlertController(title: habit.name,
+                                   message: "Are you sure you want to delete this habit?",
+                                   preferredStyle: .alert)
+
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
+            self.performSegue(withIdentifier: Constant.Segue.destoryHabit, sender: self)
+            AnalyticsService.logDeletedHabit(self.habit)
+            CoreDataHelper.deleteHabit(self.habit)
+        }
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+
+        ac.addAction(cancelAction)
+        ac.addAction(deleteAction)
+
+        present(ac, animated: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -200,7 +235,7 @@ extension DetailedHabitViewController: JTAppleCalendarViewDelegate {
     func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
         guard let date = visibleDates.monthDates.first?.date else { return }
         dateFormatter.dateFormat = "MMMM yyyy"
-        calendarTitleLabel.text = dateFormatter.string(from: date)
+        title = dateFormatter.string(from: date)
     }
 }
 
