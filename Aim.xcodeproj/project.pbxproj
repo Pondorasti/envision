@@ -24,6 +24,7 @@
 		C53630262105ACFE007DFC7A /* AimUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53630252105ACFE007DFC7A /* AimUITests.swift */; };
 		C53630342106B74C007DFC7A /* HabitsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53630332106B74C007DFC7A /* HabitsScene.swift */; };
 		C53630362106D7A9007DFC7A /* HabitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53630352106D7A9007DFC7A /* HabitsViewController.swift */; };
+		C57D579422B0130A00E28AB3 /* UINavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57D579322B0130900E28AB3 /* UINavigationBar.swift */; };
 		C594D13E2119FDB3000F5D35 /* OnboardindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C594D13D2119FDB3000F5D35 /* OnboardindViewController.swift */; };
 		C594D140211A00F5000F5D35 /* Bulletin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C594D13F211A00F5000F5D35 /* Bulletin.swift */; };
 		C594D142211A4731000F5D35 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C594D141211A4731000F5D35 /* SettingsTableViewController.swift */; };
@@ -92,6 +93,7 @@
 		C53630272105ACFE007DFC7A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C53630332106B74C007DFC7A /* HabitsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsScene.swift; sourceTree = "<group>"; };
 		C53630352106D7A9007DFC7A /* HabitsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsViewController.swift; sourceTree = "<group>"; };
+		C57D579322B0130900E28AB3 /* UINavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationBar.swift; sourceTree = "<group>"; };
 		C594D13D2119FDB3000F5D35 /* OnboardindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardindViewController.swift; sourceTree = "<group>"; };
 		C594D13F211A00F5000F5D35 /* Bulletin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bulletin.swift; sourceTree = "<group>"; };
 		C594D141211A4731000F5D35 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				C5F7B746210985900094A09E /* UIColor.swift */,
+				C57D579322B0130900E28AB3 /* UINavigationBar.swift */,
 				C5F7B74821098A7C0094A09E /* UIButton.swift */,
 				C5F7B74A210A2EBA0094A09E /* UIView.swift */,
 				C5A35183210A385200A717D3 /* CGPoint.swift */,
@@ -561,6 +564,7 @@
 				C5B0CBA12112D15B004C1B55 /* Habit+CoreDataProperties.swift in Sources */,
 				C53630362106D7A9007DFC7A /* HabitsViewController.swift in Sources */,
 				C536300B2105ACFD007DFC7A /* Aim.xcdatamodeld in Sources */,
+				C57D579422B0130A00E28AB3 /* UINavigationBar.swift in Sources */,
 				C52C521C21316F85009EA9D6 /* AnalyticsService.swift in Sources */,
 				C5F7B7452109605B0094A09E /* Constants.swift in Sources */,
 				C516CE5422674596000F6028 /* CALayerAnimations.swift in Sources */,

@@ -14,14 +14,13 @@ import TapticEngine
 class HabitsViewController: UIViewController {
     // MARK: - Properties
     private let transition = CircularTransition()
-    
-    var habits = [Habit]()
-    var habitsScene: HabitsScene!
-    var skView: SKView { return view as! SKView }
-    
-    var habitNodeToShow: SKHabitNode?
-    var colorOfHabitNodeToShow: UIColor?
-    var transitionMode = TransitionDestination.createHabitVC
+
+    private(set) var habitsScene: HabitsScene!
+    private var habits = [Habit]()
+    private var skView: SKView { return view as! SKView }
+
+    private var transitionMode = TransitionDestination.createHabitVC
+    private var lastActiveHabitNode: SKHabitNode?
 
     enum TransitionDestination {
         case createHabitVC, detailedHabitVC, settingsVC
@@ -33,7 +32,8 @@ class HabitsViewController: UIViewController {
     @IBAction func createHabitButtonPressed(_ sender: Any) {
         TapticEngine.impact.feedback(.light)
     }
-    
+
+    /// Makes unwinding from createHabit and settings possible
     @IBAction func unwindWithSegue(_ segue: UIStoryboardSegue) {
         reloadBubbles()
     }
@@ -65,7 +65,6 @@ class HabitsViewController: UIViewController {
         super.viewDidAppear(animated)
         
         let defaults = UserDefaults.standard
-        
         if defaults.object(forKey: Constant.UserDefaults.notFirstInApp) == nil {
             let tutorialVC = UIStoryboard.initialViewController(for: .onboarding)
             present(tutorialVC, animated: true)
@@ -76,27 +75,31 @@ class HabitsViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let id = segue.identifier else { return }
+        guard let id = segue.identifier else {
+            fatalError("Could not unwrap segue identifier")
+        }
 
         switch id {
         case Constant.Segue.createHabit:
-            guard let createHabitVC = segue.destination as? CreateHabitViewController else { return }
+            guard let createHabitVC = segue.destination as? CreateHabitViewController else {
+                fatalError("Could not type cast destination into a CreateHabitVC")
+            }
 
+            transitionMode = .createHabitVC
             createHabitVC.habits = habits
 
-            TapticEngine.impact.feedback(.light)
-            transitionMode = .createHabitVC
             createHabitVC.transitioningDelegate = self
             createHabitVC.modalPresentationStyle = .custom
 
-        case Constant.Segue.showSettings:
             TapticEngine.impact.feedback(.light)
-
+        case Constant.Segue.showSettings:
             transitionMode = .settingsVC
             segue.destination.transitioningDelegate = self
             segue.destination.modalPresentationStyle = .custom
+
+            TapticEngine.impact.feedback(.light)
         default:
-            assertionFailure("somebody is dumb")
+            assertionFailure("Unknown segue identifier found")
         }
     }
 
@@ -110,7 +113,6 @@ class HabitsViewController: UIViewController {
         // CPU Connsuming task, app becomes laggy with 5+ year old habits
         // optimize needed
         habits = CoreDataHelper.retrieveHabits()
-        
         for habit in habits {
             habit.wasCompletedToday = habit.wasCompleted(for: Date())
             if let habitNode = habitsScene.childNode(withName: habit.name) as? SKHabitNode {
@@ -144,21 +146,16 @@ extension HabitsViewController: HabitsSceneDelegate {
             fatalError("Could not load DetailedHabitVC")
         }
 
-        habitNodeToShow = habitNode
-        colorOfHabitNodeToShow = habitNode.habit.color
+        lastActiveHabitNode = habitNode
         transitionMode = .detailedHabitVC
 
         detailedHabitVC.habit = habitNode.habit
 
         let navController = UINavigationController(rootViewController: detailedHabitVC)
+
         navController.transitioningDelegate = self
         navController.modalPresentationStyle = .custom
-
-        navController.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navController.navigationBar.shadowImage = UIImage()
-        navController.navigationBar.isTranslucent = true
-        navController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        navController.navigationBar.tintColor = UIColor.white
+        navController.navigationBar.removeBackround()
 
         present(navController, animated: true)
     }
@@ -171,7 +168,9 @@ extension HabitsViewController: CircularTransitionDelegate {
         case .createHabitVC, .settingsVC:
             return .white
         case .detailedHabitVC:
-            guard let color = colorOfHabitNodeToShow else { fatalError("somebody is dumb") }
+            guard let color = lastActiveHabitNode?.habit.color else {
+                fatalError("Missing Habit Node")
+            }
             return color
         }
     }
@@ -183,7 +182,9 @@ extension HabitsViewController: CircularTransitionDelegate {
         case .settingsVC:
             return settingsButton.center
         case .detailedHabitVC:
-            guard let position = habitNodeToShow?.position else { fatalError("somebody is dumb") }
+            guard let position = lastActiveHabitNode?.position else {
+                fatalError("Missing Habit Node")
+            }
             return position.normalizeFromSpriteKitToUIKit(frameHeight: view.frame.height)
         }
     }

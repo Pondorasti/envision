@@ -21,7 +21,8 @@ class HabitsScene: SKScene {
     var animationState = SKHabitNode.BeautyAnimation.none
     var lastTouchLocation: CGPoint?
     var touchOffset: CGPoint?
-    
+
+    // MARK: - Lifecycle
     override func didMove(to view: SKView) {
         setUpMiddleNode(in: view)
         if let node = middleNode {
@@ -41,32 +42,8 @@ class HabitsScene: SKScene {
         physicsWorld.contactDelegate = self
         
 //        showDebugger()
-        
-        let doubleTapGesture = UITapGestureRecognizer()
-        
-        doubleTapGesture.numberOfTapsRequired = 1
-        doubleTapGesture.numberOfTouchesRequired = 2
-        doubleTapGesture.cancelsTouchesInView = true
-        
-        doubleTapGesture.addTarget(self, action: #selector(handleDoubleTap))
-        
-        view.addGestureRecognizer(doubleTapGesture)
-    }
-    
-    @objc func handleDoubleTap(_ sender: UIGestureRecognizer) {
-        let location = sender.location(in: view)
-        
-        if let height = view?.frame.height {
-            let doubleTouchedPoint = location.normalizeFromSpriteKitToUIKit(frameHeight: height)
-            
-            animationState = .startingToShrink
-            if let body = physicsWorld.body(at: doubleTouchedPoint) {
-                if let habitNode = body.node as? SKHabitNode {
-                    habitsDelegate?.didDoubleTapHabit(habitNode)
-                    animationState = .startingToShrink
-                }
-            }
-        }
+
+        configureGestureRecognizers(in: view)
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -85,7 +62,8 @@ class HabitsScene: SKScene {
             deselectHabitNode()
         }
     }
-    
+
+    // MARK: - Input Touches
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first, touches.count == 1 else { return }
         let touchLocation = touch.location(in: self)
@@ -107,7 +85,7 @@ class HabitsScene: SKScene {
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else { return }
+        guard let touch = touches.first, touches.count == 1 else { return }
         
         if let status = selectedHabitNode?.habit.wasCompletedToday, status {
             for touch in touches {
@@ -123,7 +101,6 @@ class HabitsScene: SKScene {
                 animationState = .startingToShrink
             }
         }
-        
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -132,7 +109,8 @@ class HabitsScene: SKScene {
         selectedHabitNode?.springJoint.damping = Constant.SpriteKit.magicDamping
         selectedHabitNode?.springJoint.frequency = Constant.SpriteKit.magicFrequency
     }
-    
+
+    // MARK: - Methods
     public func createHabitBubble(_ habit: Habit, in skview: SKView) {
         let habit = SKHabitNode(for: habit, in: skview)
         habit.delegate = self
@@ -140,6 +118,35 @@ class HabitsScene: SKScene {
         
         addChild(habit)
         habit.connectSpringJoint(to: middleNode)
+    }
+
+    @objc private func handleDoubleTap(_ sender: UIGestureRecognizer) {
+        let location = sender.location(in: view)
+
+        if let height = view?.frame.height {
+            let doubleTouchedPoint = location.normalizeFromSpriteKitToUIKit(frameHeight: height)
+
+            animationState = .startingToShrink
+            if let body = physicsWorld.body(at: doubleTouchedPoint) {
+                if let habitNode = body.node as? SKHabitNode {
+                    habitsDelegate?.didDoubleTapHabit(habitNode)
+                    animationState = .startingToShrink
+                }
+            }
+        }
+    }
+
+    private func configureGestureRecognizers(in view: SKView) {
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handleDoubleTap))
+        pinchGesture.cancelsTouchesInView = true
+
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
+        doubleTapGesture.numberOfTapsRequired = 1
+        doubleTapGesture.numberOfTouchesRequired = 2
+        doubleTapGesture.cancelsTouchesInView = true
+
+        view.addGestureRecognizer(pinchGesture)
+        view.addGestureRecognizer(doubleTapGesture)
     }
 }
 
