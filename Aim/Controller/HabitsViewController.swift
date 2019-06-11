@@ -102,6 +102,7 @@ class HabitsViewController: UIViewController {
 
     // MARK: - Methods
     @objc func appBecomeActive() {
+        habitsScene.shakeHabitNodes(from: habitsScene.middleNode, withFeedback: true)
         reloadBubbles()
     }
     
@@ -183,8 +184,7 @@ extension HabitsViewController: CircularTransitionDelegate {
             return settingsButton.center
         case .detailedHabitVC:
             guard let position = habitNodeToShow?.position else { fatalError("somebody is dumb") }
-            let y = (position.y - view.frame.height) < 0 ? (position.y - view.frame.height) * (-1) : (position.y - view.frame.height)
-            return CGPoint(x: position.x, y: y)
+            return position.normalizeFromSpriteKitToUIKit(frameHeight: view.frame.height)
         }
     }
 }

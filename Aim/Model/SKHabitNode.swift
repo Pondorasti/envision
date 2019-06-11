@@ -130,7 +130,7 @@ class SKHabitNode: SKNode {
                     
                     habit.wasCompletedToday = true
                     temporaryShapeNode?.removeFromParent()
-                    delegate?.didHabitNodeExpand(self, withFeedback: true)
+                    delegate?.shakeHabitNodes(from: self, withFeedback: true)
                     updateLabelAttributedString()
                 }
             }
@@ -230,9 +230,15 @@ extension SKHabitNode {
                                      NSAttributedString.Key.font: italicsFont]
 
         let headlineAttributedString = NSAttributedString(
-            string: (habit.isGood ? "" : "🚫") + habit.name, attributes: headlineAttributes)
+            string: (habit.isGood ? "" : "🚫") + habit.name,
+            attributes: headlineAttributes
+        )
+
+        // retrieveStreakInfo when increasing the streak by 1, ex: just completed habit not effiecient, and creates lag
         let subheadlineAttributedString = NSAttributedString(
-            string: "\nStreak: \(habit.retrieveStreakInfo().current)", attributes: subheadlineAttributes)
+            string: "\nStreak: \(habit.retrieveStreakInfo().current)",
+            attributes: subheadlineAttributes
+        )
 
         let result = NSMutableAttributedString()
         result.append(headlineAttributedString)
@@ -265,5 +271,5 @@ extension SKHabitNode {
 
 // MARK: - SKHabitNodeDelegate
 protocol SKHabitNodeDelegate {
-    func didHabitNodeExpand(_ habitNode: SKHabitNode, withFeedback useFeedback: Bool)
+    func shakeHabitNodes(from mainNode: SKNode, withFeedback useFeedback: Bool)
 }

@@ -12,7 +12,7 @@ import TapticEngine
 
 class HabitsScene: SKScene {
     // MARK: - Properties
-    private var middleNode: SKShapeNode!
+    private(set) var middleNode: SKShapeNode!
     var viewBorder = SKPhysicsBody()
     
     var habitsDelegate: HabitsSceneDelegate?
@@ -57,9 +57,7 @@ class HabitsScene: SKScene {
         let location = sender.location(in: view)
         
         if let height = view?.frame.height {
-            let x = location.x
-            let y = (location.y - height) < 0 ? (location.y - height) * (-1) : (location.y - height)
-            let doubleTouchedPoint = CGPoint(x: x, y: y)
+            let doubleTouchedPoint = location.normalizeFromSpriteKitToUIKit(frameHeight: height)
             
             animationState = .startingToShrink
             if let body = physicsWorld.body(at: doubleTouchedPoint) {
@@ -138,7 +136,8 @@ class HabitsScene: SKScene {
     public func createHabitBubble(_ habit: Habit, in skview: SKView) {
         let habit = SKHabitNode(for: habit, in: skview)
         habit.delegate = self
-        habit.delegate?.didHabitNodeExpand(habit, withFeedback: false)
+        habit.delegate?.shakeHabitNodes(from: habit, withFeedback: false)
+        
         addChild(habit)
         habit.connectSpringJoint(to: middleNode)
     }
@@ -146,15 +145,15 @@ class HabitsScene: SKScene {
 
 // MARK: - SKHabitNodeDelegate
 extension HabitsScene: SKHabitNodeDelegate {
-    func didHabitNodeExpand(_ habitNode: SKHabitNode, withFeedback useFeedback: Bool) {
-        
+    func shakeHabitNodes(from mainNode: SKNode, withFeedback useFeedback: Bool) {
+
         if useFeedback {
             TapticEngine.notification.feedback(.success)
         }
         
         for child in self.children {
-            if let nodeToPush = child as? SKHabitNode, nodeToPush.name != habitNode.name, let mass = nodeToPush.physicsBody?.mass {
-                let offset = nodeToPush.position - habitNode.position
+            if let nodeToPush = child as? SKHabitNode, nodeToPush.name != mainNode.name, let mass = nodeToPush.physicsBody?.mass {
+                let offset = nodeToPush.position - mainNode.position
                 let direction = offset.normalized()
                 
                 nodeToPush.physicsBody?.applyImpulse(CGVector(dx: direction.x * mass * Constant.SpriteKit.expandForce, dy: direction.y * mass * Constant.SpriteKit.expandForce))
