@@ -103,34 +103,18 @@ class DetailedHabitViewController: UIViewController {
         )
     }
 
-    @objc func dismissVC() {
-        dismiss(animated: true)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        updateStatisticsView(animated: false)
     }
 
-    @objc func deleteHabit() {
-        let ac = UIAlertController(title: habit.name,
-                                   message: "Are you sure you want to delete this habit?",
-                                   preferredStyle: .alert)
-
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
-            self.performSegue(withIdentifier: Constant.Segue.destoryHabit, sender: self)
-            AnalyticsService.logDeletedHabit(self.habit)
-            CoreDataHelper.deleteHabit(self.habit)
-        }
-
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-
-        ac.addAction(cancelAction)
-        ac.addAction(deleteAction)
-
-        present(ac, animated: true)
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        updateStatisticsView()
+
+        updateStatisticsView(animated: true)
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let id = segue.identifier,
             let mainVC = segue.destination as? HabitsViewController else { return }
@@ -147,6 +131,92 @@ class DetailedHabitViewController: UIViewController {
         default:
             fatalError("unknown segue identifier")
         }
+    }
+
+    // MARK: - Methods
+    @objc private func dismissVC() {
+        dismiss(animated: true)
+    }
+
+    @objc private func deleteHabit() {
+        let ac = UIAlertController(
+            title: habit.name,
+            message: "Are you sure you want to delete this habit?",
+            preferredStyle: .alert
+        )
+
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
+            self.performSegue(withIdentifier: Constant.Segue.destoryHabit, sender: self)
+            AnalyticsService.logDeletedHabit(self.habit)
+            CoreDataHelper.deleteHabit(self.habit)
+        }
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+
+        ac.addAction(cancelAction)
+        ac.addAction(deleteAction)
+
+        present(ac, animated: true)
+    }
+
+    // MARK: - Update Statistics
+    private func updateStatisticsView(with duration: Double = Constant.StatisticsView.initialAnimationDuration, animated: Bool) {
+        updateProgressView(with: duration, animated: animated)
+        updateStreakView(with: duration, animated: animated)
+    }
+
+    private func updateProgressView(with duration: Double, animated: Bool) {
+        let percentageInfo = habit.retrieveCompletionInfo(from: dataSet)
+        let percentage = percentageInfo.numberOfCompletions / percentageInfo.numberOfHabitDays
+
+        defer {
+            percentageTitleLabel.text = "\(Int(percentageInfo.numberOfCompletions))/\(Int(percentageInfo.numberOfHabitDays)) Days"
+        }
+
+        guard animated else {
+            return
+        }
+
+        let percentageAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        percentageAnimation.fromValue = lastPercentageValue
+        percentageAnimation.toValue = percentage
+
+        percentageAnimation.duration = duration
+
+        percentageAnimation.fillMode = CAMediaTimingFillMode.forwards
+        percentageAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+        percentageAnimation.isRemovedOnCompletion = false
+
+        percentageLabel.countFrom(fromValue: Float(lastPercentageValue * 100), to: Float(percentage * 100), withDuration: duration, andAnimationType: .EaseOut, andCountingType: .Int)
+
+        lastPercentageValue = percentage
+        progressLayer.add(percentageAnimation, forKey: "percentageAnimation")
+    }
+
+    private func updateStreakView(with duration: Double, animated: Bool) {
+        let streakInfo = habit.retrieveStreakInfo(from: dataSet)
+
+        defer {
+            bestStreakLabel.text = "Best \(streakInfo.best)"
+        }
+
+        guard animated else {
+            return
+        }
+
+        if streakInfo.best != 0 {
+            let streakPercentage = Double(streakInfo.current) / Double(streakInfo.best)
+            let anchorPercentage = 1 - streakPercentage
+            innerStreakTopAnchor.constant = CGFloat(anchorPercentage) * (outerStreakView.frame.height - currentStreakLabel.frame.height)
+        }
+
+        UIView.animate(withDuration: duration, delay: 0, options: [.curveEaseOut], animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+
+        currentStreakLabel.countFrom(fromValue: Float(lastCurrentStreakValue), to: Float(streakInfo.current), withDuration: duration, andAnimationType: .EaseOut, andCountingType: .Custom)
+
+        lastCurrentStreakValue = streakInfo.current
     }
 }
 
@@ -199,7 +269,7 @@ extension DetailedHabitViewController: JTAppleCalendarViewDelegate {
         handleCellColors(for: cell, inCellState: cellState)
         TapticEngine.impact.feedback(.light)
         
-        updateStatisticsView(with: Constant.StatisticsView.animationDuration)
+        updateStatisticsView(with: Constant.StatisticsView.animationDuration, animated: true)
     }
 
     func calendar(_ calendar: JTAppleCalendarView, shouldSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) -> Bool {
@@ -267,52 +337,6 @@ extension DetailedHabitViewController {
                 cell.completedDayView.isHidden = true
             }
         }
-    }
-    
-    private func updateStatisticsView(with duration: Double = Constant.StatisticsView.initialAnimationDuration) {
-        updateProgressView(with: duration)
-        updateStreakView(with: duration)
-    }
-    
-    private func updateProgressView(with duration: Double) {
-        let percentageInfo = habit.retrieveCompletionInfo(from: dataSet)
-        let percentage = percentageInfo.numberOfCompletions / percentageInfo.numberOfHabitDays
-        
-        percentageTitleLabel.text = "\(Int(percentageInfo.numberOfCompletions))/\(Int(percentageInfo.numberOfHabitDays)) Days"
-        
-        let percentageAnimation = CABasicAnimation(keyPath: "strokeEnd")
-        percentageAnimation.fromValue = lastPercentageValue
-        percentageAnimation.toValue = percentage
-        
-        percentageAnimation.duration = duration
-        
-        percentageAnimation.fillMode = CAMediaTimingFillMode.forwards
-        percentageAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
-        percentageAnimation.isRemovedOnCompletion = false
-        
-        percentageLabel.countFrom(fromValue: Float(lastPercentageValue * 100), to: Float(percentage * 100), withDuration: duration, andAnimationType: .EaseOut, andCountingType: .Int)
-        
-        lastPercentageValue = percentage
-        progressLayer.add(percentageAnimation, forKey: "percentageAnimation")
-    }
-    
-    private func updateStreakView(with duration: Double) {
-        let streakInfo = habit.retrieveStreakInfo(from: dataSet)
-        bestStreakLabel.text = "Best \(streakInfo.best)"
-        
-        if streakInfo.best != 0 {
-            let streakPercentage = Double(streakInfo.current) / Double(streakInfo.best)
-            let anchorPercentage = 1 - streakPercentage
-            innerStreakTopAnchor.constant = CGFloat(anchorPercentage) * (outerStreakView.frame.height - currentStreakLabel.frame.height)
-        }
-        
-        UIView.animate(withDuration: duration, delay: 0, options: [.curveEaseOut], animations: {
-            self.view.layoutIfNeeded()
-        }, completion: nil)
-        
-        currentStreakLabel.countFrom(fromValue: Float(lastCurrentStreakValue), to: Float(streakInfo.current), withDuration: duration, andAnimationType: .EaseOut, andCountingType: .Custom)
-        
-        lastCurrentStreakValue = streakInfo.current
     }
     
     private func setUpProgressView() {
