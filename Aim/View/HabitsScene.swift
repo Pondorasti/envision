@@ -15,25 +15,21 @@ class HabitsScene: SKScene {
     private(set) var middleNode: SKShapeNode!
 
     private var ignoreNextDoubleTap = false
-    var viewBorder = SKPhysicsBody()
-    
+    private var touchJoint: SKPhysicsJointLimit?
+    private var animationState = SKHabitNode.BeautyAnimation.none
+    private var lastTouchLocation: CGPoint?
+    private var touchOffset: CGPoint?
+    private var viewBorder = SKPhysicsBody()
+
     var habitsDelegate: HabitsSceneDelegate?
     var selectedHabitNode: SKHabitNode?
-    var touchJoint: SKPhysicsJointLimit?
-    var animationState = SKHabitNode.BeautyAnimation.none
-    var lastTouchLocation: CGPoint?
-    var touchOffset: CGPoint?
 
     // MARK: - Lifecycle
     override func didMove(to view: SKView) {
-        setUpMiddleNode(in: view)
-        if let node = middleNode {
-            addChild(node)
-        } else {
-            fatalError("Could not find middleNode")
-        }
+        configureMiddleNode(in: view)
+        configureGestureRecognizers(in: view)
 
-        viewBorder = SKPhysicsBody(edgeLoopFrom: view.bounds)
+        viewBorder = SKPhysicsBody(edgeLoopFrom: view.bounds.increase(byPercentage: 25))
         viewBorder.collisionBitMask = 1
         viewBorder.friction = 0
         viewBorder.usesPreciseCollisionDetection = true
@@ -44,8 +40,6 @@ class HabitsScene: SKScene {
         physicsWorld.contactDelegate = self
         
 //        showDebugger()
-
-        configureGestureRecognizers(in: view)
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -142,6 +136,7 @@ class HabitsScene: SKScene {
         }
     }
 
+    // MARK: - Configure
     private func configureGestureRecognizers(in view: SKView) {
         let singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
         let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handleDoubleTap))
@@ -151,6 +146,21 @@ class HabitsScene: SKScene {
         view.addGestureRecognizer(singleTapGesture)
         view.addGestureRecognizer(pinchGesture)
         view.addGestureRecognizer(doubleTapGesture)
+    }
+
+    private func configureMiddleNode(in view: SKView) {
+        middleNode = SKShapeNode(circleOfRadius: 1)
+        middleNode.position = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
+        middleNode.physicsBody = SKPhysicsBody(circleOfRadius: 1)
+        middleNode.physicsBody?.collisionBitMask = 10
+        middleNode.fillColor = Constant.Layer.backgroundColor
+        middleNode.strokeColor = Constant.Layer.backgroundColor
+
+        middleNode.physicsBody?.isDynamic = false
+
+        middleNode.name = "helper"
+
+        addChild(middleNode)
     }
 }
 
@@ -217,20 +227,7 @@ extension HabitsScene {
             secondBody.applyImpulse(CGVector(dx: direction.x * force * secondBody.mass, dy: direction.y * force * secondBody.mass))
         }
     }
-    
-    private func setUpMiddleNode(in view: SKView) {
-        middleNode = SKShapeNode(circleOfRadius: 1)
-        middleNode.position = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
-        middleNode.physicsBody = SKPhysicsBody(circleOfRadius: 1)
-        middleNode.physicsBody?.collisionBitMask = 10
-        middleNode.fillColor = Constant.Layer.backgroundColor
-        middleNode.strokeColor = Constant.Layer.backgroundColor
-        
-        middleNode.physicsBody?.isDynamic = false
-        
-        middleNode.name = "helper"
-    }
-    
+
     private func showDebugger() {
         self.view?.showsPhysics = true
         self.view?.showsNodeCount = true
