@@ -105,8 +105,10 @@ class HabitsViewController: UIViewController {
 
     // MARK: - Methods
     @objc func appBecomeActive() {
-        habitsScene.shakeHabitNodes(from: habitsScene.middleNode, withFeedback: true)
-        reloadBubbles()
+        if let _ = view?.window, isViewLoaded {
+            habitsScene.shakeHabitNodes(from: habitsScene.middleNode, withFeedback: false)
+            reloadBubbles()
+        }
     }
     
     func reloadBubbles() {

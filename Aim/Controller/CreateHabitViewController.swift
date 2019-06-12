@@ -95,6 +95,15 @@ class CreateHabitViewController: UIViewController {
             }
             
             if let habitName = habitNameTextField.text {
+                if habitName.containsIllegalCharacters() {
+                    habitNameTextField.text = ""
+                    habitNameTextField.placeholder = "Contains Illegal Characters"
+                    habitNameView.addShakeAnimation()
+                    TapticEngine.notification.feedback(.error)
+
+                    return false
+                }
+
                 let trimmedHabitName = habitName.trimmingCharacters(in: .whitespacesAndNewlines)
                 habitNameTextField.text = trimmedHabitName
                 

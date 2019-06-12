@@ -54,34 +54,3 @@ extension CGPoint {
         return CGPoint(x: x, y: y)
     }
 }
-
-extension Int {
-    static func randomNumber(inRange range: CountableClosedRange<Int>) -> Int {
-        let length = Int(range.upperBound - range.lowerBound + 1)
-        let value = Int(arc4random()) % length + Int(range.lowerBound)
-        return value
-    }
-}
-
-extension String {
-    func containsIllegalCharacters() -> Bool {
-        
-        let illegalCharacters = "()-+{}[]|\\/"
-        
-        for char in illegalCharacters {
-            if self.contains(char) {
-                return false
-            }
-        }
-        
-        if self.contains("/") {
-            return false
-        }
-        
-        if self.contains("\"") {
-            return false
-        }
-    
-        return true
-    }
-}

@@ -88,7 +88,13 @@ class DetailedHabitViewController: UIViewController {
         view.backgroundColor = habit.color
         
         dataSet = habit.retrieveCompletedDays()
-        bestStreakLabel.text = "\(habit.retrieveStreakInfo(from: dataSet).best)"
+
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self,
+                                       selector: #selector(appBecomeActive),
+                                       name: UIApplication.didBecomeActiveNotification,
+                                       object: nil
+        )
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: UIImage(named: Constant.ImageName.chevron),
@@ -134,6 +140,12 @@ class DetailedHabitViewController: UIViewController {
     }
 
     // MARK: - Methods
+    @objc private func appBecomeActive() {
+        dataSet = habit.retrieveCompletedDays()
+        updateStatisticsView(with: Constant.StatisticsView.animationDuration, animated: true)
+        calendarView.reloadData()
+    }
+
     @objc private func dismissVC() {
         performSegue(withIdentifier: Constant.Segue.dismissDetailedHabitVC, sender: self)
     }
