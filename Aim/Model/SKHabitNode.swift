@@ -132,6 +132,8 @@ class SKHabitNode: SKNode {
                     temporaryShapeNode?.removeFromParent()
                     delegate?.shakeHabitNodes(from: self, withFeedback: true)
                     updateLabelAttributedString()
+
+                    delegate?.nodeDidExpand()
                 }
             }
         case .shrink:
@@ -213,7 +215,7 @@ extension SKHabitNode {
         temporaryShapeNode = SKShapeNode(circleOfRadius: 0.1)
         temporaryShapeNode?.lineWidth = 0
         temporaryShapeNode?.strokeColor = #colorLiteral(red: 0.1568627451, green: 0.368627451, blue: 0.5137254902, alpha: 0)
-        temporaryShapeNode?.fillColor = habit.color.lighter(by: 20) ?? UIColor.white
+        temporaryShapeNode?.fillColor = habit.color.lighter(by: 90) ?? UIColor.white
         temporaryShapeNode?.alpha = 0.5
         temporaryShapeNode?.name = "temp"
         temporaryShapeNode?.zPosition = 2
@@ -272,4 +274,5 @@ extension SKHabitNode {
 // MARK: - SKHabitNodeDelegate
 protocol SKHabitNodeDelegate {
     func shakeHabitNodes(from mainNode: SKNode, withFeedback useFeedback: Bool)
+    func nodeDidExpand()
 }

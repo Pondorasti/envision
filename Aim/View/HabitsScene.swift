@@ -13,6 +13,8 @@ import TapticEngine
 class HabitsScene: SKScene {
     // MARK: - Properties
     private(set) var middleNode: SKShapeNode!
+
+    private var ignoreNextDoubleTap = false
     var viewBorder = SKPhysicsBody()
     
     var habitsDelegate: HabitsSceneDelegate?
@@ -121,8 +123,12 @@ class HabitsScene: SKScene {
     }
 
     @objc private func handleDoubleTap(_ sender: UIGestureRecognizer) {
-        let location = sender.location(in: view)
+        guard !ignoreNextDoubleTap else {
+            ignoreNextDoubleTap = false
+            return
+        }
 
+        let location = sender.location(in: view)
         if let height = view?.frame.height {
             let doubleTouchedPoint = location.normalizeFromSpriteKitToUIKit(frameHeight: height)
 
@@ -137,14 +143,12 @@ class HabitsScene: SKScene {
     }
 
     private func configureGestureRecognizers(in view: SKView) {
+        let singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
         let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handleDoubleTap))
-        pinchGesture.cancelsTouchesInView = true
-
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
-        doubleTapGesture.numberOfTapsRequired = 1
         doubleTapGesture.numberOfTouchesRequired = 2
-        doubleTapGesture.cancelsTouchesInView = true
 
+        view.addGestureRecognizer(singleTapGesture)
         view.addGestureRecognizer(pinchGesture)
         view.addGestureRecognizer(doubleTapGesture)
     }
@@ -166,6 +170,10 @@ extension HabitsScene: SKHabitNodeDelegate {
                 nodeToPush.physicsBody?.applyImpulse(CGVector(dx: direction.x * mass * Constant.SpriteKit.expandForce, dy: direction.y * mass * Constant.SpriteKit.expandForce))
             }
         }
+    }
+
+    func nodeDidExpand() {
+        ignoreNextDoubleTap = true
     }
 }
 
