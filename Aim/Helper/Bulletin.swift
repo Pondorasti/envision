@@ -49,7 +49,8 @@ struct BulletinHelper {
     static func detailItem() -> BLTNPageItem {
         let rootItem = BLTNPageItem(title: "Looking beyond the bubbles")
         rootItem.image = UIImage(named: Constant.ImageName.twoFingers)
-        rootItem.descriptionText = "Tap with two fingers around a bubble to see more info about that specific habit."
+        rootItem.descriptionText = "Pinch to zoom around a bubble for more info."
+
         rootItem.actionButtonTitle = "Let's get started!"
         
         rootItem.requiresCloseButton = false
