@@ -20,7 +20,7 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     }
     
     @objc func unwindSettings() {
-        performSegue(withIdentifier: Constant.Segue.goBackHomeFromSettings, sender: self)
+        performSegue(withIdentifier: Constant.Segue.dismissSettingsVC, sender: self)
     }
     
     func sendEmail() {

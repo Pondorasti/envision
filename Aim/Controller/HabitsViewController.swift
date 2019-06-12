@@ -92,7 +92,7 @@ class HabitsViewController: UIViewController {
             createHabitVC.modalPresentationStyle = .custom
 
             TapticEngine.impact.feedback(.light)
-        case Constant.Segue.showSettings:
+        case Constant.Segue.presentSettingsVC:
             transitionMode = .settingsVC
             segue.destination.transitioningDelegate = self
             segue.destination.modalPresentationStyle = .custom

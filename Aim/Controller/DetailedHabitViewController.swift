@@ -119,7 +119,7 @@ class DetailedHabitViewController: UIViewController {
         guard let id = segue.identifier,
             let mainVC = segue.destination as? HabitsViewController else { return }
         switch id {
-        case Constant.Segue.goBack:
+        case Constant.Segue.dismissDetailedHabitVC:
             mainVC.reloadBubbles()
         case Constant.Segue.destoryHabit:
             if let habitToDelete = mainVC.habitsScene.childNode(withName: habit.name) as? SKHabitNode {
@@ -135,7 +135,7 @@ class DetailedHabitViewController: UIViewController {
 
     // MARK: - Methods
     @objc private func dismissVC() {
-        dismiss(animated: true)
+        performSegue(withIdentifier: Constant.Segue.dismissDetailedHabitVC, sender: self)
     }
 
     @objc private func deleteHabit() {
