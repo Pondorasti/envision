@@ -85,14 +85,14 @@ open class UIEntryPickerView: UIView {
     }
     
     public var focusSize: CGSize
-    public private(set) var majorAttributes: [NSAttributedStringKey: Any]
-    public private(set) var minorAttributes: [NSAttributedStringKey: Any]
+    public private(set) var majorAttributes: [NSAttributedString.Key: Any]
+    public private(set) var minorAttributes: [NSAttributedString.Key: Any]
     
     public init(
         frame: CGRect = CGRect.zero,
         focusSize: CGSize,
-        majorAttributes: [NSAttributedStringKey: Any] = [:],
-        minorAttributes: [NSAttributedStringKey: Any] = [:],
+        majorAttributes: [NSAttributedString.Key: Any] = [:],
+        minorAttributes: [NSAttributedString.Key: Any] = [:],
         entries: [EntryDescriptor]) {
         self.entries = entries
         self.focusSize = focusSize
@@ -152,7 +152,7 @@ open class UIEntryPickerView: UIView {
             
             colorImageView.heightAnchor.constraint(equalToConstant: focusSize.height).isActive = true
             colorImageView.widthAnchor.constraint(equalToConstant: focusSize.width).isActive = true
-            colorImageView.setContentCompressionResistancePriority(UILayoutPriority.required, for: UILayoutConstraintAxis.horizontal)
+            colorImageView.setContentCompressionResistancePriority(UILayoutPriority.required, for: NSLayoutConstraint.Axis.horizontal)
             
             horzStackView.addArrangedSubview(colorImageView)
         }
@@ -173,7 +173,7 @@ open class UIEntryPickerView: UIView {
         scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         scrollView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         
-        scrollView.decelerationRate = 0.2
+        scrollView.decelerationRate = UIScrollView.DecelerationRate(rawValue: 0.2)
         scrollView.delegate = self
         
         //fade sides

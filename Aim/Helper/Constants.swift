@@ -64,13 +64,13 @@ struct Constant {
     }
     
     struct Segue {
-        static let goBack: String = "goBack"
-        static let createHabit: String = "createHabit"
-        static let cancelHabit: String = "cancelHabit"
-        static let actuallyCreateHabit: String = "actuallyCreateHabit"
-        static let showSettings: String = "showSettings"
-        static let goBackHomeFromSettings: String = "goBackHomeFromSettings"
-        static let destoryHabit: String = "destoryHabit"
+        static let goBack = "goBack"
+        static let createHabit = "createHabit"
+        static let cancelHabit = "cancelHabit"
+        static let actuallyCreateHabit = "actuallyCreateHabit"
+        static let showSettings = "showSettings"
+        static let goBackHomeFromSettings = "goBackHomeFromSettings"
+        static let destoryHabit = "destoryHabit"
     }
     
     struct SpriteKit {
@@ -83,13 +83,19 @@ struct Constant {
     }
     
     struct ImageName {
-        static let oneFingerHold: String = "OneFingerHold"
-        static let twoFingers: String = "TwoFingers"
-        static let roundedIcon: String = "RoundedIcon"
+        static let oneFingerHold = "OneFingerHold"
+        static let twoFingers = "TwoFingers"
+        static let roundedIcon = "RoundedIcon"
+        static let trashCan = "TrashCan"
+        static let chevron = "Chevron"
     }
     
     struct UserDefaults {
         static let notFirstInApp = "notFirstInApp"
+    }
+
+    struct Habit {
+        static let maxIteration = 60
     }
 }
 

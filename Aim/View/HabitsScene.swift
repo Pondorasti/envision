@@ -11,8 +11,8 @@ import SpriteKit
 import TapticEngine
 
 class HabitsScene: SKScene {
-    
-    var middleNode = SKShapeNode()
+    // MARK: - Properties
+    private(set) var middleNode: SKShapeNode!
     var viewBorder = SKPhysicsBody()
     
     var habitsDelegate: HabitsSceneDelegate?
@@ -21,11 +21,16 @@ class HabitsScene: SKScene {
     var animationState = SKHabitNode.BeautyAnimation.none
     var lastTouchLocation: CGPoint?
     var touchOffset: CGPoint?
-    
+
+    // MARK: - Lifecycle
     override func didMove(to view: SKView) {
         setUpMiddleNode(in: view)
-        addChild(middleNode)
-        
+        if let node = middleNode {
+            addChild(node)
+        } else {
+            fatalError("Could not find middleNode")
+        }
+
         viewBorder = SKPhysicsBody(edgeLoopFrom: view.bounds)
         viewBorder.collisionBitMask = 1
         viewBorder.friction = 0
@@ -37,34 +42,8 @@ class HabitsScene: SKScene {
         physicsWorld.contactDelegate = self
         
 //        showDebugger()
-        
-        let doubleTapGesture = UITapGestureRecognizer()
-        
-        doubleTapGesture.numberOfTapsRequired = 1
-        doubleTapGesture.numberOfTouchesRequired = 2
-        doubleTapGesture.cancelsTouchesInView = true
-        
-        doubleTapGesture.addTarget(self, action: #selector(handleDoubleTap))
-        
-        view.addGestureRecognizer(doubleTapGesture)
-    }
-    
-    @objc func handleDoubleTap(_ sender: UIGestureRecognizer) {
-        let location = sender.location(in: view)
-        
-        if let height = view?.frame.height {
-            let x = location.x
-            let y = (location.y - height) < 0 ? (location.y - height) * (-1) : (location.y - height)
-            let doubleTouchedPoint = CGPoint(x: x, y: y)
-            
-            animationState = .startingToShrink
-            if let body = physicsWorld.body(at: doubleTouchedPoint) {
-                if let habitNode = body.node as? SKHabitNode {
-                    habitsDelegate?.didDoubleTapHabit(habitNode)
-                    animationState = .startingToShrink
-                }
-            }
-        }
+
+        configureGestureRecognizers(in: view)
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -83,7 +62,8 @@ class HabitsScene: SKScene {
             deselectHabitNode()
         }
     }
-    
+
+    // MARK: - Input Touches
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first, touches.count == 1 else { return }
         let touchLocation = touch.location(in: self)
@@ -105,7 +85,7 @@ class HabitsScene: SKScene {
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else { return }
+        guard let touch = touches.first, touches.count == 1 else { return }
         
         if let status = selectedHabitNode?.habit.wasCompletedToday, status {
             for touch in touches {
@@ -121,7 +101,6 @@ class HabitsScene: SKScene {
                 animationState = .startingToShrink
             }
         }
-        
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -130,26 +109,58 @@ class HabitsScene: SKScene {
         selectedHabitNode?.springJoint.damping = Constant.SpriteKit.magicDamping
         selectedHabitNode?.springJoint.frequency = Constant.SpriteKit.magicFrequency
     }
-    
+
+    // MARK: - Methods
     public func createHabitBubble(_ habit: Habit, in skview: SKView) {
         let habit = SKHabitNode(for: habit, in: skview)
         habit.delegate = self
-        habit.delegate?.didHabitNodeExpand(habit, withFeedback: false)
+        habit.delegate?.shakeHabitNodes(from: habit, withFeedback: false)
+        
         addChild(habit)
         habit.connectSpringJoint(to: middleNode)
     }
+
+    @objc private func handleDoubleTap(_ sender: UIGestureRecognizer) {
+        let location = sender.location(in: view)
+
+        if let height = view?.frame.height {
+            let doubleTouchedPoint = location.normalizeFromSpriteKitToUIKit(frameHeight: height)
+
+            animationState = .startingToShrink
+            if let body = physicsWorld.body(at: doubleTouchedPoint) {
+                if let habitNode = body.node as? SKHabitNode {
+                    habitsDelegate?.didDoubleTapHabit(habitNode)
+                    animationState = .startingToShrink
+                }
+            }
+        }
+    }
+
+    private func configureGestureRecognizers(in view: SKView) {
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handleDoubleTap))
+        pinchGesture.cancelsTouchesInView = true
+
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
+        doubleTapGesture.numberOfTapsRequired = 1
+        doubleTapGesture.numberOfTouchesRequired = 2
+        doubleTapGesture.cancelsTouchesInView = true
+
+        view.addGestureRecognizer(pinchGesture)
+        view.addGestureRecognizer(doubleTapGesture)
+    }
 }
 
+// MARK: - SKHabitNodeDelegate
 extension HabitsScene: SKHabitNodeDelegate {
-    func didHabitNodeExpand(_ habitNode: SKHabitNode, withFeedback useFeedback: Bool) {
-        
+    func shakeHabitNodes(from mainNode: SKNode, withFeedback useFeedback: Bool) {
+
         if useFeedback {
             TapticEngine.notification.feedback(.success)
         }
         
         for child in self.children {
-            if let nodeToPush = child as? SKHabitNode, nodeToPush.name != habitNode.name, let mass = nodeToPush.physicsBody?.mass {
-                let offset = nodeToPush.position - habitNode.position
+            if let nodeToPush = child as? SKHabitNode, nodeToPush.name != mainNode.name, let mass = nodeToPush.physicsBody?.mass {
+                let offset = nodeToPush.position - mainNode.position
                 let direction = offset.normalized()
                 
                 nodeToPush.physicsBody?.applyImpulse(CGVector(dx: direction.x * mass * Constant.SpriteKit.expandForce, dy: direction.y * mass * Constant.SpriteKit.expandForce))
@@ -157,7 +168,6 @@ extension HabitsScene: SKHabitNodeDelegate {
         }
     }
 }
-
 
 extension HabitsScene: SKPhysicsContactDelegate {
     
@@ -175,9 +185,9 @@ extension HabitsScene: SKPhysicsContactDelegate {
             
         } else if let middleNodePhysicsBody = middleNode.physicsBody,
             contact.bodyB.node?.name == "borderView" {
-            
+
             nodeTouched(middleNodePhysicsBody, withSecondBody: contact.bodyA, pushWithForce: Constant.SpriteKit.wallForce)
-            
+
         } else if contact.bodyA.node?.name == selectedHabitNode?.name {
             
             nodeTouched(contact.bodyA, withSecondBody: contact.bodyB, pushWithForce: Constant.SpriteKit.expandForce)
@@ -226,6 +236,7 @@ extension HabitsScene {
     }
 }
 
+// MARK: - HabitsSceneDelegate
 protocol HabitsSceneDelegate: class {
     func didDoubleTapHabit(_ habitNode: SKHabitNode)
 }

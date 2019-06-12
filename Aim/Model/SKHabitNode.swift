@@ -24,36 +24,63 @@ import CoreGraphics
  */
 
 class SKHabitNode: SKNode {
+    // MARK: - Properties
+    private let labelNode: SKLabelNode = {
+        let label = SKLabelNode()
+        label.name = "Label"
+
+        label.numberOfLines = 3
+        label.verticalAlignmentMode = .center
+        label.horizontalAlignmentMode = .center
+        label.zPosition = 5
+
+        return label
+    }()
     
-    var labelNode: SKLabelNode!
-    
-    var mainShapeNode = SKShapeNode()
+    private let mainShapeNode: SKShapeNode = {
+        let shapeNode = SKShapeNode()
+
+        shapeNode.position = CGPoint(x: 0, y: 0)
+        shapeNode.lineWidth = 0.1
+        shapeNode.alpha = 1
+        shapeNode.zPosition = 2
+
+        return shapeNode
+    }()
+
     var springJoint = SKPhysicsJointSpring()
     var temporaryShapeNode: SKShapeNode? = nil
     
-    var animationStartingTime: TimeInterval?
-    var animationEndTime: TimeInterval?
-    var nodeToConnect: SKShapeNode?
+    private var animationStartingTime: TimeInterval?
+    private var animationEndTime: TimeInterval?
+    private var nodeToConnect: SKShapeNode?
+
+    private let maxWidth: CGFloat
+    private let minWidth: CGFloat
+    private let increment: CGFloat
+
     var delegate: SKHabitNodeDelegate?
-    
-    let animationDuration: TimeInterval = 0.45
-    let maxWidth: CGFloat
-    let minWidth: CGFloat
-    let increment: CGFloat
     let habit: Habit
+    let animationDuration: TimeInterval = 0.45
     
-    var nextWidth: CGFloat {
+    private var nextWidth: CGFloat {
         return mainShapeNode.frame.width + increment
+    }
+
+    private var diameter: CGFloat {
+        return minWidth + increment * CGFloat(habit.iteration)
     }
     
     public enum BeautyAnimation {
         case expand, shrink, none, startingToShrink, startingToExpand
     }
-    
+
+    // MARK: - Initializers
     init(for habit: Habit, in skView: SKView) {
         maxWidth = 0.45 * skView.frame.width
-        minWidth = 0.407 * maxWidth
-        increment = (maxWidth - minWidth) / 50
+        minWidth = 0.42 * maxWidth
+        increment = (maxWidth - minWidth) / CGFloat(Constant.Habit.maxIteration)
+
         self.habit = habit
         
         super.init()
@@ -76,6 +103,10 @@ class SKHabitNode: SKNode {
         addChild(labelNode)
         addChild(mainShapeNode)
     }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     public func updateHabit(for state: inout BeautyAnimation, in currentTime: TimeInterval) {
         switch state {
@@ -91,7 +122,7 @@ class SKHabitNode: SKNode {
                     
                     self.removeAllActions()
                     
-                    if habit.iteration <= 49 {
+                    if habit.iteration <= Constant.Habit.maxIteration - 1 {
                         mainShapeNode.run(SKAction.scale(by: nextWidth / mainShapeNode.frame.width, duration: 0))
                         setUpPhysicsBody()
                         createSpringJoint()
@@ -99,8 +130,8 @@ class SKHabitNode: SKNode {
                     
                     habit.wasCompletedToday = true
                     temporaryShapeNode?.removeFromParent()
-                    delegate?.didHabitNodeExpand(self, withFeedback: true)
-                    updateLabel()
+                    delegate?.shakeHabitNodes(from: self, withFeedback: true)
+                    updateLabelAttributedString()
                 }
             }
         case .shrink:
@@ -147,14 +178,6 @@ class SKHabitNode: SKNode {
             temporaryShapeNode?.run(SKAction.scale(to: (mainShapeNode.frame.width + increment) / 0.2, duration: duration))
         }
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-    }
 }
 
 extension SKHabitNode {
@@ -169,29 +192,21 @@ extension SKHabitNode {
     }
     
     private func setUpLabel() {
-        labelNode = SKLabelNode(fontNamed: "Avenir")
-        labelNode.name = "Label"
-        labelNode.text = (habit.isGood ? "" : "🚫") + habit.name + "\nStreak: \(habit.retrieveStreakInfo().current)"
+        labelNode.preferredMaxLayoutWidth = diameter
         labelNode.position = self.position
-        labelNode.fontColor = habit.wasCompletedToday ? Constant.Layer.habitTextColor : Constant.Layer.backgroundColor
-        labelNode.fontSize = 12
-        labelNode.numberOfLines = 2
-        labelNode.verticalAlignmentMode = .center
-        labelNode.horizontalAlignmentMode = .center
-        labelNode.preferredMaxLayoutWidth = frame.width * 0.75
-        labelNode.zPosition = 5
+
+        updateLabelAttributedString()
     }
 
     private func setUpMainNode() {
-        mainShapeNode = SKShapeNode(circleOfRadius: (minWidth + increment * CGFloat(habit.iteration)) / 2)
-        
-        mainShapeNode.lineWidth = 0.1
+        let path: CGMutablePath = CGMutablePath()
+        path.addArc(center: CGPoint.zero, radius: diameter / 2, startAngle: 0.0, endAngle: CGFloat(2.0*Double.pi), clockwise: false)
+
+        mainShapeNode.path = path
+
         mainShapeNode.strokeColor = habit.color
         mainShapeNode.fillColor = habit.color
-        mainShapeNode.alpha = 1
         mainShapeNode.name = habit.name
-        mainShapeNode.zPosition = 2
-        mainShapeNode.position = CGPoint(x: 0, y: 0)
     }
     
     private func setUpTemporaryNode() {
@@ -204,9 +219,32 @@ extension SKHabitNode {
         temporaryShapeNode?.zPosition = 2
     }
     
-    public func updateLabel() {
-        labelNode.text = (habit.isGood ? "" : "🚫") + habit.name + "\nStreak: \(habit.retrieveStreakInfo().current)"
-        labelNode.fontColor = habit.wasCompletedToday ? Constant.Layer.habitTextColor : Constant.Layer.backgroundColor
+    public func updateLabelAttributedString() {
+        let italicsFont = UIFont.italicSystemFont(ofSize: 12)
+        let boldFont = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.semibold)
+
+        let foregroundColor = habit.wasCompletedToday ? Constant.Layer.habitTextColor : Constant.Layer.backgroundColor
+        let headlineAttributes = [NSAttributedString.Key.foregroundColor: foregroundColor,
+                                  NSAttributedString.Key.font: boldFont]
+        let subheadlineAttributes = [NSAttributedString.Key.foregroundColor: foregroundColor,
+                                     NSAttributedString.Key.font: italicsFont]
+
+        let headlineAttributedString = NSAttributedString(
+            string: (habit.isGood ? "" : "🚫") + habit.name,
+            attributes: headlineAttributes
+        )
+
+        // retrieveStreakInfo when increasing the streak by 1, ex: just completed habit not effiecient, and creates lag
+        let subheadlineAttributedString = NSAttributedString(
+            string: "\nStreak: \(habit.retrieveStreakInfo().current)",
+            attributes: subheadlineAttributes
+        )
+
+        let result = NSMutableAttributedString()
+        result.append(headlineAttributedString)
+        result.append(subheadlineAttributedString)
+
+        labelNode.attributedText = result
     }
     
     public func connectSpringJoint(to node: SKShapeNode) {
@@ -231,6 +269,7 @@ extension SKHabitNode {
     }
 }
 
+// MARK: - SKHabitNodeDelegate
 protocol SKHabitNodeDelegate {
-    func didHabitNodeExpand(_ habitNode: SKHabitNode, withFeedback useFeedback: Bool)
+    func shakeHabitNodes(from mainNode: SKNode, withFeedback useFeedback: Bool)
 }

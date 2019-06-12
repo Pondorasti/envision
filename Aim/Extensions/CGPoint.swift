@@ -32,6 +32,13 @@ func sqrt(a: CGFloat) -> CGFloat {
 #endif
 
 extension CGPoint {
+    func normalizeFromSpriteKitToUIKit(frameHeight: CGFloat) -> CGPoint {
+        return CGPoint(
+            x: self.x,
+            y: (self.y - frameHeight) < 0 ? (self.y - frameHeight) * (-1) : (self.y - frameHeight)
+        )
+    }
+
     func length() -> CGFloat {
         return sqrt(x*x + y*y)
     }
