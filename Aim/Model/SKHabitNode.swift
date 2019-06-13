@@ -48,9 +48,50 @@ class SKHabitNode: SKNode {
         return shapeNode
     }()
 
-    var springJoint = SKPhysicsJointSpring()
-    var temporaryShapeNode: SKShapeNode? = nil
-    
+    private lazy var negativeLine: SKShapeNode = {
+        let line = SKShapeNode(rectOf: CGSize(width: negativeWidth, height: diameter))
+
+        line.fillColor = color
+        line.lineWidth = 0
+        line.zRotation = CGFloat.pi / 4
+
+        return line
+    }()
+
+    private lazy var circularBorder: SKShapeNode = {
+        let node = SKShapeNode()
+
+        let path: CGMutablePath = CGMutablePath()
+        path.addArc(
+            center: CGPoint.zero,
+            radius: (diameter - negativeWidth) / 2,
+            startAngle: 0.0,
+            endAngle: CGFloat(2.0 * Double.pi),
+            clockwise: false
+        )
+
+        node.path = path
+        node.fillColor = UIColor.clear
+        node.lineWidth = negativeWidth
+        node.strokeColor = color
+        node.zPosition = 1
+
+        return node
+    }()
+
+    private lazy var temporaryShapeNode: SKShapeNode = {
+        let node = SKShapeNode(circleOfRadius: 0.1)
+
+        node.lineWidth = 0
+        node.strokeColor = #colorLiteral(red: 0.1568627451, green: 0.368627451, blue: 0.5137254902, alpha: 0)
+        node.fillColor = habit.color.lighter(by: 90) ?? UIColor.white
+        node.alpha = 0.5
+        node.name = "temp"
+        node.zPosition = 2
+
+        return node
+    }()
+
     private var animationStartingTime: TimeInterval?
     private var animationEndTime: TimeInterval?
     private var nodeToConnect: SKShapeNode?
@@ -59,7 +100,12 @@ class SKHabitNode: SKNode {
     private let minWidth: CGFloat
     private let increment: CGFloat
 
+    private let negativeWidth: CGFloat = 6
+    private let color = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+
     var delegate: SKHabitNodeDelegate?
+    var springJoint = SKPhysicsJointSpring()
+
     let habit: Habit
     let animationDuration: TimeInterval = 0.45
     
@@ -86,9 +132,12 @@ class SKHabitNode: SKNode {
         super.init()
         
         setUpMainNode()
-        setUpLabel()
-        
-//        isUserInteractionEnabled = true
+        configureLabel()
+        configureNegativeShapeIfNeeded(!habit.isGood)
+        updateLabelAttributedString()
+
+        configurePhysicsBody()
+
         name = habit.name
         zPosition = 1
         
@@ -98,16 +147,15 @@ class SKHabitNode: SKNode {
         let startY = Int(center.y - 50)
         let endY = Int(center.y + 50)
         position = CGPoint.randomPoint(inXRange: startX...endX, andYRange: startY...endY)
-        
-        setUpPhysicsBody()
-        addChild(labelNode)
+
         addChild(mainShapeNode)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    // MARK: - Updates
     public func updateHabit(for state: inout BeautyAnimation, in currentTime: TimeInterval) {
         switch state {
         case .expand:
@@ -124,12 +172,12 @@ class SKHabitNode: SKNode {
                     
                     if habit.iteration <= Constant.Habit.maxIteration - 1 {
                         mainShapeNode.run(SKAction.scale(by: nextWidth / mainShapeNode.frame.width, duration: 0))
-                        setUpPhysicsBody()
+                        configurePhysicsBody()
                         createSpringJoint()
                     }
                     
                     habit.wasCompletedToday = true
-                    temporaryShapeNode?.removeFromParent()
+                    temporaryShapeNode.removeFromParent()
                     delegate?.shakeHabitNodes(from: self, withFeedback: true)
                     updateLabelAttributedString()
 
@@ -143,7 +191,7 @@ class SKHabitNode: SKNode {
                     animationStartingTime = nil
                     
                     self.removeAllActions()
-                    temporaryShapeNode?.removeFromParent()
+                    temporaryShapeNode.removeFromParent()
                 }
             }
         case .none:
@@ -159,7 +207,7 @@ class SKHabitNode: SKNode {
                 self.removeAllActions()
                 let scaleAction = SKAction.scale(to: 0.2, duration: duration)
                 scaleAction.timingMode = .easeIn
-                temporaryShapeNode?.run(scaleAction)
+                temporaryShapeNode.run(scaleAction)
             }
         case .startingToExpand:
             var duration = animationDuration
@@ -168,59 +216,21 @@ class SKHabitNode: SKNode {
                 self.removeAllActions()
             } else {
                 duration = animationDuration
-                
-                setUpTemporaryNode()
-                self.addChild(temporaryShapeNode!)
+
+                //reset node
+                temporaryShapeNode.run(SKAction.scale(to: 1, duration: 0))
+
+                self.addChild(temporaryShapeNode)
             }
             
             state = .expand
             animationStartingTime = currentTime
             animationEndTime = duration + currentTime
             
-            temporaryShapeNode?.run(SKAction.scale(to: (mainShapeNode.frame.width + increment) / 0.2, duration: duration))
+            temporaryShapeNode.run(SKAction.scale(to: (mainShapeNode.frame.width + increment) / 0.2, duration: duration))
         }
     }
-}
 
-extension SKHabitNode {
-    private func setUpPhysicsBody() {
-        physicsBody = SKPhysicsBody(circleOfRadius:  mainShapeNode.frame.width / 2 + 0.1)
-        physicsBody?.allowsRotation = false
-        physicsBody?.linearDamping = 0.3
-        physicsBody?.usesPreciseCollisionDetection = true
-        physicsBody?.categoryBitMask = 1
-        physicsBody?.collisionBitMask = 1
-        physicsBody?.contactTestBitMask = 1
-    }
-    
-    private func setUpLabel() {
-        labelNode.preferredMaxLayoutWidth = diameter
-        labelNode.position = self.position
-
-        updateLabelAttributedString()
-    }
-
-    private func setUpMainNode() {
-        let path: CGMutablePath = CGMutablePath()
-        path.addArc(center: CGPoint.zero, radius: diameter / 2, startAngle: 0.0, endAngle: CGFloat(2.0*Double.pi), clockwise: false)
-
-        mainShapeNode.path = path
-
-        mainShapeNode.strokeColor = habit.color
-        mainShapeNode.fillColor = habit.color
-        mainShapeNode.name = habit.name
-    }
-    
-    private func setUpTemporaryNode() {
-        temporaryShapeNode = SKShapeNode(circleOfRadius: 0.1)
-        temporaryShapeNode?.lineWidth = 0
-        temporaryShapeNode?.strokeColor = #colorLiteral(red: 0.1568627451, green: 0.368627451, blue: 0.5137254902, alpha: 0)
-        temporaryShapeNode?.fillColor = habit.color.lighter(by: 90) ?? UIColor.white
-        temporaryShapeNode?.alpha = 0.5
-        temporaryShapeNode?.name = "temp"
-        temporaryShapeNode?.zPosition = 2
-    }
-    
     public func updateLabelAttributedString() {
         let italicsFont = UIFont.italicSystemFont(ofSize: 12)
         let boldFont = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.semibold)
@@ -232,7 +242,7 @@ extension SKHabitNode {
                                      NSAttributedString.Key.font: italicsFont]
 
         let headlineAttributedString = NSAttributedString(
-            string: (habit.isGood ? "" : "🚫") + habit.name,
+            string: habit.name,
             attributes: headlineAttributes
         )
 
@@ -248,7 +258,58 @@ extension SKHabitNode {
 
         labelNode.attributedText = result
     }
-    
+
+    // MARK: - Configures
+    private func configurePhysicsBody() {
+        physicsBody = SKPhysicsBody(circleOfRadius:  mainShapeNode.frame.width / 2 + 0.1)
+        physicsBody?.allowsRotation = false
+        physicsBody?.linearDamping = 0.3
+        physicsBody?.usesPreciseCollisionDetection = true
+        physicsBody?.categoryBitMask = 1
+        physicsBody?.collisionBitMask = 1
+        physicsBody?.contactTestBitMask = 1
+    }
+
+    private func configureLabel() {
+        labelNode.preferredMaxLayoutWidth = diameter
+        labelNode.position = self.position
+
+        addChild(labelNode)
+    }
+
+    private func configureNegativeShapeIfNeeded(_ ifNeeded: Bool) {
+        guard ifNeeded else {
+            mainShapeNode.lineWidth = 0.1
+            circularBorder.removeFromParent()
+            return
+        }
+
+        mainShapeNode.lineWidth = 0.001
+        mainShapeNode.strokeColor = color
+
+        mainShapeNode.addChild(circularBorder)
+        circularBorder.addChild(negativeLine)
+    }
+
+    private func setUpMainNode() {
+        let path: CGMutablePath = CGMutablePath()
+        path.addArc(
+            center: CGPoint.zero,
+            radius: diameter / 2,
+            startAngle: 0.0,
+            endAngle: CGFloat(2.0 * Double.pi),
+            clockwise: false
+        )
+
+        mainShapeNode.path = path
+
+        mainShapeNode.strokeColor = habit.color
+        mainShapeNode.fillColor = habit.color
+        mainShapeNode.name = habit.name
+    }
+}
+
+extension SKHabitNode {
     public func connectSpringJoint(to node: SKShapeNode) {
         nodeToConnect = node
         createSpringJoint()
