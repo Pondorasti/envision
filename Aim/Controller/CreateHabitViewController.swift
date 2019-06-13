@@ -141,22 +141,38 @@ class CreateHabitViewController: UIViewController {
 // MARK: - UITextFieldDelegate
 extension CreateHabitViewController: UITextFieldDelegate {
     // TODO: fix count
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if var numberOfCharacters = textField.text?.count {
-            numberOfCharacters = numberOfCharacters + string.count - range.length
-            characterCountLabel.text = String(numberOfCharacters)
-            if numberOfCharacters == 15 {
-                characterCountLabel.text = "\(numberOfCharacters)❗️"
-            }
-            return numberOfCharacters <= 14
-        }
-        
-        return true
-    }
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        if var numberOfCharacters = textField.text?.count {
+//            numberOfCharacters = numberOfCharacters + string.count - range.length
+//            characterCountLabel.text = String(numberOfCharacters)
+//            if numberOfCharacters == 15 {
+//                characterCountLabel.text = "\(numberOfCharacters)❗️"
+//            }
+//            return numberOfCharacters <= 14
+//        }
+//
+//        return true
+//    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let currentText = textField.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+
+        if updatedText.count == 15 {
+            characterCountLabel.text = "\(updatedText.count)❗️"
+        } else {
+            characterCountLabel.text = "\(updatedText.count)"
+        }
+
+
+        return updatedText.count <= 14
     }
 }
 

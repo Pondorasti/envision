@@ -234,7 +234,6 @@ class DetailedHabitViewController: UIViewController {
 
 // MARK: - JTAppleCalendarViewDataSource
 extension DetailedHabitViewController: JTAppleCalendarViewDataSource {
-    
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
         dateFormatter.dateFormat = "yyyy MM dd"
         dateFormatter.timeZone = Calendar.current.timeZone

@@ -124,7 +124,7 @@ class SKHabitNode: SKNode {
     // MARK: - Initializers
     init(for habit: Habit, in skView: SKView) {
         maxWidth = 0.45 * skView.frame.width
-        minWidth = 0.42 * maxWidth
+        minWidth = 0.475 * maxWidth
         increment = (maxWidth - minWidth) / CGFloat(Constant.Habit.maxIteration)
 
         self.habit = habit
