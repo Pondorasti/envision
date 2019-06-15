@@ -86,8 +86,9 @@ class HabitsViewController: UIViewController {
                 fatalError("Could not type cast destination into a CreateHabitVC")
             }
 
-            segue.destination.transitioningDelegate = self
-            segue.destination.modalPresentationStyle = .custom
+            navController.transitioningDelegate = self
+            navController.modalPresentationStyle = .custom
+            navController.navigationBar.removeBackround()
 
             transitionMode = .createHabitVC
             createHabitVC.habits = habits
