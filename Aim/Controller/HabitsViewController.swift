@@ -81,9 +81,13 @@ class HabitsViewController: UIViewController {
 
         switch id {
         case Constant.Segue.createHabit:
-            guard let createHabitVC = segue.destination as? CreateHabitViewController else {
+            guard let navController = segue.destination as? UINavigationController,
+                let createHabitVC = navController.viewControllers.first as? CreateHabitViewController else {
                 fatalError("Could not type cast destination into a CreateHabitVC")
             }
+
+            segue.destination.transitioningDelegate = self
+            segue.destination.modalPresentationStyle = .custom
 
             transitionMode = .createHabitVC
             createHabitVC.habits = habits

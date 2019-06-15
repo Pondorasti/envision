@@ -101,7 +101,7 @@ class SKHabitNode: SKNode {
     private let increment: CGFloat
 
     private let negativeWidth: CGFloat = 6
-    private let color = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+    private let color = #colorLiteral(red: 0.8078431373, green: 0.8274509804, blue: 0.862745098, alpha: 1)
 
     var delegate: SKHabitNodeDelegate?
     var springJoint = SKPhysicsJointSpring()

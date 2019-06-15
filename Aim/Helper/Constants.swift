@@ -26,7 +26,7 @@ struct Constant {
                                   UIEntryPickerView.Entry.major(with: UIColor.AIMPink, andPhoto: "AIMPink"),
                                   UIEntryPickerView.Entry.major(with: UIColor.AIMLightBlue, andPhoto: "AIMLightBlue"),
                                   UIEntryPickerView.Entry.major(with: UIColor.AIMDarkBlue, andPhoto: "AIMDarkBlue"),
-                                  UIEntryPickerView.Entry.major(with: UIColor.AIMBrown, andPhoto: "AIMBrown"),
+//                                  UIEntryPickerView.Entry.major(with: UIColor.AIMBrown, andPhoto: "AIMBrown")
                                   UIEntryPickerView.Entry.major(with: UIColor.AIMMagenta, andPhoto: "AIMMagenta"),
                                   UIEntryPickerView.Entry.major(with: UIColor.AIMGreen, andPhoto: "AIMGreen"),
                                   UIEntryPickerView.Entry.major(with: UIColor.AIMBadRed, andPhoto: "AIMBadRed"),

@@ -191,11 +191,17 @@ extension CreateHabitViewController {
         
         badTypeButton.backgroundColor = nil
 
-        cancelButton.configure(with: #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1), andTitle: "Cancel")
-        createButton.configure(with: #colorLiteral(red: 0.2039215686, green: 0.8039215686, blue: 0.3215686275, alpha: 1), andTitle: "Create")
+        cancelButton.configure(with: #colorLiteral(red: 0.9254901961, green: 0.231372549, blue: 0.368627451, alpha: 1), andTitle: "Cancel")
+        createButton.configure(with: #colorLiteral(red: 0.2039215686, green: 0.7803921569, blue: 0.3490196078, alpha: 1), andTitle: "Create")
         
         colorPicker.focusSize = CGSize(width: 44, height: 44)
-        colorPicker.entries = Constant.Color.colorPicker
+
+        var colorPickerEntries = Constant.Color.colorPicker
+        colorPickerEntries.sort {
+            return $0.color!.hashValue < $1.color!.hashValue
+        }
+
+        colorPicker.entries = colorPickerEntries
         colorPicker.clipsToBounds = false
         colorPicker.reloadData()
     }
