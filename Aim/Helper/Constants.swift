@@ -82,14 +82,6 @@ struct Constant {
         static let magicFrequency: CGFloat = 0.5
     }
     
-    struct ImageName {
-        static let oneFingerHold = "OneFingerHold"
-        static let twoFingers = "TwoFingers"
-        static let roundedIcon = "RoundedIcon"
-        static let trashCan = "TrashCan"
-        static let chevron = "Chevron"
-    }
-    
     struct UserDefaults {
         static let notFirstInApp = "notFirstInApp"
     }

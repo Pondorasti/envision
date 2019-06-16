@@ -14,7 +14,7 @@ import TapticEngine
 struct BulletinHelper {
     static func rootItem() -> BLTNPageItem {
         let rootItem = BLTNPageItem(title: "Envision")
-        rootItem.image = UIImage(named: Constant.ImageName.roundedIcon)
+        rootItem.image = UIImage(assetIdentifier: .roundedIcon)
         rootItem.descriptionText = "Create the foundation for your daily habits and improve your personal life."
         rootItem.actionButtonTitle = "Continue"
         
@@ -31,7 +31,7 @@ struct BulletinHelper {
     
     static func holdItem() -> BLTNPageItem {
         let rootItem = BLTNPageItem(title: "Completing Habits")
-        rootItem.image = UIImage(named: Constant.ImageName.oneFingerHold)
+        rootItem.image = UIImage(assetIdentifier: .oneFingerHold)
         rootItem.descriptionText = "Hold down your finger on a bubble to complete the routine."
         rootItem.actionButtonTitle = "Next"
         
@@ -48,7 +48,7 @@ struct BulletinHelper {
     
     static func detailItem() -> BLTNPageItem {
         let rootItem = BLTNPageItem(title: "Looking beyond the bubbles")
-        rootItem.image = UIImage(named: Constant.ImageName.twoFingers)
+        rootItem.image = UIImage(assetIdentifier: .twoFingers)
         rootItem.descriptionText = "Pinch to zoom around a bubble for more info."
 
         rootItem.actionButtonTitle = "Let's get started!"

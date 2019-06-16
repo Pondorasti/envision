@@ -12,6 +12,7 @@
 		42AFA65D398C4E188F699635 /* Pods_AimUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 744C3FB315EF8685BFFC065D /* Pods_AimUITests.framework */; };
 		C516CE5422674596000F6028 /* CALayerAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516CE5322674596000F6028 /* CALayerAnimations.swift */; };
 		C520CD5E22B56C1C00049B52 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C520CD5D22B56C1C00049B52 /* SettingsViewController.swift */; };
+		C520CD6022B6CD9300049B52 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C520CD5F22B6CD9300049B52 /* UIImage.swift */; };
 		C5238F58211AA95E00AD8949 /* Bubble Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5238F57211AA95E00AD8949 /* Bubble Launch Screen.storyboard */; };
 		C5238F5A211B5EE300AD8949 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5238F59211B5EE300AD8949 /* Onboarding.storyboard */; };
 		C5238F5C211B5F2000AD8949 /* Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5238F5B211B5F2000AD8949 /* Storyboard.swift */; };
@@ -79,6 +80,7 @@
 		AC025B6D9E9D05C322C0AB15 /* Pods_Aim.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aim.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C516CE5322674596000F6028 /* CALayerAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerAnimations.swift; sourceTree = "<group>"; };
 		C520CD5D22B56C1C00049B52 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		C520CD5F22B6CD9300049B52 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		C5238F57211AA95E00AD8949 /* Bubble Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Bubble Launch Screen.storyboard"; sourceTree = "<group>"; };
 		C5238F59211B5EE300AD8949 /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		C5238F5B211B5F2000AD8949 /* Storyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboard.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				C57D579322B0130900E28AB3 /* UINavigationBar.swift */,
 				C5F7B74821098A7C0094A09E /* UIButton.swift */,
 				C5F7B74A210A2EBA0094A09E /* UIView.swift */,
+				C520CD5F22B6CD9300049B52 /* UIImage.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -590,6 +593,7 @@
 				C5F7B747210985900094A09E /* UIColor.swift in Sources */,
 				C594D13E2119FDB3000F5D35 /* OnboardindViewController.swift in Sources */,
 				C5F7B74921098A7C0094A09E /* UIButton.swift in Sources */,
+				C520CD6022B6CD9300049B52 /* UIImage.swift in Sources */,
 				C5F7B7412109428F0094A09E /* CreateHabitViewController.swift in Sources */,
 				C5A35188210A6BE800A717D3 /* Habit.swift in Sources */,
 				C5B0CBA12112D15B004C1B55 /* Habit+CoreDataProperties.swift in Sources */,

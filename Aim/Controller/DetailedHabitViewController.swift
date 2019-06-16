@@ -97,13 +97,13 @@ class DetailedHabitViewController: UIViewController {
         )
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: Constant.ImageName.chevron),
+            image: UIImage(assetIdentifier: .chevron),
             style: .done,
             target: self,
             action: #selector(dismissVC)
         )
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: Constant.ImageName.trashCan),
+            image: UIImage(assetIdentifier: .trashCan),
             style: .plain,
             target: self, action: #selector(deleteHabit)
         )

@@ -16,7 +16,7 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: Constant.ImageName.chevron),
+            image: UIImage(assetIdentifier: .chevron),
             style: .done,
             target: self,
             action: #selector(dismissVC)
@@ -69,19 +69,19 @@ extension SettingsViewController: UITableViewDataSource {
 
         case 0:
             cell.textLabel?.text = "Tutorial"
-            cell.imageView?.image = UIImage(named: "Book")
+            cell.imageView?.image = UIImage(assetIdentifier: .book)
             cell.imageView?.tintColor = #colorLiteral(red: 0.3450980392, green: 0.337254902, blue: 0.8392156863, alpha: 1)
         case 1:
             cell.textLabel?.text = "Contact Us"
-            cell.imageView?.image = UIImage(named: "Info")
+            cell.imageView?.image = UIImage(assetIdentifier: .info)
             cell.imageView?.tintColor = #colorLiteral(red: 0.3529411765, green: 0.7843137255, blue: 0.9803921569, alpha: 1)
         case 2:
             cell.textLabel?.text = "About the Developer"
-            cell.imageView?.image = UIImage(named: "Man")
+            cell.imageView?.image = UIImage(assetIdentifier: .man)
             cell.imageView?.tintColor = #colorLiteral(red: 0.3529411765, green: 0.7843137255, blue: 0.9803921569, alpha: 1)
         case 3:
             cell.textLabel?.text = "Rate Envision"
-            cell.imageView?.image = UIImage(named: "Star")
+            cell.imageView?.image = UIImage(assetIdentifier: .star)
             cell.imageView?.tintColor = #colorLiteral(red: 1, green: 0.8, blue: 0, alpha: 1)
 
 //            let imageView = UIImageView(image: UIImage(named: "Chevron"))
