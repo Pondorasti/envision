@@ -64,16 +64,10 @@ class HabitsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let defaults = UserDefaults.standard
-        if defaults.object(forKey: Constant.UserDefaults.notFirstInApp) == nil {
-            let tutorialVC = UIStoryboard.initialViewController(for: .onboarding)
-            present(tutorialVC, animated: true)
-            
-            defaults.set("No", forKey: Constant.UserDefaults.notFirstInApp)
-            defaults.synchronize()
-        }
+        showTutorialIfNeeded()
     }
 
+    // MARK: - Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let id = segue.identifier else {
             fatalError("Could not unwrap segue identifier")
@@ -88,7 +82,6 @@ class HabitsViewController: UIViewController {
 
             navController.transitioningDelegate = self
             navController.modalPresentationStyle = .custom
-            navController.navigationBar.removeBackround()
 
             transitionMode = .createHabitVC
             createHabitVC.habits = habits
@@ -109,10 +102,21 @@ class HabitsViewController: UIViewController {
     }
 
     // MARK: - Methods
-    @objc func appBecomeActive() {
+    @objc private func appBecomeActive() {
         if let _ = view?.window, isViewLoaded {
             habitsScene.shakeHabitNodes(from: habitsScene.middleNode, withFeedback: false)
             reloadBubbles()
+        }
+    }
+
+    private func showTutorialIfNeeded() {
+        let defaults = UserDefaults.standard
+        if defaults.object(forKey: Constant.UserDefaults.notFirstInApp) == nil {
+            let tutorialVC = UIStoryboard.initialViewController(for: .onboarding)
+            present(tutorialVC, animated: true)
+
+            defaults.set("No", forKey: Constant.UserDefaults.notFirstInApp)
+            defaults.synchronize()
         }
     }
     
@@ -162,8 +166,8 @@ extension HabitsViewController: HabitsSceneDelegate {
 
         navController.transitioningDelegate = self
         navController.modalPresentationStyle = .custom
-        navController.navigationBar.removeBackround()
 
+        TapticEngine.impact.feedback(.light)
         present(navController, animated: true)
     }
 }

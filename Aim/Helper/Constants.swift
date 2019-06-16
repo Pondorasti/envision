@@ -89,6 +89,11 @@ struct Constant {
     struct Habit {
         static let maxIteration = 60
     }
+
+    struct SwipeGesture {
+        static let minVelocity: CGFloat = 1000
+        static let minPercentage: CGFloat = 0.5
+    }
 }
 
 // hello code signing

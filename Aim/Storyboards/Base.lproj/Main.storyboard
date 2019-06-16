@@ -567,7 +567,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WUf-pw-rBT">
-                                                <rect key="frame" x="177.5" y="0.0" width="157.5" height="40"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="335" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="HLm-3x-zxb"/>
                                                 </constraints>
@@ -581,6 +581,11 @@
                                         <constraints>
                                             <constraint firstItem="WUf-pw-rBT" firstAttribute="width" secondItem="zh1-Eo-Uug" secondAttribute="width" id="ymX-2A-8C4"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="subviews">
+                                                <exclude reference="zh1-Eo-Uug"/>
+                                            </mask>
+                                        </variation>
                                     </stackView>
                                 </subviews>
                                 <constraints>

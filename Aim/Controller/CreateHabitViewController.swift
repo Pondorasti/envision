@@ -49,12 +49,35 @@ class CreateHabitViewController: UIViewController {
             isGoodHabit = false
         }
     }
-    
+
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
+
+        configureHabitNameView()
+        configureHabitTypeViews()
+        configureColorPicker()
+        configureButtons()
+
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(assetIdentifier: .chevron),
+            style: .done,
+            target: self,
+            action: #selector(dismissVC)
+        )
+        navigationItem.leftBarButtonItem?.tintColor = UIColor.black
+
+
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+        view.addGestureRecognizer(panGesture)
     }
-    
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+        super.touchesBegan(touches, with: event)
+    }
+
+    // MARK: - Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let id = segue.identifier else { return }
         
@@ -78,7 +101,7 @@ class CreateHabitViewController: UIViewController {
             destination.habitsScene.selectedHabitNode = newHabitNode
             
         case Constant.Segue.cancelHabit:
-            TapticEngine.impact.feedback(.light)
+            print(Constant.Segue.cancelHabit)
         default:
             fatalError("unknown segue identifier")
         }
@@ -126,7 +149,8 @@ class CreateHabitViewController: UIViewController {
             return true
         }
     }
-    
+
+    // MARK: - Methods
     private func habitNameExist(_ habitName: String) -> Bool {
         for habit in habits {
             if habit.name == habitName {
@@ -135,6 +159,88 @@ class CreateHabitViewController: UIViewController {
         }
         
         return false
+    }
+
+    @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+        let percentage = max(gesture.translation(in: view).x, 0) / view.frame.width
+
+        switch gesture.state {
+        case .ended:
+            let velocity = gesture.velocity(in: view).x
+
+            if percentage > Constant.SwipeGesture.minPercentage ||
+                velocity > Constant.SwipeGesture.minVelocity {
+                dismissVC()
+            }
+
+        default:
+            break
+        }
+    }
+
+    @objc private func dismissVC() {
+        TapticEngine.impact.feedback(.light)
+        performSegue(withIdentifier: Constant.Segue.cancelHabit, sender: self)
+    }
+
+    private func animateTransion(from firstButton: UIButton, to secondButton: UIButton, withDuration duration: Double) {
+        let temporaryView = UIView(frame: firstButton.frame)
+        temporaryView.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1))
+        temporaryView.frame.origin = firstButton.frame.origin
+
+        firstButton.superview?.addSubview(temporaryView)
+        firstButton.backgroundColor = nil
+
+        UIView.animate(withDuration: duration, animations: {
+            temporaryView.frame = secondButton.frame
+            firstButton.isUserInteractionEnabled = false
+            secondButton.isUserInteractionEnabled = false
+        }) { (_) in
+            let buttonName = self.isGoodHabit ? "Positive" : "Negative"
+            secondButton.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1), andTitle: buttonName)
+            secondButton.setTitleColor(#colorLiteral(red: 0.2901960784, green: 0.2901960784, blue: 0.2901960784, alpha: 1), for: .normal)
+            secondButton.isUserInteractionEnabled = true
+
+            firstButton.isUserInteractionEnabled = true
+
+            temporaryView.removeFromSuperview()
+        }
+    }
+
+    // MARK: - Configures
+    private func configureHabitNameView() {
+        habitNameView.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1))
+        habitNameTextField.delegate = self
+    }
+
+    private func configureHabitTypeViews() {
+        badTypeButton.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1), andTitle: "Negative")
+        goodTypeButton.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1), andTitle: "Positive")
+        badTypeButton.layer.zPosition = 5
+        goodTypeButton.layer.zPosition = 5
+
+        badTypeButton.setTitleColor(#colorLiteral(red: 0.2901960784, green: 0.2901960784, blue: 0.2901960784, alpha: 1), for: .normal)
+        goodTypeButton.setTitleColor(#colorLiteral(red: 0.2901960784, green: 0.2901960784, blue: 0.2901960784, alpha: 1), for: .normal)
+
+        badTypeButton.backgroundColor = nil
+    }
+
+    private func configureColorPicker() {
+        colorPicker.focusSize = CGSize(width: 44, height: 44)
+
+        var colorPickerEntries = Constant.Color.colorPicker
+        colorPickerEntries.sort {
+            return $0.color!.hashValue < $1.color!.hashValue
+        }
+
+        colorPicker.entries = colorPickerEntries
+        colorPicker.clipsToBounds = false
+        colorPicker.reloadData()
+    }
+
+    private func configureButtons() {
+        cancelButton.configure(with: #colorLiteral(red: 0.9254901961, green: 0.231372549, blue: 0.368627451, alpha: 1), andTitle: "Cancel")
+        createButton.configure(with: #colorLiteral(red: 0.2039215686, green: 0.7803921569, blue: 0.3490196078, alpha: 1), andTitle: "Create")
     }
 }
 
@@ -173,65 +279,5 @@ extension CreateHabitViewController: UITextFieldDelegate {
 
 
         return updatedText.count <= 14
-    }
-}
-
-extension CreateHabitViewController {
-    private func setup() {
-        habitNameView.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1))
-        habitNameTextField.delegate = self
-        
-        badTypeButton.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1), andTitle: "Negative")
-        goodTypeButton.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1), andTitle: "Positive")
-        badTypeButton.layer.zPosition = 5
-        goodTypeButton.layer.zPosition = 5
-        
-        badTypeButton.setTitleColor(#colorLiteral(red: 0.2901960784, green: 0.2901960784, blue: 0.2901960784, alpha: 1), for: .normal)
-        goodTypeButton.setTitleColor(#colorLiteral(red: 0.2901960784, green: 0.2901960784, blue: 0.2901960784, alpha: 1), for: .normal)
-        
-        badTypeButton.backgroundColor = nil
-
-        cancelButton.configure(with: #colorLiteral(red: 0.9254901961, green: 0.231372549, blue: 0.368627451, alpha: 1), andTitle: "Cancel")
-        createButton.configure(with: #colorLiteral(red: 0.2039215686, green: 0.7803921569, blue: 0.3490196078, alpha: 1), andTitle: "Create")
-        
-        colorPicker.focusSize = CGSize(width: 44, height: 44)
-
-        var colorPickerEntries = Constant.Color.colorPicker
-        colorPickerEntries.sort {
-            return $0.color!.hashValue < $1.color!.hashValue
-        }
-
-        colorPicker.entries = colorPickerEntries
-        colorPicker.clipsToBounds = false
-        colorPicker.reloadData()
-    }
-    
-    private func animateTransion(from firstButton: UIButton, to secondButton: UIButton, withDuration duration: Double) {
-        let temporaryView = UIView(frame: firstButton.frame)
-        temporaryView.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1))
-        temporaryView.frame.origin = firstButton.frame.origin
-        
-        firstButton.superview?.addSubview(temporaryView)
-        firstButton.backgroundColor = nil
-        
-        UIView.animate(withDuration: duration, animations: {
-            temporaryView.frame = secondButton.frame
-            firstButton.isUserInteractionEnabled = false
-            secondButton.isUserInteractionEnabled = false
-        }) { (_) in
-            let buttonName = self.isGoodHabit ? "Positive" : "Negative"
-            secondButton.configure(with: #colorLiteral(red: 0.9960784314, green: 0.9960784314, blue: 0.9960784314, alpha: 1), andTitle: buttonName)
-            secondButton.setTitleColor(#colorLiteral(red: 0.2901960784, green: 0.2901960784, blue: 0.2901960784, alpha: 1), for: .normal)
-            secondButton.isUserInteractionEnabled = true
-            
-            firstButton.isUserInteractionEnabled = true
-            
-            temporaryView.removeFromSuperview()
-        }
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
-        super.touchesBegan(touches, with: event)
     }
 }

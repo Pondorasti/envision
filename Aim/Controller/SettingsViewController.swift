@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import TapticEngine
 
 class SettingsViewController: UIViewController {
 
@@ -32,15 +33,16 @@ class SettingsViewController: UIViewController {
         view.addGestureRecognizer(panGesture)
     }
 
-    @objc func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
-        let percent = max(gesture.translation(in: view).x, 0) / view.frame.width
+    @objc private  func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+        let percentage = max(gesture.translation(in: view).x, 0) / view.frame.width
 
         switch gesture.state {
         case .ended:
             let velocity = gesture.velocity(in: view).x
 
-            if percent > 0.5 || velocity > 1000 {
-                dismiss(animated: true, completion: nil)
+            if percentage > Constant.SwipeGesture.minPercentage ||
+                velocity > Constant.SwipeGesture.minVelocity {
+                dismissVC()
             }
 
         default:
@@ -48,7 +50,8 @@ class SettingsViewController: UIViewController {
         }
     }
 
-    @objc func dismissVC() {
+    @objc private func dismissVC() {
+        TapticEngine.impact.feedback(.light)
         dismiss(animated: true, completion: nil)
     }
 }
@@ -83,14 +86,6 @@ extension SettingsViewController: UITableViewDataSource {
             cell.textLabel?.text = "Rate Envision"
             cell.imageView?.image = UIImage(assetIdentifier: .star)
             cell.imageView?.tintColor = #colorLiteral(red: 1, green: 0.8, blue: 0, alpha: 1)
-
-//            let imageView = UIImageView(image: UIImage(named: "Chevron"))
-//            cell.addSubview(imageView)
-//
-//            imageView.translatesAutoresizingMaskIntoConstraints = false
-//            imageView.topAnchor.constraint(equalTo: cell.textLabel!.bottomAnchor).isActive = true
-//            imageView.heightAnchor.constraint(equalToConstant: 44).isActive = true
-//            imageView.bottomAnchor.constraint(equalTo: cell.bottomAnchor).isActive = true
 
         default:
             assertionFailure("unknown row")

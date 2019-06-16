@@ -107,6 +107,9 @@ class DetailedHabitViewController: UIViewController {
             style: .plain,
             target: self, action: #selector(deleteHabit)
         )
+
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+        view.addGestureRecognizer(panGesture)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -140,6 +143,22 @@ class DetailedHabitViewController: UIViewController {
     }
 
     // MARK: - Methods
+    @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+        let percentage = max(gesture.translation(in: view).x, 0) / view.frame.width
+
+        switch gesture.state {
+        case .ended:
+            let velocity = gesture.velocity(in: view).x
+
+            if percentage > Constant.SwipeGesture.minPercentage ||
+                velocity > Constant.SwipeGesture.minVelocity {
+                dismissVC()
+            }
+
+        default:
+            break
+        }
+    }
     @objc private func appBecomeActive() {
         dataSet = habit.retrieveCompletedDays()
         updateStatisticsView(with: Constant.StatisticsView.animationDuration, animated: true)
@@ -147,6 +166,7 @@ class DetailedHabitViewController: UIViewController {
     }
 
     @objc private func dismissVC() {
+        TapticEngine.impact.feedback(.light)
         performSegue(withIdentifier: Constant.Segue.dismissDetailedHabitVC, sender: self)
     }
 
