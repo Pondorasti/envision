@@ -104,6 +104,7 @@
 		C57AF4DB22B158AE004A8971 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		C57AF4DE22B1872B004A8971 /* CGRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		C57D579322B0130900E28AB3 /* UINavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationBar.swift; sourceTree = "<group>"; };
+		C5916A7622B6DB4E00E1FA2E /* DetailedHabit.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = DetailedHabit.storyboard; path = "/Users/alexandruturcanu/Documents/Developer/Xcode Projects/Personal/Aim/Aim/Detailed Habit/DetailedHabit.storyboard"; sourceTree = "<absolute>"; };
 		C594D13D2119FDB3000F5D35 /* OnboardindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardindViewController.swift; sourceTree = "<group>"; };
 		C594D13F211A00F5000F5D35 /* Bulletin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bulletin.swift; sourceTree = "<group>"; };
 		C594D141211A4731000F5D35 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -200,9 +201,12 @@
 		C53630012105ACFD007DFC7A /* Aim */ = {
 			isa = PBXGroup;
 			children = (
+				C5916A7422B6DADB00E1FA2E /* Onboarding */,
+				C5916A7122B6DA6D00E1FA2E /* Home */,
+				C5916A7222B6DA9900E1FA2E /* Create Habit */,
+				C5916A7322B6DAB600E1FA2E /* Detailed Habit */,
+				C5916A7522B6DAE200E1FA2E /* Settings */,
 				C5A367D82109193000728525 /* Model */,
-				C5A367D92109193B00728525 /* View */,
-				C5A367DA2109194B00728525 /* Controller */,
 				C5A367DB2109195400728525 /* Storyboards */,
 				C52C521A21316F61009EA9D6 /* Services */,
 				C5A367DC2109195D00728525 /* Helper */,
@@ -252,6 +256,54 @@
 			path = "Core Graphics";
 			sourceTree = "<group>";
 		};
+		C5916A7122B6DA6D00E1FA2E /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				C53630352106D7A9007DFC7A /* HabitsViewController.swift */,
+				C5985B002110D3BE000520F0 /* SKHabitNode.swift */,
+				C53630332106B74C007DFC7A /* HabitsScene.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		C5916A7222B6DA9900E1FA2E /* Create Habit */ = {
+			isa = PBXGroup;
+			children = (
+				C5F7B7402109428F0094A09E /* CreateHabitViewController.swift */,
+				C5F7B74221095E360094A09E /* ColorPicker.swift */,
+			);
+			path = "Create Habit";
+			sourceTree = "<group>";
+		};
+		C5916A7322B6DAB600E1FA2E /* Detailed Habit */ = {
+			isa = PBXGroup;
+			children = (
+				C5B0CBA221137742004C1B55 /* DetailedHabitViewController.swift */,
+				C5916A7622B6DB4E00E1FA2E /* DetailedHabit.storyboard */,
+				C5B5839721137825006E25B6 /* DateCell.swift */,
+			);
+			path = "Detailed Habit";
+			sourceTree = "<group>";
+		};
+		C5916A7422B6DADB00E1FA2E /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				C5238F59211B5EE300AD8949 /* Onboarding.storyboard */,
+				C594D13D2119FDB3000F5D35 /* OnboardindViewController.swift */,
+				C594D13F211A00F5000F5D35 /* Bulletin.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		C5916A7522B6DAE200E1FA2E /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				C594D141211A4731000F5D35 /* SettingsTableViewController.swift */,
+				C520CD5D22B56C1C00049B52 /* SettingsViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		C5A367D82109193000728525 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -260,32 +312,8 @@
 				C5B0CB9C2112D15B004C1B55 /* Habit+CoreDataClass.swift */,
 				C5B0CB9D2112D15B004C1B55 /* Habit+CoreDataProperties.swift */,
 				C53630092105ACFD007DFC7A /* Aim.xcdatamodeld */,
-				C5985B002110D3BE000520F0 /* SKHabitNode.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		C5A367D92109193B00728525 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				C53630332106B74C007DFC7A /* HabitsScene.swift */,
-				C5F7B74221095E360094A09E /* ColorPicker.swift */,
-				C5B5839721137825006E25B6 /* DateCell.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		C5A367DA2109194B00728525 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				C53630352106D7A9007DFC7A /* HabitsViewController.swift */,
-				C5F7B7402109428F0094A09E /* CreateHabitViewController.swift */,
-				C5B0CBA221137742004C1B55 /* DetailedHabitViewController.swift */,
-				C594D13D2119FDB3000F5D35 /* OnboardindViewController.swift */,
-				C594D141211A4731000F5D35 /* SettingsTableViewController.swift */,
-				C520CD5D22B56C1C00049B52 /* SettingsViewController.swift */,
-			);
-			path = Controller;
 			sourceTree = "<group>";
 		};
 		C5A367DB2109195400728525 /* Storyboards */ = {
@@ -293,7 +321,6 @@
 			children = (
 				C53630062105ACFD007DFC7A /* Main.storyboard */,
 				C5238F57211AA95E00AD8949 /* Bubble Launch Screen.storyboard */,
-				C5238F59211B5EE300AD8949 /* Onboarding.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -304,7 +331,6 @@
 				C5AF7C8421091C2D000893D2 /* CircularTransition.swift */,
 				C5F7B7442109605B0094A09E /* Constants.swift */,
 				C5A35185210A663B00A717D3 /* CoreData.swift */,
-				C594D13F211A00F5000F5D35 /* Bulletin.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";

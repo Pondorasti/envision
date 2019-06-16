@@ -38,6 +38,10 @@ class HabitsViewController: UIViewController {
         reloadBubbles()
     }
 
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
+    }
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +63,8 @@ class HabitsViewController: UIViewController {
         skView.presentScene(habitsScene)
         
         reloadBubbles()
+
+//        self.setNeedsStatusBarAppearanceUpdate()
     }
     
     override func viewDidAppear(_ animated: Bool) {
