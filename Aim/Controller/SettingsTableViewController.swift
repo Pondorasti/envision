@@ -55,27 +55,7 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     }
 
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
-    }
-
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
-        switch indexPath.row {
-        case 0:
-            cell.textLabel?.text = "🤔 Contact Us"
-        case 1:
-            cell.textLabel?.text = "🤭 Rate Envision"
-        case 2:
-            cell.textLabel?.text = "📖 Tutorial"
-        default:
-            assertionFailure("unknown row")
-        }
-        
-        return cell
-    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {

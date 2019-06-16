@@ -11,6 +11,7 @@
 		276F418D792FF14703088F13 /* Pods_Aim.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC025B6D9E9D05C322C0AB15 /* Pods_Aim.framework */; };
 		42AFA65D398C4E188F699635 /* Pods_AimUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 744C3FB315EF8685BFFC065D /* Pods_AimUITests.framework */; };
 		C516CE5422674596000F6028 /* CALayerAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516CE5322674596000F6028 /* CALayerAnimations.swift */; };
+		C520CD5E22B56C1C00049B52 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C520CD5D22B56C1C00049B52 /* SettingsViewController.swift */; };
 		C5238F58211AA95E00AD8949 /* Bubble Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5238F57211AA95E00AD8949 /* Bubble Launch Screen.storyboard */; };
 		C5238F5A211B5EE300AD8949 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5238F59211B5EE300AD8949 /* Onboarding.storyboard */; };
 		C5238F5C211B5F2000AD8949 /* Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5238F5B211B5F2000AD8949 /* Storyboard.swift */; };
@@ -77,6 +78,7 @@
 		9682D75A170B94DBD19815B9 /* Pods-AimUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AimUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AimUITests/Pods-AimUITests.release.xcconfig"; sourceTree = "<group>"; };
 		AC025B6D9E9D05C322C0AB15 /* Pods_Aim.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aim.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C516CE5322674596000F6028 /* CALayerAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerAnimations.swift; sourceTree = "<group>"; };
+		C520CD5D22B56C1C00049B52 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C5238F57211AA95E00AD8949 /* Bubble Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Bubble Launch Screen.storyboard"; sourceTree = "<group>"; };
 		C5238F59211B5EE300AD8949 /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		C5238F5B211B5F2000AD8949 /* Storyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboard.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 				C5B0CBA221137742004C1B55 /* DetailedHabitViewController.swift */,
 				C594D13D2119FDB3000F5D35 /* OnboardindViewController.swift */,
 				C594D141211A4731000F5D35 /* SettingsTableViewController.swift */,
+				C520CD5D22B56C1C00049B52 /* SettingsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -566,6 +569,7 @@
 			files = (
 				C57AF4E122B187FC004A8971 /* CGPoint.swift in Sources */,
 				C594D140211A00F5000F5D35 /* Bulletin.swift in Sources */,
+				C520CD5E22B56C1C00049B52 /* SettingsViewController.swift in Sources */,
 				C5B5839A21139A0F006E25B6 /* Date.swift in Sources */,
 				C5AF7C8521091C2D000893D2 /* CircularTransition.swift in Sources */,
 				C5B5839821137825006E25B6 /* DateCell.swift in Sources */,
