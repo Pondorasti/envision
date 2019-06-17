@@ -66,7 +66,6 @@ struct Constant {
     struct Segue {
         static let dismissDetailedHabitVC = "goBack"
         static let createHabit = "createHabit"
-        static let cancelHabit = "cancelHabit"
         static let actuallyCreateHabit = "actuallyCreateHabit"
         static let presentSettingsVC = "showSettings"
         static let dismissSettingsVC = "goBackHomeFromSettings"

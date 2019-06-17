@@ -9,6 +9,7 @@
 import UIKit
 import SpriteKit
 import CoreGraphics
+import NotificationBannerSwift
 
 /*
  
@@ -180,6 +181,19 @@ class SKHabitNode: SKNode {
                     temporaryShapeNode.removeFromParent()
                     delegate?.shakeHabitNodes(from: self, withFeedback: true)
                     updateLabelAttributedString()
+
+                    let title: String
+                    let subtitle: String
+                    if habit.isGood {
+                        title = "Positive habit completed!"
+                        subtitle = "Great job, streak increased."
+                    } else {
+                        title = "Negative habit completed..."
+                        subtitle = "Better luck tomorrow, streak lost."
+                    }
+
+                    let banner = NotificationBanner(customView: NotificationView(title: title, subtitle: subtitle))
+                    banner.show()
 
                     delegate?.nodeDidExpand()
                 }

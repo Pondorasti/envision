@@ -18,18 +18,24 @@ PODS:
   - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
     - GoogleToolboxForMac/Defines (= 2.1.4)
   - JTAppleCalendar (7.1.5)
+  - MarqueeLabel (4.0.0)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - NotificationBannerSwift (2.2.2):
+    - MarqueeLabel (~> 4.0.0)
+    - SnapKit (~> 5.0.0)
   - SACountingLabel (0.1.1)
+  - SnapKit (5.0.0)
   - TapticEngine (1.1.0)
 
 DEPENDENCIES:
   - BulletinBoard
   - Firebase/Core
   - JTAppleCalendar (~> 7.0)
+  - NotificationBannerSwift
   - SACountingLabel
   - TapticEngine
 
@@ -42,8 +48,11 @@ SPEC REPOS:
     - FirebaseInstanceID
     - GoogleToolboxForMac
     - JTAppleCalendar
+    - MarqueeLabel
     - nanopb
+    - NotificationBannerSwift
     - SACountingLabel
+    - SnapKit
     - TapticEngine
 
 SPEC CHECKSUMS:
@@ -54,10 +63,13 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: f3f0657372592ecdfdfe2cac604a5a75758376a6
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   JTAppleCalendar: 2d4f974f9f3c8b4964d51ca1f6e004883c031fbe
+  MarqueeLabel: b55b26e690b6ad41faedd95cbf5eae6f1d1735b4
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  NotificationBannerSwift: 2d46cc1b4a0ebf4372baef383f2a2ca82bf0c235
   SACountingLabel: 6b0c2a177b77e65ea63772e50f4d4285bb6d5a71
+  SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   TapticEngine: b78b5513432b3c01af2ebbe018c0995778306757
 
-PODFILE CHECKSUM: 746f206bc7468840059460e34b7495e4c5056be7
+PODFILE CHECKSUM: a2db94bd34c2609590563befc37ecaf15960a60b
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.7.1

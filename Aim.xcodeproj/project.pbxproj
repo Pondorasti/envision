@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -36,7 +36,6 @@
 		C57D579422B0130A00E28AB3 /* UINavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57D579322B0130900E28AB3 /* UINavigationBar.swift */; };
 		C594D13E2119FDB3000F5D35 /* OnboardindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C594D13D2119FDB3000F5D35 /* OnboardindViewController.swift */; };
 		C594D140211A00F5000F5D35 /* Bulletin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C594D13F211A00F5000F5D35 /* Bulletin.swift */; };
-		C594D142211A4731000F5D35 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C594D141211A4731000F5D35 /* SettingsTableViewController.swift */; };
 		C5985B012110D3BE000520F0 /* SKHabitNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5985B002110D3BE000520F0 /* SKHabitNode.swift */; };
 		C5A35186210A663B00A717D3 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A35185210A663B00A717D3 /* CoreData.swift */; };
 		C5A35188210A6BE800A717D3 /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A35187210A6BE800A717D3 /* Habit.swift */; };
@@ -48,6 +47,7 @@
 		C5B0CBA321137743004C1B55 /* DetailedHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B0CBA221137742004C1B55 /* DetailedHabitViewController.swift */; };
 		C5B5839821137825006E25B6 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B5839721137825006E25B6 /* DateCell.swift */; };
 		C5B5839A21139A0F006E25B6 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B5839921139A0F006E25B6 /* Date.swift */; };
+		C5DD70C422B79F210012B189 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DD70C322B79F210012B189 /* NotificationView.swift */; };
 		C5F7B7412109428F0094A09E /* CreateHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7B7402109428F0094A09E /* CreateHabitViewController.swift */; };
 		C5F7B74321095E360094A09E /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7B74221095E360094A09E /* ColorPicker.swift */; };
 		C5F7B7452109605B0094A09E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7B7442109605B0094A09E /* Constants.swift */; };
@@ -112,7 +112,6 @@
 		C57D579322B0130900E28AB3 /* UINavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationBar.swift; sourceTree = "<group>"; };
 		C594D13D2119FDB3000F5D35 /* OnboardindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardindViewController.swift; sourceTree = "<group>"; };
 		C594D13F211A00F5000F5D35 /* Bulletin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bulletin.swift; sourceTree = "<group>"; };
-		C594D141211A4731000F5D35 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		C5985B002110D3BE000520F0 /* SKHabitNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKHabitNode.swift; sourceTree = "<group>"; };
 		C5A35183210A385200A717D3 /* CGPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPoint.swift; sourceTree = "<group>"; };
 		C5A35185210A663B00A717D3 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
@@ -125,6 +124,7 @@
 		C5B0CBA221137742004C1B55 /* DetailedHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedHabitViewController.swift; sourceTree = "<group>"; };
 		C5B5839721137825006E25B6 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		C5B5839921139A0F006E25B6 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		C5DD70C322B79F210012B189 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		C5F7B7402109428F0094A09E /* CreateHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHabitViewController.swift; sourceTree = "<group>"; };
 		C5F7B74221095E360094A09E /* ColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
 		C5F7B7442109605B0094A09E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -221,7 +221,6 @@
 				C5916A7322B6DAB600E1FA2E /* Detailed Habit */,
 				C5916A7522B6DAE200E1FA2E /* Settings */,
 				C5A367D82109193000728525 /* Model */,
-				C5A367DB2109195400728525 /* Storyboards */,
 				C52C521A21316F61009EA9D6 /* Services */,
 				C5A367DC2109195D00728525 /* Helper */,
 				C5A367DD2109196200728525 /* Extensions */,
@@ -273,9 +272,11 @@
 		C5916A7122B6DA6D00E1FA2E /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				C53630062105ACFD007DFC7A /* Main.storyboard */,
 				C53630352106D7A9007DFC7A /* HabitsViewController.swift */,
-				C5985B002110D3BE000520F0 /* SKHabitNode.swift */,
 				C53630332106B74C007DFC7A /* HabitsScene.swift */,
+				C5985B002110D3BE000520F0 /* SKHabitNode.swift */,
+				C5DD70C322B79F210012B189 /* NotificationView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -313,7 +314,6 @@
 		C5916A7522B6DAE200E1FA2E /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				C594D141211A4731000F5D35 /* SettingsTableViewController.swift */,
 				C520CD5D22B56C1C00049B52 /* SettingsViewController.swift */,
 				C51E5D7D22B789C000C546F3 /* AppInfoTableViewCell.swift */,
 			);
@@ -330,14 +330,6 @@
 				C53630092105ACFD007DFC7A /* Aim.xcdatamodeld */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		C5A367DB2109195400728525 /* Storyboards */ = {
-			isa = PBXGroup;
-			children = (
-				C53630062105ACFD007DFC7A /* Main.storyboard */,
-			);
-			path = Storyboards;
 			sourceTree = "<group>";
 		};
 		C5A367DC2109195D00728525 /* Helper */ = {
@@ -547,27 +539,16 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Aim/Pods-Aim-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/BulletinBoard/BLTNBoard.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
-				"${BUILT_PRODUCTS_DIR}/SACountingLabel/SACountingLabel.framework",
-				"${BUILT_PRODUCTS_DIR}/TapticEngine/TapticEngine.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Aim/Pods-Aim-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BLTNBoard.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SACountingLabel.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TapticEngine.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Aim/Pods-Aim-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Aim/Pods-Aim-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Aim/Pods-Aim-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		4B4B3F7972016D159AD40A70 /* [CP] Check Pods Manifest.lock */ = {
@@ -622,6 +603,7 @@
 				C5A35186210A663B00A717D3 /* CoreData.swift in Sources */,
 				C57AF4DC22B158AE004A8971 /* Int.swift in Sources */,
 				C53630342106B74C007DFC7A /* HabitsScene.swift in Sources */,
+				C5DD70C422B79F210012B189 /* NotificationView.swift in Sources */,
 				C5F7B74B210A2EBA0094A09E /* UIView.swift in Sources */,
 				C5238F5C211B5F2000AD8949 /* Storyboard.swift in Sources */,
 				C5B0CBA02112D15B004C1B55 /* Habit+CoreDataClass.swift in Sources */,
@@ -631,7 +613,6 @@
 				C5B0CB9F2112D15B004C1B55 /* Log+CoreDataProperties.swift in Sources */,
 				C53630032105ACFD007DFC7A /* AppDelegate.swift in Sources */,
 				C5B0CB9E2112D15B004C1B55 /* Log+CoreDataClass.swift in Sources */,
-				C594D142211A4731000F5D35 /* SettingsTableViewController.swift in Sources */,
 				C5985B012110D3BE000520F0 /* SKHabitNode.swift in Sources */,
 				C5F7B747210985900094A09E /* UIColor.swift in Sources */,
 				C594D13E2119FDB3000F5D35 /* OnboardindViewController.swift in Sources */,

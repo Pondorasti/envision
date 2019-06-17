@@ -39,12 +39,6 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="4lP-BB-ZQv">
                                 <rect key="frame" x="20" y="160" width="374" height="678"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Habit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amg-SF-N2r">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="20.5"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="MoT-hP-G4A">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="68.5"/>
                                         <subviews>
@@ -61,7 +55,7 @@
                                                         <rect key="frame" x="5" y="0.0" width="319" height="40"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
                                                     </textField>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yBF-gn-xHi">
                                                         <rect key="frame" x="324" y="0.0" width="45" height="40"/>
@@ -156,17 +150,6 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="XxF-eI-0r0">
                                         <rect key="frame" x="0.0" y="638" width="374" height="40"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rNC-gd-VEi">
-                                                <rect key="frame" x="0.0" y="0.0" width="157.5" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="EEy-zs-LSl"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
-                                                <state key="normal" title="Cancel"/>
-                                                <connections>
-                                                    <segue destination="3LW-Ti-n8u" kind="unwind" identifier="cancelHabit" unwindAction="unwindWithSegue:" id="5nY-Lc-6f6"/>
-                                                </connections>
-                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YR7-4p-Tvz">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="40"/>
                                                 <constraints>
@@ -179,27 +162,12 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstItem="YR7-4p-Tvz" firstAttribute="width" secondItem="rNC-gd-VEi" secondAttribute="width" id="q0o-Bu-Uae"/>
-                                        </constraints>
-                                        <variation key="default">
-                                            <mask key="subviews">
-                                                <exclude reference="rNC-gd-VEi"/>
-                                            </mask>
-                                        </variation>
                                     </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="amg-SF-N2r" firstAttribute="leading" secondItem="4lP-BB-ZQv" secondAttribute="leading" id="4Ht-a7-1il"/>
                                     <constraint firstAttribute="trailing" secondItem="XxF-eI-0r0" secondAttribute="trailing" id="Wqp-C9-AMb"/>
-                                    <constraint firstAttribute="trailing" secondItem="amg-SF-N2r" secondAttribute="trailing" id="fRG-l4-TKf"/>
                                     <constraint firstItem="XxF-eI-0r0" firstAttribute="leading" secondItem="4lP-BB-ZQv" secondAttribute="leading" id="hmA-5C-w5l"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="subviews">
-                                        <exclude reference="amg-SF-N2r"/>
-                                    </mask>
-                                </variation>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -214,7 +182,6 @@
                     <navigationItem key="navigationItem" title="Create New Habit" largeTitleDisplayMode="always" id="bZI-Ui-6Bt"/>
                     <connections>
                         <outlet property="badTypeButton" destination="uaQ-qn-cP4" id="jv9-Ks-KaV"/>
-                        <outlet property="cancelButton" destination="rNC-gd-VEi" id="AQ3-Oh-QtH"/>
                         <outlet property="characterCountLabel" destination="yBF-gn-xHi" id="Dmx-H2-LWP"/>
                         <outlet property="colorOfBubbleLabel" destination="UsR-Kc-l7f" id="XmQ-Fz-JGC"/>
                         <outlet property="colorPicker" destination="zBz-VT-nrJ" id="dMs-Pa-nTN"/>
@@ -224,7 +191,6 @@
                         <outlet property="habitNameTextField" destination="Odo-b2-ipQ" id="5On-cp-qxs"/>
                         <outlet property="habitNameView" destination="hpV-5y-icE" id="iL2-aA-CWr"/>
                         <outlet property="habitTypeStackView" destination="60M-tt-DCR" id="KvH-qD-y7N"/>
-                        <outlet property="titleLabel" destination="amg-SF-N2r" id="JpA-M6-Sq2"/>
                         <outlet property="typeHabit" destination="4Hm-co-Xek" id="1WA-pd-Fim"/>
                     </connections>
                 </viewController>

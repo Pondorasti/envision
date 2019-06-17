@@ -11,6 +11,7 @@ target 'Aim' do
   pod 'TapticEngine'
   pod 'SACountingLabel'
   pod 'Firebase/Core'
+  pod 'NotificationBannerSwift'
 
   target 'AimTests' do
     inherit! :search_paths

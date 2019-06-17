@@ -17,8 +17,7 @@ class CreateHabitViewController: UIViewController {
     var isGoodHabit = true
     // TODO: retrieve only habit names
     var habits = [Habit]()
-    
-    @IBOutlet weak var titleLabel: UILabel!
+
     @IBOutlet weak var habitNameLabel: UILabel!
     @IBOutlet weak var typeHabit: UILabel!
     @IBOutlet weak var colorOfBubbleLabel: UILabel!
@@ -32,7 +31,6 @@ class CreateHabitViewController: UIViewController {
     
     @IBOutlet weak var colorPicker: UIEntryPickerView!
     
-    @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var createButton: UIButton!
     @IBOutlet weak var habitTypeStackView: UIStackView!
     
@@ -100,9 +98,6 @@ class CreateHabitViewController: UIViewController {
 
             let newHabitNode = SKHabitNode(for: newHabit, in: SKView())
             destination.habitsScene.selectedHabitNode = newHabitNode
-            
-        case Constant.Segue.cancelHabit:
-            print(Constant.Segue.cancelHabit)
         default:
             fatalError("unknown segue identifier")
         }
@@ -181,7 +176,7 @@ class CreateHabitViewController: UIViewController {
 
     @objc private func dismissVC() {
         TapticEngine.impact.feedback(.light)
-        performSegue(withIdentifier: Constant.Segue.cancelHabit, sender: self)
+        dismiss(animated: true, completion: nil)
     }
 
     private func animateTransion(from firstButton: UIButton, to secondButton: UIButton, withDuration duration: Double) {
