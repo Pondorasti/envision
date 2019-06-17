@@ -38,7 +38,12 @@ class HabitsViewController: UIViewController {
         reloadBubbles()
     }
 
+    var darkStatusBar = false
     override var preferredStatusBarStyle : UIStatusBarStyle {
+        if darkStatusBar {
+            return .default
+        }
+
         return .lightContent
     }
 
@@ -63,8 +68,6 @@ class HabitsViewController: UIViewController {
         skView.presentScene(habitsScene)
         
         reloadBubbles()
-
-//        self.setNeedsStatusBarAppearanceUpdate()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -78,6 +81,9 @@ class HabitsViewController: UIViewController {
         guard let id = segue.identifier else {
             fatalError("Could not unwrap segue identifier")
         }
+
+        darkStatusBar = true
+        self.setNeedsStatusBarAppearanceUpdate()
 
         switch id {
         case Constant.Segue.createHabit:
@@ -206,5 +212,3 @@ extension HabitsViewController: CircularTransitionDelegate {
         }
     }
 }
-
-

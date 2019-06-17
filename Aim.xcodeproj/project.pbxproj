@@ -10,7 +10,9 @@
 		1050B2A11E056E3F98F72C5B /* Pods_AimTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9B2B16ACE0050B3AAF6C284 /* Pods_AimTests.framework */; };
 		276F418D792FF14703088F13 /* Pods_Aim.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC025B6D9E9D05C322C0AB15 /* Pods_Aim.framework */; };
 		42AFA65D398C4E188F699635 /* Pods_AimUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 744C3FB315EF8685BFFC065D /* Pods_AimUITests.framework */; };
+		C5023DDF22B77B5100428294 /* Create Habit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5023DDD22B77B5100428294 /* Create Habit.storyboard */; };
 		C516CE5422674596000F6028 /* CALayerAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516CE5322674596000F6028 /* CALayerAnimations.swift */; };
+		C51E5D7C22B7801700C546F3 /* DetailedHabit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C51E5D7A22B7801700C546F3 /* DetailedHabit.storyboard */; };
 		C520CD5E22B56C1C00049B52 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C520CD5D22B56C1C00049B52 /* SettingsViewController.swift */; };
 		C520CD6022B6CD9300049B52 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C520CD5F22B6CD9300049B52 /* UIImage.swift */; };
 		C5238F58211AA95E00AD8949 /* Bubble Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5238F57211AA95E00AD8949 /* Bubble Launch Screen.storyboard */; };
@@ -78,7 +80,9 @@
 		744C3FB315EF8685BFFC065D /* Pods_AimUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AimUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9682D75A170B94DBD19815B9 /* Pods-AimUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AimUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AimUITests/Pods-AimUITests.release.xcconfig"; sourceTree = "<group>"; };
 		AC025B6D9E9D05C322C0AB15 /* Pods_Aim.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aim.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5023DDE22B77B5100428294 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Aim/Storyboards/Base.lproj/Create Habit.storyboard"; sourceTree = SOURCE_ROOT; };
 		C516CE5322674596000F6028 /* CALayerAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerAnimations.swift; sourceTree = "<group>"; };
+		C51E5D7B22B7801700C546F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Aim/Storyboards/Base.lproj/DetailedHabit.storyboard; sourceTree = SOURCE_ROOT; };
 		C520CD5D22B56C1C00049B52 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C520CD5F22B6CD9300049B52 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		C5238F57211AA95E00AD8949 /* Bubble Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Bubble Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -104,7 +108,6 @@
 		C57AF4DB22B158AE004A8971 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		C57AF4DE22B1872B004A8971 /* CGRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		C57D579322B0130900E28AB3 /* UINavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationBar.swift; sourceTree = "<group>"; };
-		C5916A7622B6DB4E00E1FA2E /* DetailedHabit.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = DetailedHabit.storyboard; path = "/Users/alexandruturcanu/Documents/Developer/Xcode Projects/Personal/Aim/Aim/Detailed Habit/DetailedHabit.storyboard"; sourceTree = "<absolute>"; };
 		C594D13D2119FDB3000F5D35 /* OnboardindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardindViewController.swift; sourceTree = "<group>"; };
 		C594D13F211A00F5000F5D35 /* Bulletin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bulletin.swift; sourceTree = "<group>"; };
 		C594D141211A4731000F5D35 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -168,6 +171,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C5023DE022B77D7600428294 /* LaunchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C5238F57211AA95E00AD8949 /* Bubble Launch Screen.storyboard */,
+			);
+			path = LaunchScreen;
+			sourceTree = "<group>";
+		};
 		C52C521A21316F61009EA9D6 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -201,6 +212,7 @@
 		C53630012105ACFD007DFC7A /* Aim */ = {
 			isa = PBXGroup;
 			children = (
+				C5023DE022B77D7600428294 /* LaunchScreen */,
 				C5916A7422B6DADB00E1FA2E /* Onboarding */,
 				C5916A7122B6DA6D00E1FA2E /* Home */,
 				C5916A7222B6DA9900E1FA2E /* Create Habit */,
@@ -269,6 +281,7 @@
 		C5916A7222B6DA9900E1FA2E /* Create Habit */ = {
 			isa = PBXGroup;
 			children = (
+				C5023DDD22B77B5100428294 /* Create Habit.storyboard */,
 				C5F7B7402109428F0094A09E /* CreateHabitViewController.swift */,
 				C5F7B74221095E360094A09E /* ColorPicker.swift */,
 			);
@@ -278,8 +291,8 @@
 		C5916A7322B6DAB600E1FA2E /* Detailed Habit */ = {
 			isa = PBXGroup;
 			children = (
+				C51E5D7A22B7801700C546F3 /* DetailedHabit.storyboard */,
 				C5B0CBA221137742004C1B55 /* DetailedHabitViewController.swift */,
-				C5916A7622B6DB4E00E1FA2E /* DetailedHabit.storyboard */,
 				C5B5839721137825006E25B6 /* DateCell.swift */,
 			);
 			path = "Detailed Habit";
@@ -320,7 +333,6 @@
 			isa = PBXGroup;
 			children = (
 				C53630062105ACFD007DFC7A /* Main.storyboard */,
-				C5238F57211AA95E00AD8949 /* Bubble Launch Screen.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -486,6 +498,8 @@
 				C536300D2105ACFE007DFC7A /* Assets.xcassets in Resources */,
 				C52C521921316ADA009EA9D6 /* GoogleService-Info.plist in Resources */,
 				C53630082105ACFD007DFC7A /* Main.storyboard in Resources */,
+				C51E5D7C22B7801700C546F3 /* DetailedHabit.storyboard in Resources */,
+				C5023DDF22B77B5100428294 /* Create Habit.storyboard in Resources */,
 				C5238F5A211B5EE300AD8949 /* Onboarding.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -665,6 +679,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		C5023DDD22B77B5100428294 /* Create Habit.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C5023DDE22B77B5100428294 /* Base */,
+			);
+			name = "Create Habit.storyboard";
+			sourceTree = "<group>";
+		};
+		C51E5D7A22B7801700C546F3 /* DetailedHabit.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C51E5D7B22B7801700C546F3 /* Base */,
+			);
+			name = DetailedHabit.storyboard;
+			sourceTree = "<group>";
+		};
 		C53630062105ACFD007DFC7A /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

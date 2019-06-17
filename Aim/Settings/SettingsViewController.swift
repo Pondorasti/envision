@@ -12,6 +12,10 @@ import TapticEngine
 class SettingsViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .default
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +32,12 @@ class SettingsViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView(frame: CGRect.zero)
+
+        tableView.layer.shadowColor = Constant.Layer.shadowColor
+        tableView.layer.shadowOffset = Constant.Layer.shadowOffset
+        tableView.layer.shadowOpacity = Constant.Layer.shadowOpacity
+        tableView.layer.shadowRadius = Constant.Layer.shadowRadius
+        tableView.layer.masksToBounds = false
 
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
         view.addGestureRecognizer(panGesture)
@@ -51,6 +61,10 @@ class SettingsViewController: UIViewController {
     }
 
     @objc private func dismissVC() {
+        let rootVC = UIApplication.shared.keyWindow!.rootViewController as! HabitsViewController
+        rootVC.darkStatusBar = false
+        rootVC.setNeedsStatusBarAppearanceUpdate()
+
         TapticEngine.impact.feedback(.light)
         dismiss(animated: true, completion: nil)
     }
@@ -74,6 +88,7 @@ extension SettingsViewController: UITableViewDataSource {
             cell.textLabel?.text = "Tutorial"
             cell.imageView?.image = UIImage(assetIdentifier: .book)
             cell.imageView?.tintColor = #colorLiteral(red: 0.3450980392, green: 0.337254902, blue: 0.8392156863, alpha: 1)
+            cell.layer.cornerRadius = 16
         case 1:
             cell.textLabel?.text = "Contact Us"
             cell.imageView?.image = UIImage(assetIdentifier: .info)

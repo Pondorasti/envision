@@ -80,6 +80,10 @@ class CreateHabitViewController: UIViewController {
     // MARK: - Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let id = segue.identifier else { return }
+
+        guard let destination = segue.destination as? HabitsViewController else { return }
+        destination.darkStatusBar = false
+        destination.setNeedsStatusBarAppearanceUpdate()
         
         switch id {
         case Constant.Segue.actuallyCreateHabit:
@@ -92,12 +96,9 @@ class CreateHabitViewController: UIViewController {
             newHabit.creationDate = Date()
             
             CoreDataHelper.saveHabit()
-            
             AnalyticsService.logNewHabit(newHabit)
-            
-            guard let destination = segue.destination as? HabitsViewController else { return }
+
             let newHabitNode = SKHabitNode(for: newHabit, in: SKView())
-            
             destination.habitsScene.selectedHabitNode = newHabitNode
             
         case Constant.Segue.cancelHabit:
@@ -239,8 +240,10 @@ class CreateHabitViewController: UIViewController {
     }
 
     private func configureButtons() {
-        cancelButton.configure(with: #colorLiteral(red: 0.9254901961, green: 0.231372549, blue: 0.368627451, alpha: 1), andTitle: "Cancel")
-        createButton.configure(with: #colorLiteral(red: 0.2039215686, green: 0.7803921569, blue: 0.3490196078, alpha: 1), andTitle: "Create")
+        createButton.setTitle("Create", for: .normal)
+        createButton.setTitleColor(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), for: .normal)
+        createButton.backgroundColor = #colorLiteral(red: 0.2039215686, green: 0.7803921569, blue: 0.3490196078, alpha: 1)
+        createButton.layer.cornerRadius = Constant.Layer.cornerRadius
     }
 }
 

@@ -56,7 +56,7 @@ struct Constant {
     }
     
     struct Storyboard {
-        static let detailedHabit: String = "detailedHabit"
+        static let detailedHabit: String = "DetailedHabit"
     }
     
     struct Cell {
