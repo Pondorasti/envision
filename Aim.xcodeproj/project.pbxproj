@@ -13,6 +13,7 @@
 		C5023DDF22B77B5100428294 /* Create Habit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5023DDD22B77B5100428294 /* Create Habit.storyboard */; };
 		C516CE5422674596000F6028 /* CALayerAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516CE5322674596000F6028 /* CALayerAnimations.swift */; };
 		C51E5D7C22B7801700C546F3 /* DetailedHabit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C51E5D7A22B7801700C546F3 /* DetailedHabit.storyboard */; };
+		C51E5D7E22B789C000C546F3 /* AppInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51E5D7D22B789C000C546F3 /* AppInfoTableViewCell.swift */; };
 		C520CD5E22B56C1C00049B52 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C520CD5D22B56C1C00049B52 /* SettingsViewController.swift */; };
 		C520CD6022B6CD9300049B52 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C520CD5F22B6CD9300049B52 /* UIImage.swift */; };
 		C5238F58211AA95E00AD8949 /* Bubble Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5238F57211AA95E00AD8949 /* Bubble Launch Screen.storyboard */; };
@@ -83,6 +84,7 @@
 		C5023DDE22B77B5100428294 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Aim/Storyboards/Base.lproj/Create Habit.storyboard"; sourceTree = SOURCE_ROOT; };
 		C516CE5322674596000F6028 /* CALayerAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerAnimations.swift; sourceTree = "<group>"; };
 		C51E5D7B22B7801700C546F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Aim/Storyboards/Base.lproj/DetailedHabit.storyboard; sourceTree = SOURCE_ROOT; };
+		C51E5D7D22B789C000C546F3 /* AppInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C520CD5D22B56C1C00049B52 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C520CD5F22B6CD9300049B52 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		C5238F57211AA95E00AD8949 /* Bubble Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Bubble Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 			children = (
 				C594D141211A4731000F5D35 /* SettingsTableViewController.swift */,
 				C520CD5D22B56C1C00049B52 /* SettingsViewController.swift */,
+				C51E5D7D22B789C000C546F3 /* AppInfoTableViewCell.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -634,6 +637,7 @@
 				C594D13E2119FDB3000F5D35 /* OnboardindViewController.swift in Sources */,
 				C5F7B74921098A7C0094A09E /* UIButton.swift in Sources */,
 				C520CD6022B6CD9300049B52 /* UIImage.swift in Sources */,
+				C51E5D7E22B789C000C546F3 /* AppInfoTableViewCell.swift in Sources */,
 				C5F7B7412109428F0094A09E /* CreateHabitViewController.swift in Sources */,
 				C5A35188210A6BE800A717D3 /* Habit.swift in Sources */,
 				C5B0CBA12112D15B004C1B55 /* Habit+CoreDataProperties.swift in Sources */,

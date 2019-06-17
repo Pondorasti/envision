@@ -20,6 +20,8 @@ extension UIImage {
         case book = "Book"
         case man = "Man"
         case star = "Star"
+        case mail = "Mail"
+        case padlock = "Padlock"
     }
 
     convenience init!(assetIdentifier: AssetIdentifier) {
