@@ -275,7 +275,6 @@ extension CreateHabitViewController: UITextFieldDelegate {
             characterCountLabel.text = "\(updatedText.count)"
         }
 
-
         return updatedText.count <= 14
     }
 }

@@ -50,12 +50,13 @@ class NotificationView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+        backgroundColor = .clear
         addSubview(backgroundView)
 
         backgroundView.topAnchor.constraint(equalTo: topAnchor, constant: 24).isActive = true
         backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
         backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
-        backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 12).isActive = true
+        backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 16).isActive = true
 
         backgroundView.addSubview(titleLabel)
         backgroundView.addSubview(subtitleLabel)

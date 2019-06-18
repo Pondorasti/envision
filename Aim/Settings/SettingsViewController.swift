@@ -171,6 +171,8 @@ extension SettingsViewController: UITableViewDelegate {
         default:
             assertionFailure("unknown row")
         }
+
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 

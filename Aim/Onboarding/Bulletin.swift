@@ -17,7 +17,7 @@ struct BulletinHelper {
         rootItem.image = UIImage(assetIdentifier: .roundedIcon)
         rootItem.descriptionText = "Create the foundation for your daily habits and improve your personal life."
         rootItem.actionButtonTitle = "Continue"
-        
+
         rootItem.requiresCloseButton = false
         rootItem.isDismissable = false
         
@@ -34,7 +34,7 @@ struct BulletinHelper {
         rootItem.image = UIImage(assetIdentifier: .oneFingerHold)
         rootItem.descriptionText = "Hold down your finger on a bubble to complete the routine."
         rootItem.actionButtonTitle = "Next"
-        
+
         rootItem.requiresCloseButton = false
         rootItem.isDismissable = false
         
@@ -50,7 +50,13 @@ struct BulletinHelper {
         let rootItem = BLTNPageItem(title: "Looking beyond the bubbles")
         rootItem.image = UIImage(assetIdentifier: .twoFingers)
         rootItem.descriptionText = "Just tap or pinch to zoom around a bubble for more info."
+        // Each habit grows if completed, your porpuse is to c
+        // Each habit grows or diminishes in regard of your actions
+        //
+        // Ignore negative habits as they diminish / disappear into oblivion
+        //                        as they grow smaller and disappear into oblivion.
 
+        // Ignore negative habits as they diminish and disappear into oblivion.
         rootItem.actionButtonTitle = "Let's get started!"
         
         rootItem.requiresCloseButton = false

@@ -9,6 +9,7 @@
 import UIKit
 import SpriteKit
 import TapticEngine
+import NotificationBannerSwift
 
 class HabitsScene: SKScene {
     // MARK: - Properties
@@ -182,8 +183,28 @@ extension HabitsScene: SKHabitNodeDelegate {
         }
     }
 
-    func nodeDidExpand() {
+    func nodeDidExpand(_ node: SKHabitNode) {
         ignoreNextDoubleTap = true
+
+        if let viewController = UIApplication.shared.keyWindow?.rootViewController as? HabitsViewController {
+            let title: String
+            let subtitle: String
+            if node.habit.isGood {
+                title = "Positive habit completed!"
+                subtitle = "Great job, streak increased."
+            } else {
+                title = "Negative habit completed..."
+                subtitle = "Better luck tomorrow, streak lost."
+            }
+
+            let banner = NotificationBanner(customView: NotificationView(title: title, subtitle: subtitle))
+            banner.show(
+                queuePosition: .front,
+                bannerPosition: .top,
+                queue: .default,
+                on: viewController
+            )
+        }
     }
 }
 
