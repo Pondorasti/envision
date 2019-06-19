@@ -14,6 +14,8 @@ class SettingsViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
+    private lazy var bulletinManager = BulletinHelper.bullentinManager(isDismissable: true)
+
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return .default
     }
@@ -156,8 +158,7 @@ extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            let tutorialVC = UIStoryboard.initialViewController(for: .onboarding)
-            present(tutorialVC, animated: true)
+            bulletinManager.showBulletin(above: self)
         case 1:
             sendEmail()
         case 2:

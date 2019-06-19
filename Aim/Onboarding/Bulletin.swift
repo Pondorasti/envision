@@ -12,15 +12,23 @@ import UIKit
 import TapticEngine
 
 struct BulletinHelper {
-    static func rootItem() -> BLTNPageItem {
+    static func bullentinManager(isDismissable: Bool = false) -> BLTNItemManager {
+        let manager = BLTNItemManager(rootItem: rootItem(isDismissable))
+        manager.backgroundViewStyle = .blurredDark
+        return manager
+    }
+
+    static func rootItem(_ isDismissable: Bool) -> BLTNPageItem {
         let rootItem = BLTNPageItem(title: "Envision")
         rootItem.image = UIImage(assetIdentifier: .roundedIcon)
         rootItem.descriptionText = "Create the foundation for your daily habits and improve your personal life."
         rootItem.actionButtonTitle = "Continue"
 
-        rootItem.requiresCloseButton = false
-        rootItem.isDismissable = false
-        
+        rootItem.requiresCloseButton = isDismissable
+        rootItem.isDismissable = isDismissable
+
+        rootItem.next = holdItem(isDismissable)
+
         rootItem.actionHandler = { item in
             TapticEngine.selection.feedback()
             item.manager?.displayNextItem()
@@ -29,14 +37,16 @@ struct BulletinHelper {
         return rootItem
     }
     
-    static func holdItem() -> BLTNPageItem {
+    static func holdItem(_ isDismissable: Bool) -> BLTNPageItem {
         let rootItem = BLTNPageItem(title: "Completing Habits")
         rootItem.image = UIImage(assetIdentifier: .oneFingerHold)
         rootItem.descriptionText = "Hold down your finger on a bubble to complete the routine."
         rootItem.actionButtonTitle = "Next"
 
-        rootItem.requiresCloseButton = false
-        rootItem.isDismissable = false
+        rootItem.requiresCloseButton = isDismissable
+        rootItem.isDismissable = isDismissable
+
+        rootItem.next = detailItem(isDismissable)
         
         rootItem.actionHandler = { item in
             TapticEngine.selection.feedback()
@@ -46,7 +56,7 @@ struct BulletinHelper {
         return rootItem
     }
     
-    static func detailItem() -> BLTNPageItem {
+    static func detailItem(_ isDismissable: Bool) -> BLTNPageItem {
         let rootItem = BLTNPageItem(title: "Looking beyond the bubbles")
         rootItem.image = UIImage(assetIdentifier: .twoFingers)
         rootItem.descriptionText = "Just tap or pinch to zoom around a bubble for more info."
@@ -59,8 +69,13 @@ struct BulletinHelper {
         // Ignore negative habits as they diminish and disappear into oblivion.
         rootItem.actionButtonTitle = "Let's get started!"
         
-        rootItem.requiresCloseButton = false
-        rootItem.isDismissable = false
+        rootItem.requiresCloseButton = isDismissable
+        rootItem.isDismissable = isDismissable
+
+        rootItem.actionHandler = { item in
+            TapticEngine.selection.feedback()
+            item.manager?.dismissBulletin()
+        }
 
         return rootItem
     }

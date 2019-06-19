@@ -22,6 +22,8 @@ class HabitsViewController: UIViewController {
     private var transitionMode = TransitionDestination.createHabitVC
     private var lastActiveHabitNode: SKHabitNode?
 
+    private lazy var bulletinManager = BulletinHelper.bullentinManager()
+
     enum TransitionDestination {
         case createHabitVC, detailedHabitVC, settingsVC
     }
@@ -124,8 +126,7 @@ class HabitsViewController: UIViewController {
     private func showTutorialIfNeeded() {
         let defaults = UserDefaults.standard
         if defaults.object(forKey: Constant.UserDefaults.notFirstInApp) == nil {
-            let tutorialVC = UIStoryboard.initialViewController(for: .onboarding)
-            present(tutorialVC, animated: true)
+            bulletinManager.showBulletin(above: self)
 
             defaults.set("No", forKey: Constant.UserDefaults.notFirstInApp)
             defaults.synchronize()

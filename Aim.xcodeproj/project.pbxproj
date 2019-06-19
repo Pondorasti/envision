@@ -17,7 +17,6 @@
 		C520CD5E22B56C1C00049B52 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C520CD5D22B56C1C00049B52 /* SettingsViewController.swift */; };
 		C520CD6022B6CD9300049B52 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C520CD5F22B6CD9300049B52 /* UIImage.swift */; };
 		C5238F58211AA95E00AD8949 /* Bubble Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5238F57211AA95E00AD8949 /* Bubble Launch Screen.storyboard */; };
-		C5238F5A211B5EE300AD8949 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5238F59211B5EE300AD8949 /* Onboarding.storyboard */; };
 		C5238F5C211B5F2000AD8949 /* Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5238F5B211B5F2000AD8949 /* Storyboard.swift */; };
 		C52C521921316ADA009EA9D6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C52C521821316ADA009EA9D6 /* GoogleService-Info.plist */; };
 		C52C521C21316F85009EA9D6 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52C521B21316F85009EA9D6 /* AnalyticsService.swift */; };
@@ -34,7 +33,6 @@
 		C57AF4DF22B1872B004A8971 /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57AF4DE22B1872B004A8971 /* CGRect.swift */; };
 		C57AF4E122B187FC004A8971 /* CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A35183210A385200A717D3 /* CGPoint.swift */; };
 		C57D579422B0130A00E28AB3 /* UINavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57D579322B0130900E28AB3 /* UINavigationBar.swift */; };
-		C594D13E2119FDB3000F5D35 /* OnboardindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C594D13D2119FDB3000F5D35 /* OnboardindViewController.swift */; };
 		C594D140211A00F5000F5D35 /* Bulletin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C594D13F211A00F5000F5D35 /* Bulletin.swift */; };
 		C5985B012110D3BE000520F0 /* SKHabitNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5985B002110D3BE000520F0 /* SKHabitNode.swift */; };
 		C5A35186210A663B00A717D3 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A35185210A663B00A717D3 /* CoreData.swift */; };
@@ -88,7 +86,6 @@
 		C520CD5D22B56C1C00049B52 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C520CD5F22B6CD9300049B52 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		C5238F57211AA95E00AD8949 /* Bubble Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Bubble Launch Screen.storyboard"; sourceTree = "<group>"; };
-		C5238F59211B5EE300AD8949 /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		C5238F5B211B5F2000AD8949 /* Storyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboard.swift; sourceTree = "<group>"; };
 		C52C521821316ADA009EA9D6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C52C521B21316F85009EA9D6 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
@@ -110,7 +107,6 @@
 		C57AF4DB22B158AE004A8971 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		C57AF4DE22B1872B004A8971 /* CGRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		C57D579322B0130900E28AB3 /* UINavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationBar.swift; sourceTree = "<group>"; };
-		C594D13D2119FDB3000F5D35 /* OnboardindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardindViewController.swift; sourceTree = "<group>"; };
 		C594D13F211A00F5000F5D35 /* Bulletin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bulletin.swift; sourceTree = "<group>"; };
 		C5985B002110D3BE000520F0 /* SKHabitNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKHabitNode.swift; sourceTree = "<group>"; };
 		C5A35183210A385200A717D3 /* CGPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPoint.swift; sourceTree = "<group>"; };
@@ -304,8 +300,6 @@
 		C5916A7422B6DADB00E1FA2E /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				C5238F59211B5EE300AD8949 /* Onboarding.storyboard */,
-				C594D13D2119FDB3000F5D35 /* OnboardindViewController.swift */,
 				C594D13F211A00F5000F5D35 /* Bulletin.swift */,
 			);
 			path = Onboarding;
@@ -495,7 +489,6 @@
 				C53630082105ACFD007DFC7A /* Main.storyboard in Resources */,
 				C51E5D7C22B7801700C546F3 /* DetailedHabit.storyboard in Resources */,
 				C5023DDF22B77B5100428294 /* Create Habit.storyboard in Resources */,
-				C5238F5A211B5EE300AD8949 /* Onboarding.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -615,7 +608,6 @@
 				C5B0CB9E2112D15B004C1B55 /* Log+CoreDataClass.swift in Sources */,
 				C5985B012110D3BE000520F0 /* SKHabitNode.swift in Sources */,
 				C5F7B747210985900094A09E /* UIColor.swift in Sources */,
-				C594D13E2119FDB3000F5D35 /* OnboardindViewController.swift in Sources */,
 				C5F7B74921098A7C0094A09E /* UIButton.swift in Sources */,
 				C520CD6022B6CD9300049B52 /* UIImage.swift in Sources */,
 				C51E5D7E22B789C000C546F3 /* AppInfoTableViewCell.swift in Sources */,
