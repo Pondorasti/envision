@@ -13,6 +13,9 @@ extension UIImage {
         case oneFingerHold = "OneFingerHold"
         case twoFingers = "TwoFingers"
         case roundedIcon = "RoundedIcon"
+        case badHabit = "BadHabit"
+        case goodHabit = "GoodHabit"
+
         case trashCan = "TrashCan"
         case chevron = "Chevron"
 

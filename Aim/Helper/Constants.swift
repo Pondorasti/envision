@@ -87,6 +87,7 @@ struct Constant {
 
     struct Habit {
         static let maxIteration = 60
+        static let maxWidth: CGFloat = 200
     }
 
     struct SwipeGesture {
