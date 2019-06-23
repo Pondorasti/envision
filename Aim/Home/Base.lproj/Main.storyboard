@@ -47,19 +47,46 @@
                                     <segue destination="df4-PO-cHX" kind="show" identifier="showSettings" id="Eay-Jz-GGw"/>
                                 </connections>
                             </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Qmu-aQ-Ha0">
+                                <rect key="frame" x="67.5" y="329" width="240" height="240"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Use the plus button to create your first habits." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bg5-KK-687">
+                                        <rect key="frame" x="8.5" y="0.0" width="223.5" height="86"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DownArrow" translatesAutoresizingMaskIntoConstraints="NO" id="8BI-Xz-fpr">
+                                        <rect key="frame" x="101" y="86" width="38" height="154"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="PU4-Nc-WX2"/>
+                                    <constraint firstAttribute="width" constant="240" id="mW8-zA-B2j"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="IAh-ze-EAa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="2TF-i0-MvJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="r1B-PB-Kd0" secondAttribute="bottom" constant="16" id="3He-uE-zqu"/>
+                            <constraint firstItem="Qmu-aQ-Ha0" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="IPJ-nY-cDY"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="IAh-ze-EAa" secondAttribute="bottom" constant="16" id="SSy-Pd-fr1"/>
+                            <constraint firstItem="r1B-PB-Kd0" firstAttribute="top" secondItem="Qmu-aQ-Ha0" secondAttribute="bottom" constant="32" id="ko0-U1-ZIR"/>
                             <constraint firstItem="r1B-PB-Kd0" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="rFZ-GH-uMK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="Qmu-aQ-Ha0"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="kvz-tZ-DFd"/>
                     <connections>
                         <outlet property="createHabitButton" destination="r1B-PB-Kd0" id="cSW-SA-fQo"/>
+                        <outlet property="onboardingStackView" destination="Qmu-aQ-Ha0" id="lfr-bv-HkD"/>
                         <outlet property="settingsButton" destination="IAh-ze-EAa" id="Qe1-tD-PSH"/>
                     </connections>
                 </viewController>
@@ -218,6 +245,7 @@
     </scenes>
     <resources>
         <image name="Create Habit Button" width="68" height="68"/>
+        <image name="DownArrow" width="38" height="90"/>
         <image name="SettingButton" width="68" height="68"/>
     </resources>
 </document>

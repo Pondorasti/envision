@@ -28,6 +28,7 @@ class HabitsViewController: UIViewController {
         case createHabitVC, detailedHabitVC, settingsVC
     }
 
+    @IBOutlet weak var onboardingStackView: UIStackView!
     @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var createHabitButton: UIButton!
     

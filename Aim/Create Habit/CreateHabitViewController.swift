@@ -79,10 +79,10 @@ class CreateHabitViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let id = segue.identifier else { return }
 
-        guard let destination = segue.destination as? HabitsViewController else { return }
-        destination.darkStatusBar = false
-        destination.setNeedsStatusBarAppearanceUpdate()
-        
+        guard let destination = segue.destination as? HabitsViewController else {
+            fatalError("Could not typecast rootVC to \(String(describing: HabitsViewController.self))")
+        }
+
         switch id {
         case Constant.Segue.actuallyCreateHabit:
             let newHabit = CoreDataHelper.newHabit()
@@ -175,6 +175,13 @@ class CreateHabitViewController: UIViewController {
     }
 
     @objc private func dismissVC() {
+        if let rootVC = UIApplication.shared.keyWindow!.rootViewController as? HabitsViewController {
+            rootVC.darkStatusBar = false
+            rootVC.setNeedsStatusBarAppearanceUpdate()
+        } else {
+            fatalError("Could not typecast rootVC to \(String(describing: HabitsViewController.self))")
+        }
+
         TapticEngine.impact.feedback(.light)
         dismiss(animated: true, completion: nil)
     }

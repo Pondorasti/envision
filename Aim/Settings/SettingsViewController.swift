@@ -59,9 +59,12 @@ class SettingsViewController: UIViewController {
     }
 
     @objc private func dismissVC() {
-        let rootVC = UIApplication.shared.keyWindow!.rootViewController as! HabitsViewController
-        rootVC.darkStatusBar = false
-        rootVC.setNeedsStatusBarAppearanceUpdate()
+        if let rootVC = UIApplication.shared.keyWindow!.rootViewController as? HabitsViewController {
+            rootVC.darkStatusBar = false
+            rootVC.setNeedsStatusBarAppearanceUpdate()
+        } else {
+            fatalError("Could not typecast rootVC to \(String(describing: HabitsViewController.self))")
+        }
 
         TapticEngine.impact.feedback(.light)
         dismiss(animated: true, completion: nil)
