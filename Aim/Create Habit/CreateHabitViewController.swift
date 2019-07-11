@@ -83,6 +83,9 @@ class CreateHabitViewController: UIViewController {
             fatalError("Could not typecast rootVC to \(String(describing: HabitsViewController.self))")
         }
 
+        destination.darkStatusBar = false
+        destination.setNeedsStatusBarAppearanceUpdate()
+
         switch id {
         case Constant.Segue.actuallyCreateHabit:
             let newHabit = CoreDataHelper.newHabit()
@@ -98,6 +101,7 @@ class CreateHabitViewController: UIViewController {
 
             let newHabitNode = SKHabitNode(for: newHabit, in: SKView())
             destination.habitsScene.selectedHabitNode = newHabitNode
+
         default:
             fatalError("unknown segue identifier")
         }
@@ -175,7 +179,7 @@ class CreateHabitViewController: UIViewController {
     }
 
     @objc private func dismissVC() {
-        if let rootVC = UIApplication.shared.keyWindow!.rootViewController as? HabitsViewController {
+        if let rootVC = UIApplication.shared.keyWindow?.rootViewController as? HabitsViewController {
             rootVC.darkStatusBar = false
             rootVC.setNeedsStatusBarAppearanceUpdate()
         } else {

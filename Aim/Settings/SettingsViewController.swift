@@ -59,7 +59,7 @@ class SettingsViewController: UIViewController {
     }
 
     @objc private func dismissVC() {
-        if let rootVC = UIApplication.shared.keyWindow!.rootViewController as? HabitsViewController {
+        if let rootVC = UIApplication.shared.keyWindow?.rootViewController as? HabitsViewController {
             rootVC.darkStatusBar = false
             rootVC.setNeedsStatusBarAppearanceUpdate()
         } else {

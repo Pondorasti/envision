@@ -55,24 +55,24 @@ class HabitsViewController: UIViewController {
         super.viewDidLoad()
 
         transition.delegate = self
-        
+
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self,
                                        selector: #selector(appBecomeActive),
                                        name: UIApplication.didBecomeActiveNotification,
                                        object: nil
         )
-        
+
         habitsScene = HabitsScene(size: view.bounds.size)
         habitsScene.scaleMode = .aspectFill
         habitsScene.backgroundColor = Constant.Layer.backgroundColor
         habitsScene.habitsDelegate = self
 
         skView.presentScene(habitsScene)
-        
+
         reloadBubbles()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
