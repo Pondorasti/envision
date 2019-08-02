@@ -24,9 +24,6 @@ struct BulletinHelper {
         rootItem.descriptionText = "Each type of habit evolves and behaves according to your actions."
         rootItem.actionButtonTitle = "Continue"
 
-        //
-        // Create the foundation for your daily habits and improve your personal life.
-
         rootItem.requiresCloseButton = isDismissable
         rootItem.isDismissable = isDismissable
 
@@ -46,10 +43,6 @@ struct BulletinHelper {
         rootItem.descriptionText = "Positive habits grow as you complete them, but they shrink if neglected."
         rootItem.actionButtonTitle = "Next"
 
-        // Each habit grows if completed, your porpuse is to c
-        // Each habit grows or diminishes in regard of your actions
-        // Each habit grows if completed and shrinks if ignored.
-
         rootItem.requiresCloseButton = isDismissable
         rootItem.isDismissable = isDismissable
 
@@ -66,14 +59,9 @@ struct BulletinHelper {
     static func negativeHabitItem(_ isDismissable: Bool) -> BLTNPageItem {
         let rootItem = BLTNPageItem(title: "Negative Habits")
         rootItem.image = UIImage(assetIdentifier: .badHabit)
-        rootItem.descriptionText = "Ignore negative habits as they grow smaller and disapper into oblivion."
+        rootItem.descriptionText = "Ignore negative habits as they grow smaller and disappear into oblivion."
         rootItem.actionButtonTitle = "Next"
-        // Negative habits diminish as you stop doing them.
-        // Ignore negative habits as they diminish / disappear into oblivion
-        //                        as they grow smaller and disappear into oblivion.
-
-        // Ignore negative habits as they diminish and disappear into oblivion.
-
+        
         rootItem.requiresCloseButton = isDismissable
         rootItem.isDismissable = isDismissable
 
