@@ -246,29 +246,16 @@ class CreateHabitViewController: UIViewController {
     }
 
     private func configureButtons() {
-        createButton.setTitle("Create", for: .normal)
+        createButton.setTitle("Begin", for: .normal)
         createButton.setTitleColor(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), for: .normal)
         createButton.backgroundColor = #colorLiteral(red: 0.2039215686, green: 0.7803921569, blue: 0.3490196078, alpha: 1)
-        createButton.layer.cornerRadius = Constant.Layer.cornerRadius
+        createButton.layer.cornerRadius = BLTNItemAppearance().actionButtonCornerRadius
     }
 }
 
 // MARK: - UITextFieldDelegate
 extension CreateHabitViewController: UITextFieldDelegate {
     // TODO: fix count
-//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        if var numberOfCharacters = textField.text?.count {
-//            numberOfCharacters = numberOfCharacters + string.count - range.length
-//            characterCountLabel.text = String(numberOfCharacters)
-//            if numberOfCharacters == 15 {
-//                characterCountLabel.text = "\(numberOfCharacters)❗️"
-//            }
-//            return numberOfCharacters <= 14
-//        }
-//
-//        return true
-//    }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
