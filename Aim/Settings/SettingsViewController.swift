@@ -29,7 +29,7 @@ class SettingsViewController: UIViewController {
             target: self,
             action: #selector(dismissVC)
         )
-        navigationItem.leftBarButtonItem?.tintColor = UIColor.black
+        navigationItem.leftBarButtonItem?.tintColor = UIColor.label
 
         tableView.layer.cornerRadius = 16
         tableView.dataSource = self
@@ -38,6 +38,9 @@ class SettingsViewController: UIViewController {
 
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
         view.addGestureRecognizer(panGesture)
+
+        view.backgroundColor = UIColor.systemGroupedBackground
+        tableView.backgroundColor = UIColor.secondarySystemGroupedBackground
     }
 
     // MARK: - Methods
@@ -124,29 +127,30 @@ extension SettingsViewController: UITableViewDataSource {
 
         cell.textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         cell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
+        cell.backgroundColor = UIColor.secondarySystemGroupedBackground
 
         switch indexPath.row {
 
         case 0:
             cell.textLabel?.text = "Tutorial"
             cell.imageView?.image = UIImage(assetIdentifier: .book)
-            cell.imageView?.tintColor = #colorLiteral(red: 0.3450980392, green: 0.337254902, blue: 0.8392156863, alpha: 1)
+            cell.imageView?.tintColor = UIColor.systemIndigo
         case 1:
             cell.textLabel?.text = "Contact Us"
             cell.imageView?.image = UIImage(assetIdentifier: .mail)
-            cell.imageView?.tintColor = #colorLiteral(red: 0.0006057461142, green: 0.4211019874, blue: 0.8768388629, alpha: 1)
+            cell.imageView?.tintColor = UIColor.systemBlue
         case 2:
             cell.textLabel?.text = "About the Developer"
             cell.imageView?.image = UIImage(assetIdentifier: .man)
-            cell.imageView?.tintColor = #colorLiteral(red: 0.0006057461142, green: 0.4211019874, blue: 0.8768388629, alpha: 1)
+            cell.imageView?.tintColor = UIColor.systemBlue
         case 3:
             cell.textLabel?.text = "Privacy Policy"
             cell.imageView?.image = UIImage(assetIdentifier: .padlock)
-            cell.imageView?.tintColor = #colorLiteral(red: 0.9145137668, green: 0.2629356384, blue: 0.4210531414, alpha: 1)
+            cell.imageView?.tintColor = UIColor.systemPink
         case 4:
             cell.textLabel?.text = "Rate Envision"
             cell.imageView?.image = UIImage(assetIdentifier: .star)
-            cell.imageView?.tintColor = #colorLiteral(red: 1, green: 0.8, blue: 0, alpha: 1)
+            cell.imageView?.tintColor = UIColor.systemYellow
 
         default:
             assertionFailure("unknown row")

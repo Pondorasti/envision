@@ -20,6 +20,7 @@ class AppInfoTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
+        backgroundColor = UIColor.secondarySystemGroupedBackground
         appIconImageView.image = UIImage(assetIdentifier: .roundedIcon)
 
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {

@@ -446,7 +446,7 @@
 				TargetAttributes = {
 					C5362FFE2105ACFD007DFC7A = {
 						CreatedOnToolsVersion = 9.4.1;
-						LastSwiftMigration = 1020;
+						LastSwiftMigration = 1100;
 					};
 					C53630152105ACFE007DFC7A = {
 						CreatedOnToolsVersion = 9.4.1;
@@ -806,14 +806,14 @@
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = UALV34MRH2;
 				INFOPLIST_FILE = "$(SRCROOT)/Aim/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.codingbytes.Aim;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -827,14 +827,14 @@
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = UALV34MRH2;
 				INFOPLIST_FILE = "$(SRCROOT)/Aim/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.codingbytes.Aim;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

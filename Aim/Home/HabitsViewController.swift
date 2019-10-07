@@ -65,7 +65,7 @@ class HabitsViewController: UIViewController {
 
         habitsScene = HabitsScene(size: view.bounds.size)
         habitsScene.scaleMode = .aspectFill
-        habitsScene.backgroundColor = Constant.Layer.backgroundColor
+        habitsScene.backgroundColor = UIColor.systemBackground
         habitsScene.habitsDelegate = self
 
         skView.presentScene(habitsScene)

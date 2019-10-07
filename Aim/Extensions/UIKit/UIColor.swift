@@ -20,17 +20,7 @@ extension UIColor {
     static let AIMBadRed = #colorLiteral(red: 0.937254902, green: 0.462745098, blue: 0.4549019608, alpha: 1)
     static let AIMBrown = #colorLiteral(red: 0.8705882353, green: 0.7960784314, blue: 0.7176470588, alpha: 1)
     static let AIMRed = #colorLiteral(red: 0.9529411765, green: 0.1411764706, blue: 0.4431372549, alpha: 1)
-    
-    static let AIMFadedGreen = #colorLiteral(red: 0.01176470588, green: 0.4745098039, blue: 0.4431372549, alpha: 1)
-    static let AIMFadedDarkBlue = #colorLiteral(red: 0.2039215686, green: 0.3490196078, blue: 0.5843137255, alpha: 1)
-    static let AIMFadedBlue = #colorLiteral(red: 0.2823529412, green: 0.6745098039, blue: 0.9411764706, alpha: 1)
-    static let AIMFadedLightBlue = #colorLiteral(red: 0, green: 0.8039215686, blue: 0.7764705882, alpha: 1)
-    static let AIMFadedPink = #colorLiteral(red: 1, green: 0.5176470588, blue: 0.9098039216, alpha: 1)
-    static let AIMFadedOrange = #colorLiteral(red: 1, green: 0.5333333333, blue: 0.06666666667, alpha: 1)
-    static let AIMFadedMagenta = #colorLiteral(red: 0.6470588235, green: 0.2745098039, blue: 0.3411764706, alpha: 1)
-    static let AIMFadedBadRed = #colorLiteral(red: 0.937254902, green: 0.462745098, blue: 0.4549019608, alpha: 1)
-    static let AIMFadedBrown = #colorLiteral(red: 0.8705882353, green: 0.7960784314, blue: 0.7176470588, alpha: 1)
-    static let AIMFadedRed = #colorLiteral(red: 0.9529411765, green: 0.1411764706, blue: 0.4431372549, alpha: 1)
+
 
     convenience init?(hex: String) {
         var hexNormalized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
