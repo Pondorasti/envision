@@ -262,8 +262,8 @@ extension DetailedHabitViewController: JTAppleCalendarViewDataSource {
         //TODO: create DateFormatter extension
         //TODO: compute endDate
         let endDate = dateFormatter.date(from: "2020 1 1")
-        
-        let parameters = ConfigurationParameters(startDate: habit.creationDate, endDate: endDate!, numberOfRows: nil, calendar: nil, generateInDates: nil, generateOutDates: nil, firstDayOfWeek: DaysOfWeek.monday, hasStrictBoundaries: nil)
+
+        let parameters = ConfigurationParameters(startDate: habit.creationDate, endDate: endDate!, numberOfRows: 6, calendar: Calendar.current, generateInDates: .forAllMonths, generateOutDates: .tillEndOfGrid, firstDayOfWeek: DaysOfWeek.monday, hasStrictBoundaries: nil)
         
         return parameters
     }

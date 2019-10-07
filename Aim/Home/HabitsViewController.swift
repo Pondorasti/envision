@@ -191,7 +191,7 @@ extension HabitsViewController: CircularTransitionDelegate {
     func retrieveCircleColor() -> UIColor {
         switch transitionMode {
         case .createHabitVC, .settingsVC:
-            return .white
+            return .secondarySystemGroupedBackground
         case .detailedHabitVC:
             guard let color = lastActiveHabitNode?.habit.color else {
                 fatalError("Missing Habit Node")
