@@ -26,7 +26,7 @@ extension JTAppleCalendarView {
     /// Lays out subviews.
     override open func layoutSubviews() {
         super.layoutSubviews()
-        if !generalDelayedExecutionClosure.isEmpty, isCalendarLayoutLoaded {
+        if !generalDelayedExecutionClosure.isEmpty, calendarLayoutIsLoaded {
             executeDelayedTasks(.general)
         }
     }
@@ -42,7 +42,6 @@ extension JTAppleCalendarView {
     }
     
     func setupNewLayout(from oldLayout: JTAppleCalendarLayoutProtocol) {
-        
         let newLayout = JTAppleCalendarLayout(withDelegate: self)
         newLayout.scrollDirection = oldLayout.scrollDirection
         newLayout.sectionInset = oldLayout.sectionInset
@@ -57,14 +56,11 @@ extension JTAppleCalendarView {
         minimumLineSpacing = newLayout.minimumLineSpacing
         minimumInteritemSpacing = newLayout.minimumInteritemSpacing
         
-        
-        if #available(iOS 9.0, *) {
-            transform.a = semanticContentAttribute == .forceRightToLeft ? -1 : 1
-        }
+        transform.a = semanticContentAttribute == .forceRightToLeft ? -1 : 1
         
         super.dataSource = self
         super.delegate = self
-        decelerationRate = UIScrollViewDecelerationRateFast
+        decelerationRate = .fast
         
         #if os(iOS)
             if isPagingEnabled {
@@ -75,20 +71,6 @@ extension JTAppleCalendarView {
         #endif
     }
     
-    func scrollTo(indexPath: IndexPath, triggerScrollToDateDelegate: Bool, isAnimationEnabled: Bool, position: UICollectionViewScrollPosition, extraAddedOffset: CGFloat, completionHandler: (() -> Void)?) {
-        isScrollInProgress = true
-        if let validCompletionHandler = completionHandler { scrollDelayedExecutionClosure.append(validCompletionHandler) }
-        self.triggerScrollToDateDelegate = triggerScrollToDateDelegate
-        DispatchQueue.main.async {
-            self.scrollToItem(at: indexPath, at: position, animated: isAnimationEnabled)
-            if (isAnimationEnabled && self.calendarOffsetIsAlreadyAtScrollPosition(forIndexPath: indexPath)) ||
-                !isAnimationEnabled {
-                self.scrollViewDidEndScrollingAnimation(self)
-            }
-            self.isScrollInProgress = false
-        }
-    }
-    
     func scrollToHeaderInSection(_ section: Int,
                                  triggerScrollToDateDelegate: Bool = false,
                                  withAnimation animation: Bool = true,
@@ -96,7 +78,7 @@ extension JTAppleCalendarView {
                                  completionHandler: (() -> Void)? = nil) {
         if !calendarViewLayout.thereAreHeaders { return }
         let indexPath = IndexPath(item: 0, section: section)
-        guard let attributes = calendarViewLayout.layoutAttributesForSupplementaryView(ofKind: UICollectionElementKindSectionHeader, at: indexPath) else { return }
+        guard let attributes = calendarViewLayout.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, at: indexPath) else { return }
         
         isScrollInProgress = true
         if let validHandler = completionHandler { scrollDelayedExecutionClosure.append(validHandler) }
@@ -104,7 +86,7 @@ extension JTAppleCalendarView {
         self.triggerScrollToDateDelegate = triggerScrollToDateDelegate
         
         let maxYCalendarOffset = max(0, self.contentSize.height - self.frame.size.height)
-        var topOfHeader = CGPoint(x: attributes.frame.origin.x,y: min(maxYCalendarOffset, attributes.frame.origin.y))
+        var topOfHeader = CGPoint(x: attributes.frame.origin.x - sectionInset.left, y: min(maxYCalendarOffset, attributes.frame.origin.y))
         if scrollDirection == .horizontal { topOfHeader.x += extraAddedOffset} else { topOfHeader.y += extraAddedOffset }
         DispatchQueue.main.async {
             self.setContentOffset(topOfHeader, animated: animation)
@@ -122,51 +104,6 @@ extension JTAppleCalendarView {
         super.reloadData()
     }
     
-    func handleScroll(point: CGPoint? = nil,
-                      indexPath: IndexPath? = nil,
-                      triggerScrollToDateDelegate: Bool = true,
-                      isAnimationEnabled: Bool,
-                      position: UICollectionViewScrollPosition? = .left,
-                      extraAddedOffset: CGFloat = 0,
-                      completionHandler: (() -> Void)?) {
-        
-        if isScrollInProgress { return }
-        
-        // point takes preference
-        if let validPoint = point {
-            scrollTo(point: validPoint,
-                     triggerScrollToDateDelegate: triggerScrollToDateDelegate,
-                     isAnimationEnabled: isAnimationEnabled,
-                     extraAddedOffset: extraAddedOffset,
-                     completionHandler: completionHandler)
-        } else {
-            guard let validIndexPath = indexPath else { return }
-            
-            var isNonConinuousScroll = true
-            switch scrollingMode {
-            case .none, .nonStopToCell: isNonConinuousScroll = false
-            default: break
-            }
-            
-            if calendarViewLayout.thereAreHeaders,
-                scrollDirection == .vertical,
-                isNonConinuousScroll {
-                scrollToHeaderInSection(validIndexPath.section,
-                                        triggerScrollToDateDelegate: triggerScrollToDateDelegate,
-                                        withAnimation: isAnimationEnabled,
-                                        extraAddedOffset: extraAddedOffset,
-                                        completionHandler: completionHandler)
-            } else {
-                scrollTo(indexPath:validIndexPath,
-                         triggerScrollToDateDelegate: triggerScrollToDateDelegate,
-                         isAnimationEnabled: isAnimationEnabled,
-                         position: position ?? .left,
-                         extraAddedOffset: extraAddedOffset,
-                         completionHandler: completionHandler)
-            }
-        }
-    }
-    
     func scrollTo(point: CGPoint, triggerScrollToDateDelegate: Bool? = nil, isAnimationEnabled: Bool, extraAddedOffset: CGFloat, completionHandler: (() -> Void)?) {
         isScrollInProgress = true
         if let validCompletionHandler = completionHandler { scrollDelayedExecutionClosure.append(validCompletionHandler) }
@@ -179,7 +116,6 @@ extension JTAppleCalendarView {
                 !isAnimationEnabled {
                 self.scrollViewDidEndScrollingAnimation(self)
             }
-            self.isScrollInProgress = false
         }
     }
     
@@ -199,7 +135,7 @@ extension JTAppleCalendarView {
             }
             
             // Set the new cache
-            cachedConfiguration = validConfig
+            _cachedConfiguration = validConfig
             
             if let
                 startMonth = calendar.startOfMonth(for: validConfig.startDate),
@@ -253,13 +189,13 @@ extension JTAppleCalendarView {
     
     func deleteCellFromSelectedSetIfSelected(_ indexPath: IndexPath) {
         selectedCellData.removeValue(forKey: indexPath)
+        deselectItem(at: indexPath, animated: false)
     }
     
     // Returns an indexPath if valid one was found
     func deselectCounterPartCellIndexPath(_ indexPath: IndexPath, date: Date, dateOwner: DateOwner) -> IndexPath? {
         guard let counterPartCellIndexPath = indexPathOfdateCellCounterPath(date, dateOwner: dateOwner) else { return nil }
         deleteCellFromSelectedSetIfSelected(counterPartCellIndexPath)
-        deselectItem(at: counterPartCellIndexPath, animated: false)
         return counterPartCellIndexPath
     }
     
@@ -310,23 +246,23 @@ extension JTAppleCalendarView {
             if
                 // ConfigParameters were changed
                 newStartOfMonth                     != oldStartOfMonth ||
-                    newEndOfMonth                       != oldEndOfMonth ||
-                    newDateBoundary.calendar            != cachedConfiguration.calendar ||
-                    newDateBoundary.numberOfRows        != cachedConfiguration.numberOfRows ||
-                    newDateBoundary.generateInDates     != cachedConfiguration.generateInDates ||
-                    newDateBoundary.generateOutDates    != cachedConfiguration.generateOutDates ||
-                    newDateBoundary.firstDayOfWeek      != cachedConfiguration.firstDayOfWeek ||
-                    newDateBoundary.hasStrictBoundaries != cachedConfiguration.hasStrictBoundaries ||
-                    // Other layout information were changed
-                    minimumInteritemSpacing  != calendarLayout.minimumInteritemSpacing ||
-                    minimumLineSpacing       != calendarLayout.minimumLineSpacing ||
-                    sectionInset             != calendarLayout.sectionInset ||
-                    lastMonthSize            != newLastMonth ||
-                    allowsDateCellStretching != calendarLayout.allowsDateCellStretching ||
-                    scrollDirection          != calendarLayout.scrollDirection ||
-                    calendarLayout.cellSizeWasUpdated {
-                lastMonthSize = newLastMonth
-                retval = (true, newDateBoundary)
+                newEndOfMonth                       != oldEndOfMonth ||
+                newDateBoundary.calendar            != _cachedConfiguration.calendar ||
+                newDateBoundary.numberOfRows        != _cachedConfiguration.numberOfRows ||
+                newDateBoundary.generateInDates     != _cachedConfiguration.generateInDates ||
+                newDateBoundary.generateOutDates    != _cachedConfiguration.generateOutDates ||
+                newDateBoundary.firstDayOfWeek      != _cachedConfiguration.firstDayOfWeek ||
+                newDateBoundary.hasStrictBoundaries != _cachedConfiguration.hasStrictBoundaries ||
+                // Other layout information were changed
+                minimumInteritemSpacing  != calendarLayout.minimumInteritemSpacing ||
+                minimumLineSpacing       != calendarLayout.minimumLineSpacing ||
+                sectionInset             != calendarLayout.sectionInset ||
+                lastMonthSize            != newLastMonth ||
+                allowsDateCellStretching != calendarLayout.allowsDateCellStretching ||
+                scrollDirection          != calendarLayout.scrollDirection ||
+                calendarLayout.isDirty {
+                    lastMonthSize = newLastMonth
+                    retval = (true, newDateBoundary)
             }
         }
         
