@@ -9,6 +9,7 @@
 import UIKit
 import TapticEngine
 import MessageUI
+import SwiftUI
 
 class SettingsViewController: UIViewController {
 
@@ -85,10 +86,12 @@ class SettingsViewController: UIViewController {
     }
 
     private func openAppStore() {
-        if let url = URL(string: "itms-apps://itunes.apple.com/app/id1423771095"),
-            UIApplication.shared.canOpenURL(url){
-            UIApplication.shared.open(url, options: [:])
-        }
+//        if let url = URL(string: "itms-apps://itunes.apple.com/app/id1423771095"),
+//            UIApplication.shared.canOpenURL(url){
+//            UIApplication.shared.open(url, options: [:])
+//        }
+        let vs = UIHostingController(rootView: CreateHabitView())
+        present(vs, animated: true)
     }
 
     private func openPersonalWebsite() {

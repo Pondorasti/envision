@@ -261,7 +261,7 @@ extension DetailedHabitViewController: JTAppleCalendarViewDataSource {
         
         //TODO: create DateFormatter extension
         //TODO: compute endDate
-        let endDate = dateFormatter.date(from: "2200 1 1")
+        let endDate = dateFormatter.date(from: "2021 1 1")
         
         let parameters = ConfigurationParameters(startDate: habit.creationDate, endDate: endDate!)
         

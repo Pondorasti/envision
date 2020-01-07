@@ -11,6 +11,7 @@
 		276F418D792FF14703088F13 /* Pods_Aim.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC025B6D9E9D05C322C0AB15 /* Pods_Aim.framework */; };
 		42AFA65D398C4E188F699635 /* Pods_AimUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 744C3FB315EF8685BFFC065D /* Pods_AimUITests.framework */; };
 		C5023DDF22B77B5100428294 /* Create Habit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5023DDD22B77B5100428294 /* Create Habit.storyboard */; };
+		C50984C823C1E87400CD708F /* CreateHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50984C723C1E87400CD708F /* CreateHabitView.swift */; };
 		C516CE5422674596000F6028 /* CALayerAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516CE5322674596000F6028 /* CALayerAnimations.swift */; };
 		C51E5D7C22B7801700C546F3 /* DetailedHabit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C51E5D7A22B7801700C546F3 /* DetailedHabit.storyboard */; };
 		C51E5D7E22B789C000C546F3 /* AppInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51E5D7D22B789C000C546F3 /* AppInfoTableViewCell.swift */; };
@@ -18,6 +19,8 @@
 		C520CD6022B6CD9300049B52 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C520CD5F22B6CD9300049B52 /* UIImage.swift */; };
 		C5238F58211AA95E00AD8949 /* Bubble Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5238F57211AA95E00AD8949 /* Bubble Launch Screen.storyboard */; };
 		C5238F5C211B5F2000AD8949 /* Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5238F5B211B5F2000AD8949 /* Storyboard.swift */; };
+		C529ABE723C52207001539B4 /* PickerKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C529ABE623C52207001539B4 /* PickerKit.swift */; };
+		C529ABEA23C5222F001539B4 /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C529ABE923C5222F001539B4 /* ColorPickerView.swift */; };
 		C52C521921316ADA009EA9D6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C52C521821316ADA009EA9D6 /* GoogleService-Info.plist */; };
 		C52C521C21316F85009EA9D6 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52C521B21316F85009EA9D6 /* AnalyticsService.swift */; };
 		C53630032105ACFD007DFC7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53630022105ACFD007DFC7A /* AppDelegate.swift */; };
@@ -80,6 +83,7 @@
 		9682D75A170B94DBD19815B9 /* Pods-AimUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AimUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AimUITests/Pods-AimUITests.release.xcconfig"; sourceTree = "<group>"; };
 		AC025B6D9E9D05C322C0AB15 /* Pods_Aim.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aim.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5023DDE22B77B5100428294 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Aim/Storyboards/Base.lproj/Create Habit.storyboard"; sourceTree = SOURCE_ROOT; };
+		C50984C723C1E87400CD708F /* CreateHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHabitView.swift; sourceTree = "<group>"; };
 		C516CE5322674596000F6028 /* CALayerAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerAnimations.swift; sourceTree = "<group>"; };
 		C51E5D7B22B7801700C546F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Aim/Storyboards/Base.lproj/DetailedHabit.storyboard; sourceTree = SOURCE_ROOT; };
 		C51E5D7D22B789C000C546F3 /* AppInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -87,6 +91,8 @@
 		C520CD5F22B6CD9300049B52 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		C5238F57211AA95E00AD8949 /* Bubble Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Bubble Launch Screen.storyboard"; sourceTree = "<group>"; };
 		C5238F5B211B5F2000AD8949 /* Storyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboard.swift; sourceTree = "<group>"; };
+		C529ABE623C52207001539B4 /* PickerKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerKit.swift; sourceTree = "<group>"; };
+		C529ABE923C5222F001539B4 /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
 		C52C521821316ADA009EA9D6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C52C521B21316F85009EA9D6 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		C5362FFF2105ACFD007DFC7A /* Aim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aim.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,6 +181,15 @@
 				C5238F57211AA95E00AD8949 /* Bubble Launch Screen.storyboard */,
 			);
 			path = LaunchScreen;
+			sourceTree = "<group>";
+		};
+		C529ABE823C5220B001539B4 /* ColorPicker */ = {
+			isa = PBXGroup;
+			children = (
+				C529ABE623C52207001539B4 /* PickerKit.swift */,
+				C529ABE923C5222F001539B4 /* ColorPickerView.swift */,
+			);
+			path = ColorPicker;
 			sourceTree = "<group>";
 		};
 		C52C521A21316F61009EA9D6 /* Services */ = {
@@ -309,6 +324,7 @@
 			isa = PBXGroup;
 			children = (
 				C520CD5D22B56C1C00049B52 /* SettingsViewController.swift */,
+				C50984C723C1E87400CD708F /* CreateHabitView.swift */,
 				C51E5D7D22B789C000C546F3 /* AppInfoTableViewCell.swift */,
 			);
 			path = Settings;
@@ -332,6 +348,7 @@
 				C5AF7C8421091C2D000893D2 /* CircularTransition.swift */,
 				C5F7B7442109605B0094A09E /* Constants.swift */,
 				C5A35185210A663B00A717D3 /* CoreData.swift */,
+				C529ABE823C5220B001539B4 /* ColorPicker */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -595,7 +612,9 @@
 				C5B5839821137825006E25B6 /* DateCell.swift in Sources */,
 				C5A35186210A663B00A717D3 /* CoreData.swift in Sources */,
 				C57AF4DC22B158AE004A8971 /* Int.swift in Sources */,
+				C529ABE723C52207001539B4 /* PickerKit.swift in Sources */,
 				C53630342106B74C007DFC7A /* HabitsScene.swift in Sources */,
+				C529ABEA23C5222F001539B4 /* ColorPickerView.swift in Sources */,
 				C5DD70C422B79F210012B189 /* NotificationView.swift in Sources */,
 				C5F7B74B210A2EBA0094A09E /* UIView.swift in Sources */,
 				C5238F5C211B5F2000AD8949 /* Storyboard.swift in Sources */,
@@ -615,6 +634,7 @@
 				C5A35188210A6BE800A717D3 /* Habit.swift in Sources */,
 				C5B0CBA12112D15B004C1B55 /* Habit+CoreDataProperties.swift in Sources */,
 				C53630362106D7A9007DFC7A /* HabitsViewController.swift in Sources */,
+				C50984C823C1E87400CD708F /* CreateHabitView.swift in Sources */,
 				C536300B2105ACFD007DFC7A /* Aim.xcdatamodeld in Sources */,
 				C57D579422B0130A00E28AB3 /* UINavigationBar.swift in Sources */,
 				C52C521C21316F85009EA9D6 /* AnalyticsService.swift in Sources */,
@@ -803,15 +823,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = UALV34MRH2;
 				INFOPLIST_FILE = "$(SRCROOT)/Aim/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.codingbytes.Aim;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -825,15 +845,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = UALV34MRH2;
 				INFOPLIST_FILE = "$(SRCROOT)/Aim/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.codingbytes.Aim;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
